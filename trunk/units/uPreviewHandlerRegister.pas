@@ -117,19 +117,21 @@ const
   Prevhost_32='{534A1E02-D58F-44f0-B58B-36CBED287C7C}';
   Prevhost_64='{6d2b5079-2f0b-48dd-ab7f-97cec514d30b}';
 var
-  sComServerKey : string;
-  sAppID, sClassID, ProgID: string;
-  RootKey: HKEY;
-  RootKey2: HKEY;
+  RootKey       : HKEY;
+  RootUserReg   : HKEY;
   RootPrefix    : string;
-  i       : Integer;
+  i             : Integer;
+  sComServerKey : string;
+  ProgID        : string;
+  sAppID        : string;
+  sClassID      : string;
 begin
 
   if Instancing = ciInternal then
     Exit;
 
     ComServer.GetRegRootAndPrefix(RootKey, RootPrefix);
-    RootKey2      := IfThen(ComServer.PerUserRegistration,HKEY_CURRENT_USER,HKEY_LOCAL_MACHINE);
+    RootUserReg      := IfThen(ComServer.PerUserRegistration,HKEY_CURRENT_USER,HKEY_LOCAL_MACHINE);
     sClassID      := SysUtils.GUIDToString(ClassID);
     ProgID        := GetProgID;
     sComServerKey := Format('%sCLSID\%s\%s',[RootPrefix,sClassID,ComServer.ServerKey]);
@@ -155,14 +157,14 @@ begin
 
         CreateRegKey(sComServerKey, 'VersionIndependentProgID', ProgID, RootKey);
         CreateRegKey(RootPrefix + ProgID + '\shellex\' + SID_IPreviewHandler, '', sClassID, RootKey);
-        CreateRegKey('SOFTWARE\Microsoft\Windows\CurrentVersion\PreviewHandlers', sClassID, Description, RootKey2);
+        CreateRegKey('SOFTWARE\Microsoft\Windows\CurrentVersion\PreviewHandlers', sClassID, Description, RootUserReg);
       end;
     end
     else
     begin
       if ProgID <> '' then
       begin
-        DeleteRegValue('SOFTWARE\Microsoft\Windows\CurrentVersion\PreviewHandlers', sClassID, RootKey2);
+        DeleteRegValue('SOFTWARE\Microsoft\Windows\CurrentVersion\PreviewHandlers', sClassID, RootUserReg);
         DeleteRegKey(RootPrefix + ProgID + '\shellex', RootKey);
         //DeleteRegValue('AppID\'+sClassID,'DllSurrogate',RootKey);
         for i:=0 to FExtensions.Count -1 do
@@ -171,71 +173,5 @@ begin
       inherited UpdateRegistry(False);
     end;
 end;
-
-
-//
-//        protected static void RegisterPreviewHandler(string name, string extensions, string previewerGuid, string appId)
-//        {
-//            // Create a new prevhost AppID so that this always runs in its own isolated process
-//            using (var appIdsKey = Registry.ClassesRoot.OpenSubKey("AppID", true))
-//            using (var appIdKey = appIdsKey.CreateSubKey(appId))
-//            {
-//                appIdKey.SetValue("DllSurrogate", @"%SystemRoot%\system32\prevhost.exe", RegistryValueKind.ExpandString);
-//            }
-//
-//            // Add preview handler to preview handler list
-//            using (var handlersKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PreviewHandlers", true))
-//            {
-//                handlersKey.SetValue(previewerGuid, name, RegistryValueKind.String);
-//            }
-//
-//            // Modify preview handler registration
-//            using (var clsidKey = Registry.ClassesRoot.OpenSubKey("CLSID"))
-//            using (var idKey = clsidKey.OpenSubKey(previewerGuid, true))
-//            {
-//                idKey.SetValue("DisplayName", name, RegistryValueKind.String);
-//                idKey.SetValue("AppID", appId, RegistryValueKind.String);
-//                //idKey.SetValue("DisableLowILProcessIsolation", 1, RegistryValueKind.DWord);
-//            }
-//
-//            foreach (var extension in extensions.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-//            {
-//                Trace.WriteLine("Registering extension '" + extension + "' with previewer '" + previewerGuid + "'");
-//
-//                // Set preview handler for specific extension
-//                using (var extensionKey = Registry.ClassesRoot.CreateSubKey(extension))
-//                using (var shellexKey = extensionKey.CreateSubKey("shellex"))
-//                using (var previewKey = shellexKey.CreateSubKey("{8895b1c6-b41f-4c1c-a562-0d564250836f}"))
-//                {
-//                    previewKey.SetValue(null, previewerGuid, RegistryValueKind.String);
-//                }
-//            }
-//        }
-//
-//        protected static void UnregisterPreviewHandler(string extensions, string previewerGuid, string appId)
-//        {
-//            foreach (var extension in extensions.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
-//            {
-//                Trace.WriteLine("Unregistering extension '" + extension + "' with previewer '" + previewerGuid + "'");
-//                using (var shellexKey = Registry.ClassesRoot.OpenSubKey(extension + "\\shellex", true))
-//                {
-//                    try { shellexKey.DeleteSubKey("{8895b1c6-b41f-4c1c-a562-0d564250836f}"); }
-//                    catch { }
-//                }
-//            }
-//
-//            using (var appIdsKey = Registry.ClassesRoot.OpenSubKey("AppID", true))
-//            {
-//                try { appIdsKey.DeleteSubKey(appId); }
-//                catch { }
-//            }
-//
-//            using (var classesKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\PreviewHandlers", true))
-//            {
-//                try { classesKey.DeleteValue(previewerGuid); }
-//                catch { }
-//            }
-//        }
-
 
 end.

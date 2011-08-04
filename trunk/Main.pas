@@ -19,6 +19,11 @@
 {                                                                                                  }
 {**************************************************************************************************}
 
+
+//TODO
+// add application to handle settins of the preview handler
+
+
 unit Main;
 
 interface
