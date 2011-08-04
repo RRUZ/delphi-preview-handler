@@ -61,11 +61,14 @@ Source: Themes\wekeroad-ink.theme.xml; DestDir: {app}\Themes\
 Source: Themes\zenburn-2010.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Zenburn.theme.xml; DestDir: {app}\Themes\
 Source: Settings.ini; DestDir: {app}
+#define MyAppName 'Delphi Preview Handler'
+#define MyAppVersion GetFileVersion('DelphiPreviewHandler.dll')
 [Setup]
 UsePreviousLanguage=no
-AppName=Delphi Preview Handler
+AppName={#MyAppName}
 AppPublisher=The Road To Delphi
-AppVerName=Delphi Preview Handler - The Road To Delphi
+AppVerName={#MyAppName} {#MyAppVersion}
+VersionInfoVersion={#MyAppVersion}
 AppPublisherURL=http://theroadtodelphi.wordpress.com/
 AppSupportURL=http://theroadtodelphi.wordpress.com/
 AppUpdatesURL=http://theroadtodelphi.wordpress.com/
@@ -79,7 +82,7 @@ AppendDefaultDirName=true
 PrivilegesRequired=admin
 WindowVisible=false
 WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
-WizardImageFile=C:\Program Files (x86)\Codejock Software\ISSkin\Styles\Office2007Gray.bmp
+WizardImageFile=extras\Office2007Gray.bmp
 AppContact=theroadtodelphi@gmail.com
 SetupIconFile=Images\Icon.ico
 MinVersion=,6.0.6000
