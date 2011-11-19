@@ -70,6 +70,9 @@
 			<DCCReference Include="units\uHSLUtils.pas"/>
 			<DCCReference Include="units\uRegistry.pas"/>
 			<DCCReference Include="units\uStackTrace.pas"/>
+			<DCCReference Include="units\uSynEditPopupEdit.pas"/>
+			<DCCReference Include="units\uLogExcept.pas"/>
+			<DCCReference Include="units\uCommonPreviewHandler.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -83,7 +86,7 @@
 			</BuildConfiguration>
 		</ItemGroup>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
-		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\8.0\UserTools.proj"/>
+		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
 			<Borland.ProjectType/>
@@ -98,7 +101,7 @@
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
 						<VersionInfo Name="Release">1</VersionInfo>
-						<VersionInfo Name="Build">187</VersionInfo>
+						<VersionInfo Name="Build">189</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
 						<VersionInfo Name="PreRelease">False</VersionInfo>
 						<VersionInfo Name="Special">False</VersionInfo>
@@ -110,7 +113,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
 						<VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">1.0.1.187</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.0.1.189</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>

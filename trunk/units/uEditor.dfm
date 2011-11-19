@@ -215,7 +215,6 @@ object FrmEditor: TFrmEditor
       Height = 35
       Align = alClient
       BevelOuter = bvNone
-      Caption = 'PanelToolBar'
       TabOrder = 1
       object ToolBar1: TToolBar
         Left = 0
@@ -225,7 +224,6 @@ object FrmEditor: TFrmEditor
         Align = alBottom
         AutoSize = True
         Caption = 'ToolBar1'
-        DrawingStyle = dsGradient
         Images = ImageList1
         TabOrder = 0
         object ToolButtonZoomIn: TToolButton
@@ -319,7 +317,7 @@ object FrmEditor: TFrmEditor
     Left = 320
     Top = 72
     Bitmap = {
-      494C010109001800400010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010109001800480010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000070D165D315A

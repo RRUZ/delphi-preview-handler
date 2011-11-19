@@ -40,7 +40,10 @@ uses
   uDelphiVersions in 'units\uDelphiVersions.pas',
   uHSLUtils in 'units\uHSLUtils.pas',
   uRegistry in 'units\uRegistry.pas',
-  uStackTrace in 'units\uStackTrace.pas';
+  uStackTrace in 'units\uStackTrace.pas',
+  uSynEditPopupEdit in 'units\uSynEditPopupEdit.pas',
+  uLogExcept in 'units\uLogExcept.pas',
+  uCommonPreviewHandler in 'units\uCommonPreviewHandler.pas';
 
 exports
   DllGetClassObject,

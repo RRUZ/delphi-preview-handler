@@ -31,10 +31,10 @@ uses
   uDelphiIDEHighlight,
   uDelphiVersions,
   SynHighlighterPas, ComCtrls, ToolWin, ImgList, SynHighlighterXML,
-  SynHighlighterCpp, SynHighlighterAsm;
+  SynHighlighterCpp, SynHighlighterAsm, uSynEditPopupEdit;
 
 type
-  TProcRefreshSynHighlighter = procedure (FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+  TProcRefreshSynHighlighter = procedure (FCurrentTheme:TIDETheme;SynEdit: SynEdit.TSynEdit);
 
   TFrmEditor = class(TForm)
     SynEdit1: TSynEdit;
@@ -77,7 +77,7 @@ type
   end;
 
     procedure SetSynAttr(FCurrentTheme:TIDETheme;Element: TIDEHighlightElements; SynAttr: TSynHighlighterAttributes;DelphiVersion : TDelphiVersions);
-    procedure RefreshSynEdit(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+    procedure RefreshSynEdit(FCurrentTheme:TIDETheme;SynEdit: SynEdit.TSynEdit);
 
 var
   FrmEditor: TFrmEditor;
@@ -110,7 +110,7 @@ begin
     SynAttr.Style := SynAttr.Style + [fsUnderline];
 end;
 
-procedure RefreshSynEdit(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+procedure RefreshSynEdit(FCurrentTheme:TIDETheme;SynEdit: SynEdit.TSynEdit);
 var
   Element   : TIDEHighlightElements;
   DelphiVer : TDelphiVersions;
@@ -189,13 +189,13 @@ var
 begin
    Settings:=TIniFile.Create(ExtractFilePath(GetDllPath)+'Settings.ini');
    try
-       FPathThemes    := Settings.ReadString('Global','ThemesPath','Themes');
-       FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
-       FPathThemes    := ExcludeTrailingPathDelimiter(FPathThemes);
-       FThemeName     := Settings.ReadString('Global','ThemeFile',sDefaultThemeName);
-       SynEdit1.Font.Size :=Settings.ReadInteger('Global','FontSize',10);
+     FPathThemes    := Settings.ReadString('Global','ThemesPath','Themes');
+     FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
+     FPathThemes    := ExcludeTrailingPathDelimiter(FPathThemes);
+     FThemeName     := Settings.ReadString('Global','ThemeFile',sDefaultThemeName);
+     SynEdit1.Font.Size :=Settings.ReadInteger('Global','FontSize',10);
    finally
-      Settings.Free;
+     Settings.Free;
    end;
 
   FillThemes;
