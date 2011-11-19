@@ -23,8 +23,6 @@ unit uPascalPreviewHandler;
 
 interface
 
-{$DEFINE USE_TStreamPreviewHandler}
-
 uses
   uStackTrace,
   Classes,
@@ -32,33 +30,16 @@ uses
   StdCtrls,
   SysUtils,
   uEditor,
-{$IFDEF USE_TStreamPreviewHandler}
-  uStreamPreviewHandler,
-{$ELSE}
-  uFilePreviewHandler,
-{$ENDIF}
+  uCommonPreviewHandler,
   uPreviewHandler;
 
 const
   GUID_PascalPreviewHandler: TGUID = '{AD8855FB-F908-4DDF-982C-ADB9DE5FF000}';
 //  GUID_PascalPreviewHandler: TGUID = '{DC6EFB56-9CFA-464D-8880-44885D7DC192}'; just for tests not activate
 type
-{$IFDEF USE_TStreamPreviewHandler}
-  TPascalPreviewHandler = class(TStreamPreviewHandler)
-{$ElSE}
-  TPascalPreviewHandler = class(TFilePreviewHandler)
-{$ENDIF}
-  private
-    FEditor: TFrmEditor;
-    property Editor : TFrmEditor read FEditor;
+  TPascalPreviewHandler = class(TBasePreviewHandler)
   public
     constructor Create(AParent: TWinControl); override;
-    procedure Unload; override;
-{$IFDEF USE_TStreamPreviewHandler}
-    procedure DoPreview(Stream: TIStreamAdapter); override;
-{$ElSE}
-    procedure DoPreview(const FilePath: string); override;
-{$ENDIF}
   end;
 
 
@@ -67,6 +48,7 @@ implementation
 Uses
  uDelphiIDEHighlight,
  uDelphiVersions,
+ uLogExcept,
  SynEdit,
  SynHighlighterPas,
  Windows,
@@ -100,12 +82,11 @@ end;
 
 constructor TPascalPreviewHandler.Create(AParent: TWinControl);
 begin
-  inherited ;
-  //ReportMemoryLeaksOnShutdown:=True;
+  inherited Create(AParent);
   try
     if IsWindow(AParent.Handle) then
     begin
-      FEditor := TFrmEditor.Create(AParent);
+      Editor        := TFrmEditor.Create(AParent);
       Editor.Parent := AParent;
       Editor.Align  := alClient;
       Editor.BorderStyle :=bsNone;
@@ -116,64 +97,10 @@ begin
     end;
   except
     on E: Exception do
-      MsgBox(Format('Error in TPascalPreviewHandler.Create - Message : %s : Trace %s',
+      TLogException.Add(Format('Error in TPascalPreviewHandler.Create - Message : %s : Trace %s',
         [E.Message, E.StackTrace]));
   end;
 end;
 
-{$IFDEF USE_TStreamPreviewHandler}
-procedure TPascalPreviewHandler.DoPreview(Stream: TIStreamAdapter);
-begin
-  try
-    if IsWindow(Editor.Handle) then
-    begin
-      Editor.Visible:=True;
-      Editor.SynEdit1.Lines.LoadFromStream(Stream);
-    end;
-  except
-    on E: Exception do
-      MsgBox(Format('Error in TPascalPreviewHandler.DoPreview(Stream) - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
-  end;
-end;
-{$ElSE}
-procedure TPascalPreviewHandler.DoPreview(const FilePath: string);
-begin
-  try
-    if IsWindow(Editor.Handle) then
-    begin
-      Editor.Visible:=True;
-      Editor.SynEdit1.Lines.LoadFromFile(FilePath);
-    end;
-  except
-    on E: Exception do
-      MsgBox(Format('Error in TPascalPreviewHandler.DoPreview(FilePath) - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
-  end;
-end;
-{$ENDIF}
-
-{
-http://msdn.microsoft.com/en-us/library/bb776865%28v=vs.85%29.aspx
-IPreviewHandler::Unload
-When this method is called, stop any rendering, release any resources allocated by reading data from the stream, and release the IStream itself.
-Once this method is called, the handler must be reinitialized before any attempt to call IPreviewHandler::DoPreview again.
-}
-
-procedure TPascalPreviewHandler.Unload;
-begin
-  try
-    if IsWindow(Editor.Handle) then
-    begin
-     Editor.Visible:=False;
-     Editor.SynEdit1.Lines.Clear;
-    end;
-    inherited;
-  except
-    on E: Exception do
-      MsgBox(Format('Error in TPascalPreviewHandler.Unload - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
-  end;
-end;
 
 end.
