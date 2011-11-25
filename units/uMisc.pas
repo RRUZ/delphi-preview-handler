@@ -18,12 +18,9 @@
 { All Rights Reserved.                                                                             }
 {                                                                                                  }
 {**************************************************************************************************}
-
-
 unit uMisc;
 
 interface
-
 
   function GetDllPath: String;
   procedure MsgBox(const Msg: string);

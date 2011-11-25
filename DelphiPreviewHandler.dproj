@@ -101,7 +101,7 @@
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
 						<VersionInfo Name="Release">1</VersionInfo>
-						<VersionInfo Name="Build">189</VersionInfo>
+						<VersionInfo Name="Build">190</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
 						<VersionInfo Name="PreRelease">False</VersionInfo>
 						<VersionInfo Name="Special">False</VersionInfo>
@@ -113,7 +113,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
 						<VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-						<VersionInfoKeys Name="FileVersion">1.0.1.189</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.0.1.190</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
