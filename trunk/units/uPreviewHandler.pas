@@ -108,6 +108,7 @@ uses
     ExtCtrls,
     uMisc,
     Dialogs,
+    uLogExcept,
     uPreviewHandlerRegister;
 
 
@@ -176,7 +177,7 @@ begin
     InternalDoPreview;
   except
     on E: Exception do
-      MsgBox(Format('Error in TComPreviewHandler.IPreviewHandler_DoPreview - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogException.Add(Format('Error in TComPreviewHandler.IPreviewHandler_DoPreview - Message : %s : Trace %s', [E.Message, E.StackTrace]));
   end;
   Result := S_OK;
 end;
