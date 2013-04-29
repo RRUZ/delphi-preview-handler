@@ -14,7 +14,7 @@
 { The Original Code is uMisc.pas.                                                                  }
 {                                                                                                  }
 { The Initial Developer of the Original Code is Rodrigo Ruz V.                                     }
-{ Portions created by Rodrigo Ruz V. are Copyright (C) 2011 Rodrigo Ruz V.                         }
+{ Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2013 Rodrigo Ruz V.                    }
 { All Rights Reserved.                                                                             }
 {                                                                                                  }
 {**************************************************************************************************}
@@ -22,14 +22,18 @@ unit uMisc;
 
 interface
 
-  function GetDllPath: String;
-  procedure MsgBox(const Msg: string);
+function GetAppDataFolder: String;
+function GetDllPath: String;
+procedure MsgBox(const Msg: string);
+function GetTempDirectory: string;
+function GetSpecialFolder(const CSIDL: integer) : string;
 
 implementation
 
 uses
  Forms,
- Windows,
+ WinApi.Windows,
+ Winapi.ShlObj,
  SysUtils;
 
 procedure MsgBox(const Msg: string);
@@ -44,5 +48,42 @@ begin
  SetString(Result, Path, GetModuleFileName(HInstance, Path, SizeOf(Path)));
 end;
 
+function GetTempDirectory: string;
+var
+  lpBuffer: array[0..MAX_PATH] of Char;
+begin
+  GetTempPath(MAX_PATH, @lpBuffer);
+  Result := StrPas(lpBuffer);
+end;
+
+function GetWindowsDirectory : string;
+var
+  lpBuffer: array[0..MAX_PATH] of Char;
+begin
+  WinApi.Windows.GetWindowsDirectory(@lpBuffer, MAX_PATH);
+  Result := StrPas(lpBuffer);
+end;
+
+function GetSpecialFolder(const CSIDL: integer) : string;
+var
+  lpszPath : PWideChar;
+begin
+  lpszPath := StrAlloc(MAX_PATH);
+  try
+     ZeroMemory(lpszPath, MAX_PATH);
+    if SHGetSpecialFolderPath(0, lpszPath, CSIDL, False)  then
+      Result := lpszPath
+    else
+      Result := '';
+  finally
+    StrDispose(lpszPath);
+  end;
+end;
+
+function GetAppDataFolder: String;
+begin
+ Result:=IncludeTrailingPathDelimiter(GetSpecialFolder(CSIDL_APPDATA))+ 'DelphiPreviewHandler\';
+ SysUtils.ForceDirectories(Result);
+end;
 
 end.
