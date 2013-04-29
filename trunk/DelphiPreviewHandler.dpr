@@ -22,7 +22,6 @@
 library DelphiPreviewHandler;
 
 uses
-  ExceptionLog,
   ComServ,
   Main in 'Main.pas',
   uEditor in 'units\uEditor.pas' {FrmEditor},
@@ -38,7 +37,6 @@ uses
   uAsmPreviewHandler in 'units\uAsmPreviewHandler.pas',
   uDelphiIDEHighlight in 'units\uDelphiIDEHighlight.pas',
   uDelphiVersions in 'units\uDelphiVersions.pas',
-  uHSLUtils in 'units\uHSLUtils.pas',
   uRegistry in 'units\uRegistry.pas',
   uStackTrace in 'units\uStackTrace.pas',
   uSynEditPopupEdit in 'units\uSynEditPopupEdit.pas',

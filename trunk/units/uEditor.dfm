@@ -247,8 +247,15 @@ object FrmEditor: TFrmEditor
           ImageIndex = 4
           OnClick = ToolButtonBugReportClick
         end
-        object ToolButton4: TToolButton
+        object ToolButtonSave: TToolButton
           Left = 69
+          Top = 0
+          Caption = 'ToolButtonSave'
+          ImageIndex = 6
+          OnClick = ToolButtonSaveClick
+        end
+        object ToolButton4: TToolButton
+          Left = 92
           Top = 0
           Width = 20
           Caption = 'ToolButton4'
@@ -256,21 +263,13 @@ object FrmEditor: TFrmEditor
           Style = tbsSeparator
         end
         object ComboBoxThemes: TComboBox
-          Left = 89
+          Left = 112
           Top = 0
           Width = 203
           Height = 21
           Style = csDropDownList
           TabOrder = 0
           OnChange = ComboBoxThemesChange
-        end
-        object ToolButtonSave: TToolButton
-          Left = 292
-          Top = 0
-          Caption = 'ToolButtonSave'
-          ImageIndex = 6
-          Visible = False
-          OnClick = ToolButtonSaveClick
         end
       end
     end
@@ -317,7 +316,7 @@ object FrmEditor: TFrmEditor
     Left = 320
     Top = 72
     Bitmap = {
-      494C010109001800480010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C0101090018004C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000070D165D315A

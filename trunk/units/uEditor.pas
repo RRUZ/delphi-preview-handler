@@ -187,7 +187,7 @@ procedure TFrmEditor.FormCreate(Sender: TObject);
 var
   Settings : TIniFile;
 begin
-   Settings:=TIniFile.Create(ExtractFilePath(GetDllPath)+'Settings.ini');
+   Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
    try
      FPathThemes    := Settings.ReadString('Global','ThemesPath','Themes');
      FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
@@ -220,19 +220,19 @@ end;
 
 procedure TFrmEditor.ToolButtonSaveClick(Sender: TObject);
 var
-  Settings    : TRegistry;
+  Settings    : TIniFile;
   Theme       : string;
 begin
   Theme:=ComboBoxThemes.Text;
   if Application.MessageBox(PChar(Format('Do you want save the current settings? %s',[''])), 'Confirmation', MB_YESNO + MB_ICONQUESTION) = idYes then
   begin
     try
-      Settings:=TRegistry.Create;
-      Settings.RootKey:=HKEY_CURRENT_USER;
-      if Settings.OpenKey('\Software\'+sSettingsLocation,true) then
+      Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
+      //Settings.RootKey:=HKEY_CURRENT_USER;
+      //if Settings.OpenKey('\Software\'+sSettingsLocation,true) then
       try
-       Settings.WriteString('ThemeFile',Theme+sThemesExt);
-       Settings.WriteInteger('FontSize',SynEdit1.Font.Size);
+       Settings.WriteString('Global','ThemeFile',Theme+sThemesExt);
+       Settings.WriteInteger('Global','FontSize',SynEdit1.Font.Size);
       finally
        Settings.Free;
       end;
@@ -243,6 +243,26 @@ begin
     end;
   end;
 end;
+
+{
+var
+  Settings : TIniFile;
+begin
+   Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
+   try
+     FPathThemes    := Settings.ReadString('Global','ThemesPath','Themes');
+     FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
+     FPathThemes    := ExcludeTrailingPathDelimiter(FPathThemes);
+     FThemeName     := Settings.ReadString('Global','ThemeFile',sDefaultThemeName);
+     SynEdit1.Font.Size :=Settings.ReadInteger('Global','FontSize',10);
+   finally
+     Settings.Free;
+   end;
+
+  FillThemes;
+end;
+
+}
 
 procedure TFrmEditor.ToolButtonZommOutClick(Sender: TObject);
 begin
