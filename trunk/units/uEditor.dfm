@@ -304,9 +304,14 @@ object FrmEditor: TFrmEditor
       Gutter.ShowLineNumbers = True
       Highlighter = SynPasSyn1
       ReadOnly = True
+      FontSmoothing = fsmNone
+      ExplicitTop = -6
     end
   end
   object SynPasSyn1: TSynPasSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
     Left = 256
     Top = 184
   end
@@ -316,7 +321,7 @@ object FrmEditor: TFrmEditor
     Left = 320
     Top = 72
     Bitmap = {
-      494C0101090018004C0010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010109000D00040010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000070D165D315A
@@ -720,15 +725,24 @@ object FrmEditor: TFrmEditor
       000000000000}
   end
   object SynXMLSyn1: TSynXMLSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
     WantBracesParsed = False
     Left = 256
     Top = 248
   end
   object SynCppSyn1: TSynCppSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
     Left = 256
     Top = 304
   end
   object SynAsmSyn1: TSynAsmSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
     Left = 256
     Top = 128
   end
