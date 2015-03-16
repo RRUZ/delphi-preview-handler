@@ -9,18 +9,10 @@
 <li>Themes compatibles with the <a href='http://code.google.com/p/delphi-ide-theme-editor/'>Delphi IDE Theme Editor</a></li>
 <li>Support these file extensions .pp, .lpr, .lfm, .lpk, .inc, .pas, .dpr,.dfm, .dpk,.dproj, .bdsproj,.c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu, .asm.</li>
 </ul>
-<h2>Technical Stuff</h2>
-<ul>
-<li>Written in Delphi XE4</li>
-<li>Components used <a href='http://sourceforge.net/apps/mediawiki/synedit/index.php?title=SynEdit_Home_Page'>SynEdit</a></li>
-</ul>
+
 <h2>Screenshots</h2>
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/1.png' />
-<h2></h2>
-<h2></h2>
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/2.png' />
-<h2></h2>
-<h2></h2>
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/3.png' />
 <h2></h2>
 <a href='http://www.youtube.com/watch?feature=player_embedded&v=kFvSC7MTdcQ' target='_blank'><img src='http://img.youtube.com/vi/kFvSC7MTdcQ/0.jpg' width='425' height=344 /></a><br>
