@@ -305,7 +305,6 @@ object FrmEditor: TFrmEditor
       Highlighter = SynPasSyn1
       ReadOnly = True
       FontSmoothing = fsmNone
-      ExplicitTop = -6
     end
   end
   object SynPasSyn1: TSynPasSyn

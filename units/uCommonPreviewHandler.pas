@@ -1,7 +1,7 @@
 //**************************************************************************************************
 //
 // Unit uCommonPreviewHandler
-// unit for the Delphi Preview Handler
+// unit for the Delphi Preview Handler  https://github.com/RRUZ/delphi-preview-handler
 //
 // The contents of this file are subject to the Mozilla Public License Version 1.1 (the "License");
 // you may not use this file except in compliance with the License. You may obtain a copy of the
