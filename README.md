@@ -1,4 +1,13 @@
-![](https://dl.dropboxusercontent.com/u/12733424/github/delphi-preview-handler/logo.png)The Delphi Preview Handler, is a <a href='http://msdn.microsoft.com/en-us/magazine/cc163487.aspx'>preview handler</a> for Windows Vista ,7 and 8 which allow you read your object pascal, C++ and Assembly code with Syntax highlighting without open in a editor, this preview handler can render these file extensions .pp, .lpr, .lfm, .lpk, .inc, .pas, .dpr,.dfm, .dpk,.dproj, .bdsproj,.c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu, .asm.
+<img src="https://dl.dropboxusercontent.com/u/12733424/github/delphi-preview-handler/logo.png" alt="" align="left" />
+The **Delphi Preview Handler**, is a <a href='http://msdn.microsoft.com/en-us/magazine/cc163487.aspx'>preview handler</a> for Windows Vista ,7 and 8 which allow you read your object pascal, C++ and Assembly code with Syntax highlighting without open in a editor, this preview handler can render these file extensions
+
+Extensions | Description
+------------ | -------------
+.pp , .pas, .lpr, .lpk, .lfm, .inc | Free Pascal/Lazarus Files
+.pas, .dpr, .dfm, .dpk, .inc, .dproj, .bdsproj  | Delphi Files
+.c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu | C and C++ source Files 
+.asm | Assembler source files
+
 
 [![](https://dl.dropboxusercontent.com/u/12733424/Images/followrruz.png)](https://twitter.com/RRUZ)
 
