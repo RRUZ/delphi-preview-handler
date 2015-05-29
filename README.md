@@ -44,6 +44,8 @@ In order to avoid problems you must follow these steps when you install or regis
   3. If you install the preview handler manually you must unregister using the UnRegister.bat  running as admin.
   4. Now proceed with the installation of the new version.
 
-<strong>Download the Binaries of the Delphi Preview Handler from <a href='http://goo.gl/vMPL1H'>here </a></strong> 
 
-<strong>Download the Installer (recommended) of the Delphi Preview Handler from <a href='http://goo.gl/e3qqnr'>here </a></strong> 
+## Downloads ##
+
+* Download the Binaries of the Delphi Preview Handler from <a href='http://goo.gl/vMPL1H'>here </a>
+* Download the Installer (recommended) of the Delphi Preview Handler from <a href='http://goo.gl/e3qqnr'>here </a>
