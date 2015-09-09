@@ -19,22 +19,12 @@ Extensions | Description
 <li>Support these file extensions .pp, .lpr, .lfm, .lpk, .inc, .pas, .dpr,.dfm, .dpk,.dproj, .bdsproj,.c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu, .asm.</li>
 </ul>
 
-
 ## Screenshots ##
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/1.png' />
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/2.png' />
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/3.png' />
 
-
 <a href='http://www.youtube.com/watch?feature=player_embedded&v=kFvSC7MTdcQ' target='_blank'><img src='http://img.youtube.com/vi/kFvSC7MTdcQ/0.jpg' width='425' height=344 /></a><br>
-<h2>Instructions for Manual Installation</h2>
-Follow these steps to register the preview handler</blockquote>
-
-  1. Choose Start -> All Programs -> Accessories.
-  2. Right-click on Command Prompt, Select Run As Administrator, and Authenticate.
-  3. Go to Delphi Preview Handler folder in Command Prompt.
-  4. Run “Register.bat”
-  5. Enjoy
 
 ## Important Note about installing  a new version ##
 In order to avoid problems you must follow these steps when you install or register a new version of the preview handler.
