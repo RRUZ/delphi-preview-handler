@@ -139,8 +139,8 @@ procedure TPreviewHandlerRegister.UpdateRegistry(Register: Boolean);
     end;
 
 const
-  Prevhost_32='{534A1E02-D58F-44f0-B58B-36CBED287C7C}';
-  Prevhost_64='{6d2b5079-2f0b-48dd-ab7f-97cec514d30b}';
+  Prevhost_32 = '{534A1E02-D58F-44f0-B58B-36CBED287C7C}';
+  Prevhost_64 = '{6d2b5079-2f0b-48dd-ab7f-97cec514d30b}';
 var
   RootKey       : HKEY;
   RootUserReg   : HKEY;
@@ -157,16 +157,18 @@ begin
 
     ComServer.GetRegRootAndPrefix(RootKey, RootPrefix);
     //ShowMessage(RootPrefix);
-    RootUserReg      := IfThen(ComServer.PerUserRegistration,HKEY_CURRENT_USER,HKEY_LOCAL_MACHINE);
+    RootUserReg      := IfThen(ComServer.PerUserRegistration, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE);
     sClassID      := SysUtils.GUIDToString(ClassID);
     ProgID        := GetProgID;
     sComServerKey := Format('%sCLSID\%s\%s',[RootPrefix,sClassID,ComServer.ServerKey]);
-    sAppID        := IfThen(IsWow64Process,Prevhost_32,Prevhost_64);
+    sAppID        := IfThen(IsWow64Process, Prevhost_32, Prevhost_64);
     if Register then
     begin
       inherited UpdateRegistry(True);
+
       CreateRegKey(Format('%sCLSID\%s',[RootPrefix,sClassID]), 'AppID', sAppID, RootKey);
       CreateRegKeyDWORD(Format('%sCLSID\%s',[RootPrefix,sClassID]), 'DisableLowILProcessIsolation', 1, RootKey);
+
       //ShowMessage()
       if ProgID <> '' then
       begin

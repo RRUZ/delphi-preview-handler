@@ -3,8 +3,6 @@
 #define MyAppName 'Delphi Preview Handler'
 #define MyAppVersion GetFileVersion('DelphiPreviewHandler.dll')
 [Files]
-Source: Extras\ISSkin.dll; DestDir: {app}; Flags: dontcopy
-Source: Extras\Office2007.cjstyles; DestDir: {tmp}; Flags: dontcopy
 Source: DelphiPreviewHandler.dll; DestDir: {app}; Flags : regserver sharedfile noregerror
 Source: UnRegister.bat; DestDir: {app}
 Source: Register.bat; DestDir: {app}
@@ -63,8 +61,7 @@ Source: Themes\wekeroad-ink.theme.xml; DestDir: {app}\Themes\
 Source: Themes\zenburn-2010.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Zenburn.theme.xml; DestDir: {app}\Themes\
 ;Source: Settings.ini; DestDir: {app}
-#define MyAppName 'Delphi Preview Handler'
-#define MyAppVersion GetFileVersion('DelphiPreviewHandler.dll')
+
 [Setup]
 UsePreviousLanguage=no
 AppName={#MyAppName}
@@ -84,29 +81,21 @@ AppendDefaultDirName=true
 PrivilegesRequired=admin
 WindowVisible=false
 WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
-WizardImageFile=extras\Office2007Gray.bmp
+WizardImageFile=compiler:WizModernImage-IS.bmp
 AppContact=theroadtodelphi@gmail.com
 SetupIconFile=Images\Icon.ico
-MinVersion=,6.0.6000
+;MinVersion=,6.0.6000
 DisableProgramGroupPage=true
 AppID=DelphiPreviewHandler
 [Dirs]
 Name: {app}\Themes
 [Code]
-//Skin support
-procedure LoadSkin(lpszPath: String; lpszIniFileName: String); external 'LoadSkin@files:isskin.dll stdcall';
-procedure UnloadSkin(); external 'UnloadSkin@files:isskin.dll stdcall';
-function  ShowWindow(hWnd: Integer; uType: Integer): Integer; external 'ShowWindow@user32.dll stdcall';
 
 function InitializeSetup(): Boolean;
 begin
-   ExtractTemporaryFile('Office2007.cjstyles');
-   LoadSkin(ExpandConstant('{tmp}\Office2007.cjstyles'), 'NormalBlack.ini');
    Result:=True;
 end;
 
 procedure DeinitializeSetup();
 begin
-	ShowWindow(StrToInt(ExpandConstant('{wizardhwnd}')), 0);
-	UnloadSkin();
 end;

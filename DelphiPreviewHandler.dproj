@@ -88,12 +88,11 @@
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <DCC_DebugInformation>true</DCC_DebugInformation>
         <DCC_MapFile>3</DCC_MapFile>
-        <VerInfo_Build>23</VerInfo_Build>
+        <VerInfo_Build>1</VerInfo_Build>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
-        <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Release>2</VerInfo_Release>
+        <VerInfo_MinorVer>2</VerInfo_MinorVer>
         <Manifest_File>None</Manifest_File>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.1.2.23;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.2.1.1;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -150,7 +149,7 @@
                     <VersionInfo Name="MajorVer">1</VersionInfo>
                     <VersionInfo Name="MinorVer">0</VersionInfo>
                     <VersionInfo Name="Release">1</VersionInfo>
-                    <VersionInfo Name="Build">199</VersionInfo>
+                    <VersionInfo Name="Build">200</VersionInfo>
                     <VersionInfo Name="Debug">False</VersionInfo>
                     <VersionInfo Name="PreRelease">False</VersionInfo>
                     <VersionInfo Name="Special">False</VersionInfo>
@@ -162,7 +161,7 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">1.0.1.199</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.1.200</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName"/>
                     <VersionInfoKeys Name="LegalCopyright"/>
                     <VersionInfoKeys Name="LegalTrademarks"/>
@@ -172,11 +171,10 @@
                     <VersionInfoKeys Name="Comments">Go Delphi Go</VersionInfoKeys>
                 </VersionInfoKeys>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\fmidesigner160.bpl">FMI Form designer and property and component editors</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k160.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp160.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k160.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp160.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k180.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp180.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k180.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp180.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
                 <Parameters>
                     <Parameters Name="RunParams">TcPreviewHandler.dll /u</Parameters>
