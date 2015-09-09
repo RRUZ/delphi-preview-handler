@@ -1,5 +1,5 @@
 <img src="https://dl.dropboxusercontent.com/u/12733424/github/delphi-preview-handler/logo.png" alt="" align="left" />
-The **Delphi Preview Handler**, is a <a href='http://msdn.microsoft.com/en-us/magazine/cc163487.aspx'>preview handler</a> for Windows Vista ,7 and 8 which allow you read your object pascal, C++ and Assembly code with Syntax highlighting without open in a editor, this preview handler can render these file extensions
+The **Delphi Preview Handler**, is a <a href='http://msdn.microsoft.com/en-us/magazine/cc163487.aspx'>preview handler</a> for Windows Vista ,7, 8 and 10 which allow you read your object pascal, C++ and Assembly code with Syntax highlighting without open in a editor, this preview handler can render these file extensions
 
 Extensions | Description
 ------------ | -------------
@@ -13,9 +13,9 @@ Extensions | Description
 
 ## Features ##
 <ul>
-<li>Supports Windows Vista, 7 and 8 on 32 and 64 bits.</li>
+<li>Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.</li>
 <li>+50 themes included to see your code with style</li>
-<li>Themes compatibles with the <a href='http://code.google.com/p/delphi-ide-theme-editor/'>Delphi IDE Theme Editor</a></li>
+<li>Themes compatibles with the <a href='https://github.com/RRUZ/delphi-ide-theme-editor'>Delphi IDE Theme Editor</a></li>
 <li>Support these file extensions .pp, .lpr, .lfm, .lpk, .inc, .pas, .dpr,.dfm, .dpk,.dproj, .bdsproj,.c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu, .asm.</li>
 </ul>
 
@@ -47,5 +47,5 @@ In order to avoid problems you must follow these steps when you install or regis
 
 ## Downloads ##
 
-* Download the Binaries of the Delphi Preview Handler from <a href='http://goo.gl/vMPL1H'>here </a>
-* Download the Installer (recommended) of the Delphi Preview Handler from <a href='http://goo.gl/e3qqnr'>here </a>
+* <strike>Download the Binaries of the Delphi Preview Handler from here.</strike>
+* <a href='http://goo.gl/e3qqnr'>Installer</a>
