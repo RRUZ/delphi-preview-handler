@@ -32,7 +32,14 @@ uses
   uDelphiIDEHighlight,
   uDelphiVersions,
   SynHighlighterPas, ComCtrls, ToolWin, ImgList, SynHighlighterXML,
-  SynHighlighterCpp, SynHighlighterAsm, uSynEditPopupEdit;
+  SynHighlighterCpp, SynHighlighterAsm, uSynEditPopupEdit,
+  SynHighlighterFortran, SynHighlighterEiffel, SynHighlighterPython,
+  SynHighlighterPerl, SynHighlighterDfm, SynHighlighterBat,
+  SynHighlighterVBScript, SynHighlighterPHP, SynHighlighterJScript,
+  SynHighlighterHtml, SynHighlighterCSS, SynHighlighterCS, SynHighlighterCobol,
+  SynHighlighterVB, SynHighlighterM3, SynHighlighterJava, SynHighlighterSml,
+  SynHighlighterIni, SynHighlighterInno, SynHighlighterSQL,
+  SynHighlighterUNIXShellScript, SynHighlighterRuby;
 
 type
   TProcRefreshSynHighlighter = procedure (FCurrentTheme:TIDETheme;SynEdit: SynEdit.TSynEdit);
@@ -56,6 +63,26 @@ type
     SynXMLSyn1: TSynXMLSyn;
     SynCppSyn1: TSynCppSyn;
     SynAsmSyn1: TSynAsmSyn;
+    SynEiffelSyn1: TSynEiffelSyn;
+    SynFortranSyn1: TSynFortranSyn;
+    SynJavaSyn1: TSynJavaSyn;
+    SynVBSyn1: TSynVBSyn;
+    SynCobolSyn1: TSynCobolSyn;
+    SynCSSyn1: TSynCSSyn;
+    SynCssSyn1: TSynCssSyn;
+    SynHTMLSyn1: TSynHTMLSyn;
+    SynJScriptSyn1: TSynJScriptSyn;
+    SynPHPSyn1: TSynPHPSyn;
+    SynVBScriptSyn1: TSynVBScriptSyn;
+    SynBatSyn1: TSynBatSyn;
+    SynDfmSyn1: TSynDfmSyn;
+    SynPerlSyn1: TSynPerlSyn;
+    SynPythonSyn1: TSynPythonSyn;
+    SynRubySyn1: TSynRubySyn;
+    SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn;
+    SynSQLSyn1: TSynSQLSyn;
+    SynInnoSyn1: TSynInnoSyn;
+    SynIniSyn1: TSynIniSyn;
     procedure ComboBoxThemesChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -217,7 +244,7 @@ end;
 
 procedure TFrmEditor.ToolButtonBugReportClick(Sender: TObject);
 begin
-  ShellExecute(Handle, 'open', 'http://code.google.com/p/delphi-preview-handler/issues/list',nil,nil, SW_SHOWNORMAL) ;
+  ShellExecute(Handle, 'open', 'https://github.com/RRUZ/delphi-preview-handler/issues', nil, nil, SW_SHOWNORMAL) ;
 end;
 
 procedure TFrmEditor.ToolButtonSaveClick(Sender: TObject);

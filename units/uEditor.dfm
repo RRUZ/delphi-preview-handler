@@ -305,20 +305,22 @@ object FrmEditor: TFrmEditor
       Highlighter = SynPasSyn1
       ReadOnly = True
       FontSmoothing = fsmNone
+      ExplicitLeft = -128
+      ExplicitTop = 16
     end
   end
   object SynPasSyn1: TSynPasSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 256
-    Top = 184
+    Left = 96
+    Top = 96
   end
   object ImageList1: TImageList
     ColorDepth = cd32Bit
     DrawingStyle = dsTransparent
-    Left = 320
-    Top = 72
+    Left = 328
+    Top = 24
     Bitmap = {
       494C010109000D00040010001000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
@@ -728,21 +730,164 @@ object FrmEditor: TFrmEditor
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
     WantBracesParsed = False
-    Left = 256
-    Top = 248
+    Left = 152
+    Top = 96
   end
   object SynCppSyn1: TSynCppSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 256
-    Top = 304
+    Left = 208
+    Top = 96
   end
   object SynAsmSyn1: TSynAsmSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 256
-    Top = 128
+    Left = 48
+    Top = 96
+  end
+  object SynEiffelSyn1: TSynEiffelSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 264
+    Top = 96
+  end
+  object SynFortranSyn1: TSynFortranSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 312
+    Top = 96
+  end
+  object SynJavaSyn1: TSynJavaSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 384
+    Top = 96
+  end
+  object SynVBSyn1: TSynVBSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 440
+    Top = 96
+  end
+  object SynCobolSyn1: TSynCobolSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    AreaAStartPos = 7
+    AreaBStartPos = 11
+    CodeEndPos = 71
+    Left = 496
+    Top = 96
+  end
+  object SynCSSyn1: TSynCSSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 552
+    Top = 96
+  end
+  object SynCssSyn1: TSynCssSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 88
+    Top = 192
+  end
+  object SynHTMLSyn1: TSynHTMLSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 176
+    Top = 184
+  end
+  object SynJScriptSyn1: TSynJScriptSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 312
+    Top = 192
+  end
+  object SynPHPSyn1: TSynPHPSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 392
+    Top = 192
+  end
+  object SynVBScriptSyn1: TSynVBScriptSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 440
+    Top = 192
+  end
+  object SynBatSyn1: TSynBatSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 40
+    Top = 272
+  end
+  object SynDfmSyn1: TSynDfmSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 96
+    Top = 272
+  end
+  object SynPerlSyn1: TSynPerlSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 152
+    Top = 272
+  end
+  object SynPythonSyn1: TSynPythonSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 208
+    Top = 272
+  end
+  object SynRubySyn1: TSynRubySyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 280
+    Top = 280
+  end
+  object SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 336
+    Top = 280
+  end
+  object SynSQLSyn1: TSynSQLSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 432
+    Top = 280
+  end
+  object SynInnoSyn1: TSynInnoSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 480
+    Top = 280
+  end
+  object SynIniSyn1: TSynIniSyn
+    Options.AutoDetectEnabled = False
+    Options.AutoDetectLineLimit = 0
+    Options.Visible = False
+    Left = 536
+    Top = 280
   end
 end

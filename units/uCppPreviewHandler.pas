@@ -63,20 +63,20 @@ begin
     RefreshSynEdit(FCurrentTheme, SynEdit);
     with TSynCppSyn(SynEdit.Highlighter) do
     begin
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Assembler, AsmAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Character, CharAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, DirecAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Float, FloatAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Hex, HexAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, InvalidAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, OctalAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri,DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Assembler, AsmAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Character, CharAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, DirecAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Float, FloatAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Hex, HexAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, InvalidAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, OctalAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
     end;
 end;
 
@@ -98,8 +98,8 @@ begin
     end;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in TCppPreviewHandler.Create - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
+      TLogException.Add(Format('Error in %s.Create - Message : %s : Trace %s',
+        [Self.ClassName, E.Message, E.StackTrace]));
   end;
 end;
 

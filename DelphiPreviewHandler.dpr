@@ -49,7 +49,13 @@ uses
   uStackTrace in 'units\uStackTrace.pas',
   uSynEditPopupEdit in 'units\uSynEditPopupEdit.pas',
   uLogExcept in 'units\uLogExcept.pas',
-  uCommonPreviewHandler in 'units\uCommonPreviewHandler.pas';
+  uCommonPreviewHandler in 'units\uCommonPreviewHandler.pas',
+  uEiffelPreviewHandler in 'units\uEiffelPreviewHandler.pas',
+  uFortranPreviewHandler in 'units\uFortranPreviewHandler.pas',
+  uJavaPreviewHandler in 'units\uJavaPreviewHandler.pas',
+  uVBPreviewHandler in 'units\uVBPreviewHandler.pas',
+  uCobolPreviewHandler in 'units\uCobolPreviewHandler.pas',
+  uCSharpPreviewHandler in 'units\uCSharpPreviewHandler.pas';
 
 exports
   DllGetClassObject,
