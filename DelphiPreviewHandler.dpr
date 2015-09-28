@@ -55,7 +55,16 @@ uses
   uJavaPreviewHandler in 'units\uJavaPreviewHandler.pas',
   uVBPreviewHandler in 'units\uVBPreviewHandler.pas',
   uCobolPreviewHandler in 'units\uCobolPreviewHandler.pas',
-  uCSharpPreviewHandler in 'units\uCSharpPreviewHandler.pas';
+  uCSharpPreviewHandler in 'units\uCSharpPreviewHandler.pas',
+  uCSSPreviewHandler in 'units\uCSSPreviewHandler.pas',
+  uHTMLPreviewHandler in 'units\uHTMLPreviewHandler.pas',
+  uJScriptPreviewHandler in 'units\uJScriptPreviewHandler.pas',
+  uPhpPreviewHandler in 'units\uPhpPreviewHandler.pas',
+  uVBScriptPreviewHandler in 'units\uVBScriptPreviewHandler.pas',
+  uBatPreviewHandler in 'units\uBatPreviewHandler.pas',
+  uDfmPreviewHandler in 'units\uDfmPreviewHandler.pas',
+  uPerlPreviewHandler in 'units\uPerlPreviewHandler.pas',
+  uPythonPreviewHandler in 'units\uPythonPreviewHandler.pas';
 
 exports
   DllGetClassObject,

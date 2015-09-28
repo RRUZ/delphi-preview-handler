@@ -796,98 +796,98 @@ object FrmEditor: TFrmEditor
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 88
-    Top = 192
+    Left = 40
+    Top = 168
   end
   object SynHTMLSyn1: TSynHTMLSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 176
-    Top = 184
+    Left = 96
+    Top = 168
   end
   object SynJScriptSyn1: TSynJScriptSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 312
-    Top = 192
+    Left = 160
+    Top = 168
   end
   object SynPHPSyn1: TSynPHPSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 392
-    Top = 192
+    Left = 224
+    Top = 168
   end
   object SynVBScriptSyn1: TSynVBScriptSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 440
-    Top = 192
+    Left = 280
+    Top = 168
   end
   object SynBatSyn1: TSynBatSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 40
-    Top = 272
+    Left = 344
+    Top = 168
   end
   object SynDfmSyn1: TSynDfmSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 96
-    Top = 272
+    Left = 408
+    Top = 168
   end
   object SynPerlSyn1: TSynPerlSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 152
-    Top = 272
+    Left = 472
+    Top = 168
   end
   object SynPythonSyn1: TSynPythonSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 208
-    Top = 272
+    Left = 528
+    Top = 168
   end
   object SynRubySyn1: TSynRubySyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 280
-    Top = 280
+    Left = 160
+    Top = 240
   end
   object SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 336
-    Top = 280
+    Left = 240
+    Top = 240
   end
   object SynSQLSyn1: TSynSQLSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 432
-    Top = 280
+    Left = 304
+    Top = 240
   end
   object SynInnoSyn1: TSynInnoSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 480
-    Top = 280
+    Left = 360
+    Top = 240
   end
   object SynIniSyn1: TSynIniSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 536
-    Top = 280
+    Left = 416
+    Top = 240
   end
 end
