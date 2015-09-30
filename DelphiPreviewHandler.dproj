@@ -137,6 +137,10 @@
         <DCCReference Include="units\uPerlPreviewHandler.pas"/>
         <DCCReference Include="units\uPythonPreviewHandler.pas"/>
         <DCCReference Include="units\uRubyPreviewHandler.pas"/>
+        <DCCReference Include="units\uUnixPreviewHandler.pas"/>
+        <DCCReference Include="units\uSqlPreviewHandler.pas"/>
+        <DCCReference Include="units\uInnoPreviewHandler.pas"/>
+        <DCCReference Include="units\uIniPreviewHandler.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -165,7 +169,7 @@
                     <VersionInfo Name="MajorVer">1</VersionInfo>
                     <VersionInfo Name="MinorVer">0</VersionInfo>
                     <VersionInfo Name="Release">1</VersionInfo>
-                    <VersionInfo Name="Build">207</VersionInfo>
+                    <VersionInfo Name="Build">208</VersionInfo>
                     <VersionInfo Name="Debug">False</VersionInfo>
                     <VersionInfo Name="PreRelease">False</VersionInfo>
                     <VersionInfo Name="Special">False</VersionInfo>
@@ -177,7 +181,7 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">1.0.1.207</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.1.208</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName"/>
                     <VersionInfoKeys Name="LegalCopyright"/>
                     <VersionInfoKeys Name="LegalTrademarks"/>

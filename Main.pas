@@ -53,7 +53,11 @@ uses
   uBatPreviewHandler,
   uPerlPreviewHandler,
   uPythonPreviewHandler,
-  uRubyPreviewHandler;
+  uRubyPreviewHandler,
+  uUnixPreviewHandler,
+  uSqlPreviewHandler,
+  uInnoPreviewHandler,
+  uIniPreviewHandler;
 
 initialization
   //Pascal Files (*.pas;*.pp;*.dpr;*.dpk;*.inc)|*.pas;*.pp;*.dpr;*.dpk;*.inc
@@ -136,6 +140,21 @@ initialization
   TRubyPreviewHandler.RegisterExtentions(GUID_RubyPreviewHandler, 'Delphi.Ruby.PreviewHandler', 'Delphi Ruby Preview Handler',
   ['.rb', '*.rbw']);
 
+  //UNIX Shell Scripts (*.sh)|*.sh
+  TUnixPreviewHandler.RegisterExtentions(GUID_UnixPreviewHandler, 'Delphi.Unix.PreviewHandler', 'Delphi Unix Preview Handler',
+  ['.sh']);
+
+  //SQL Files (*.sql)|*.sql
+  TSQLPreviewHandler.RegisterExtentions(GUID_SqlPreviewHandler, 'Delphi.SQL.PreviewHandler', 'Delphi SQL Preview Handler',
+  ['.sql']);
+
+  //Inno Setup Scripts (*.iss)|*.iss
+  TInnoPreviewHandler.RegisterExtentions(GUID_InnoPreviewHandler, 'Delphi.Inno.PreviewHandler', 'Delphi Inno Preview Handler',
+  ['.iss']);
+
+  //INI Files (*.ini)|*.ini
+  TIniPreviewHandler.RegisterExtentions(GUID_IniPreviewHandler, 'Delphi.Ini.PreviewHandler', 'Delphi Ini Preview Handler',
+  ['.ini']);
 
 end.
 

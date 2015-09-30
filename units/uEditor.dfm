@@ -864,28 +864,28 @@ object FrmEditor: TFrmEditor
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 240
+    Left = 104
     Top = 240
   end
   object SynSQLSyn1: TSynSQLSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 304
+    Left = 184
     Top = 240
   end
   object SynInnoSyn1: TSynInnoSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 360
+    Left = 240
     Top = 240
   end
   object SynIniSyn1: TSynIniSyn
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 416
+    Left = 296
     Top = 240
   end
 end

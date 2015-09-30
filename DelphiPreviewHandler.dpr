@@ -65,7 +65,11 @@ uses
   uDfmPreviewHandler in 'units\uDfmPreviewHandler.pas',
   uPerlPreviewHandler in 'units\uPerlPreviewHandler.pas',
   uPythonPreviewHandler in 'units\uPythonPreviewHandler.pas',
-  uRubyPreviewHandler in 'units\uRubyPreviewHandler.pas';
+  uRubyPreviewHandler in 'units\uRubyPreviewHandler.pas',
+  uUnixPreviewHandler in 'units\uUnixPreviewHandler.pas',
+  uSqlPreviewHandler in 'units\uSqlPreviewHandler.pas',
+  uInnoPreviewHandler in 'units\uInnoPreviewHandler.pas',
+  uIniPreviewHandler in 'units\uIniPreviewHandler.pas';
 
 exports
   DllGetClassObject,
