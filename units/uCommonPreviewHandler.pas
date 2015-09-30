@@ -42,7 +42,7 @@ type
 {$IFDEF USE_TStreamPreviewHandler}
   TBasePreviewHandler = class(TStreamPreviewHandler)
 {$ElSE}
-  TBasePreviewHandler = class(TFilePreviewHandler)
+ssTBasePreviewHandler = class(TFilePreviewHandler)
 {$ENDIF}
   private
     FEditor: TFrmEditor;
@@ -76,11 +76,16 @@ end;
 {$IFDEF USE_TStreamPreviewHandler}
 procedure TBasePreviewHandler.DoPreview(Stream: TIStreamAdapter);
 begin
+    TLogException.Add('0');
   try
+    TLogException.Add('1');
     if IsWindow(Editor.Handle) then
     begin
+    TLogException.Add('2');
       Editor.Visible:=True;
+    TLogException.Add('3');
       Editor.SynEdit1.Lines.LoadFromStream(Stream);
+    TLogException.Add('4');
     end;
   except
     on E: Exception do

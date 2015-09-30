@@ -21,7 +21,7 @@
 
 
 //TODO
-// add application to handle settings of the preview handler
+// Add application to handle settings of the preview handler
 
 
 unit Main;
@@ -60,6 +60,8 @@ uses
   uIniPreviewHandler;
 
 initialization
+  //use settings to determine previsualizers
+
   //Pascal Files (*.pas;*.pp;*.dpr;*.dpk;*.inc)|*.pas;*.pp;*.dpr;*.dpk;*.inc
   TPascalPreviewHandler.RegisterExtentions(GUID_PascalPreviewHandler, 'Delphi.Pas.PreviewHandler', 'Delphi Pascal Preview Handler',
   ['.pp', '.lpr', '.lfm', '.lpk', '.inc', '.pas', '.dpr', '.dpk']);
@@ -82,7 +84,7 @@ initialization
 
   //Fortran Files (*.for)|*.for
   TFortranPreviewHandler.RegisterExtentions(GUID_FortranPreviewHandler, 'Delphi.Fortran.PreviewHandler', 'Delphi Fortran Preview Handler',
-  ['.for']);
+  ['.for', '.f']);
 
   //Java Files (*.java)|*.java
   TJavaPreviewHandler.RegisterExtentions(GUID_JavaPreviewHandler, 'Delphi.Java.PreviewHandler', 'Delphi Java Preview Handler',
@@ -120,6 +122,7 @@ initialization
   TVBScriptPreviewHandler.RegisterExtentions(GUID_VBScriptPreviewHandler, 'Delphi.VBScript.PreviewHandler', 'Delphi VBScript Preview Handler',
   ['.vbs']);
 
+   //******** override ************
   //MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd
   TBatPreviewHandler.RegisterExtentions(GUID_BatPreviewHandler, 'Delphi.Bat.PreviewHandler', 'Delphi Bat Preview Handler',
   ['.bat', '.cmd']);

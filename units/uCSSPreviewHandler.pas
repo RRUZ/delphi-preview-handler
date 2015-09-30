@@ -92,7 +92,7 @@ begin
       Editor.Align  := alClient;
       Editor.BorderStyle :=bsNone;
       //Editor.Visible:=True;
-      Editor.SynEdit1.Highlighter:=Editor.SynCSSyn1;
+      Editor.SynEdit1.Highlighter:=Editor.SynCssSyn1;
       Editor.RefreshSynHighlighter:=RefreshSynCSSHighlighter;
       Editor.LoadTheme;
     end;

@@ -36,7 +36,7 @@ uses
 
 
 const
-  GUID_VBPreviewHandler: TGUID = '{B8961094-8033-4D5B-AAB3-A6BCC76E0004}';
+  GUID_VBPreviewHandler: TGUID = '{B8961094-8033-4D5B-AAB3-A6BCC76E0024}';
 
 type
   TVBPreviewHandler = class(TBasePreviewHandler)

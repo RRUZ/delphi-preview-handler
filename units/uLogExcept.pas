@@ -38,10 +38,15 @@ type
 
 implementation
 
+//
+uses
+  SysUtils,
+  IOUtils;
+//
 { TLogExpections }
 class procedure TLogException.Add(const StrException: string);
 begin
-
+  TFile.AppendAllText('C:\Users\RRUZ\AppData\Local\Temp\shell.log', FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + StrException);
 end;
 
 end.

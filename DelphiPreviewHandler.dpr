@@ -23,13 +23,8 @@
 library DelphiPreviewHandler;
 
 uses
-  EMemLeaks,
-  EResLeaks,
-  ESendMailSMAPI,
-  EDebugExports,
-  EDebugJCL,
   EMapWin32,
-  ExceptionLog7,
+  EAppDLL,
   ComServ,
   Main in 'Main.pas',
   uEditor in 'units\uEditor.pas' {FrmEditor},
@@ -70,6 +65,10 @@ uses
   uSqlPreviewHandler in 'units\uSqlPreviewHandler.pas',
   uInnoPreviewHandler in 'units\uInnoPreviewHandler.pas',
   uIniPreviewHandler in 'units\uIniPreviewHandler.pas';
+
+
+
+
 
 exports
   DllGetClassObject,

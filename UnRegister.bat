@@ -1,1 +1,1 @@
-regsvr32 /u DelphiPreviewHandler.dll
+regsvr32 /u "C:\Dephi\github\delphi-preview-handler\DelphiPreviewHandler.dll"

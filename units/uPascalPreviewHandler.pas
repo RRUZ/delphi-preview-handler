@@ -97,8 +97,8 @@ begin
     end;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in TPascalPreviewHandler.Create - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
+      TLogException.Add(Format('Error in %s.Create - Message : %s : Trace %s',
+        [Self.ClassName, E.Message, E.StackTrace]));
   end;
 end;
 

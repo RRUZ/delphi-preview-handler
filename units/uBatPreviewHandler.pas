@@ -36,7 +36,7 @@ uses
 
 
 const
-  GUID_BatPreviewHandler: TGUID = '{B8961094-8033-4D5B-AAB3-A6BCC76E0011}';
+  GUID_BatPreviewHandler: TGUID = '{B8961094-8033-4D5B-AAB3-A6BCC76E0021}';
 
 type
   TBatPreviewHandler = class(TBasePreviewHandler)

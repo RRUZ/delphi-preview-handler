@@ -90,7 +90,7 @@ begin
       Editor.Align  := alClient;
       Editor.BorderStyle :=bsNone;
       //Editor.Visible:=True;
-      Editor.SynEdit1.Highlighter:=Editor.SynFortranSyn1;
+      Editor.SynEdit1.Highlighter:=Editor.SynEiffelSyn1;
       Editor.RefreshSynHighlighter:=RefreshSynEiffelHighlighter;
       Editor.LoadTheme;
     end;
