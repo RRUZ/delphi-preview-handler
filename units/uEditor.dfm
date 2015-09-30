@@ -305,8 +305,6 @@ object FrmEditor: TFrmEditor
       Highlighter = SynPasSyn1
       ReadOnly = True
       FontSmoothing = fsmNone
-      ExplicitLeft = -128
-      ExplicitTop = 16
     end
   end
   object SynPasSyn1: TSynPasSyn
@@ -859,7 +857,7 @@ object FrmEditor: TFrmEditor
     Options.AutoDetectEnabled = False
     Options.AutoDetectLineLimit = 0
     Options.Visible = False
-    Left = 160
+    Left = 40
     Top = 240
   end
   object SynUNIXShellScriptSyn1: TSynUNIXShellScriptSyn

@@ -52,7 +52,8 @@ uses
   uDfmPreviewHandler,
   uBatPreviewHandler,
   uPerlPreviewHandler,
-  uPythonPreviewHandler;
+  uPythonPreviewHandler,
+  uRubyPreviewHandler;
 
 initialization
   //Pascal Files (*.pas;*.pp;*.dpr;*.dpk;*.inc)|*.pas;*.pp;*.dpr;*.dpk;*.inc
@@ -130,6 +131,11 @@ initialization
   //Python Files (*.py)|*.py
   TPythonPreviewHandler.RegisterExtentions(GUID_PythonPreviewHandler, 'Delphi.Python.PreviewHandler', 'Delphi Python Preview Handler',
   ['.py']);
+
+  //Ruby Files (*.rb;*.rbw)|*.rb;*.rbw
+  TRubyPreviewHandler.RegisterExtentions(GUID_RubyPreviewHandler, 'Delphi.Ruby.PreviewHandler', 'Delphi Ruby Preview Handler',
+  ['.rb', '*.rbw']);
+
 
 end.
 

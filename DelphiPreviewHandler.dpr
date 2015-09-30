@@ -64,7 +64,8 @@ uses
   uBatPreviewHandler in 'units\uBatPreviewHandler.pas',
   uDfmPreviewHandler in 'units\uDfmPreviewHandler.pas',
   uPerlPreviewHandler in 'units\uPerlPreviewHandler.pas',
-  uPythonPreviewHandler in 'units\uPythonPreviewHandler.pas';
+  uPythonPreviewHandler in 'units\uPythonPreviewHandler.pas',
+  uRubyPreviewHandler in 'units\uRubyPreviewHandler.pas';
 
 exports
   DllGetClassObject,
