@@ -75,12 +75,14 @@ begin
     end;
 end;
 
+type
+ TWinControlClass = class(TWinControl);
 
 constructor TVBScriptPreviewHandler.Create(AParent: TWinControl);
 begin
   inherited Create(AParent);
   try
-    if IsWindow(AParent.Handle) then
+    if IsWindow(TWinControlClass(AParent).WindowHandle) then
     begin
       Editor := TFrmEditor.Create(AParent);
       Editor.Parent := AParent;

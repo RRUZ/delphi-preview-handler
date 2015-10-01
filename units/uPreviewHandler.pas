@@ -105,7 +105,6 @@ uses
     Graphics,
     ExtCtrls,
     uMisc,
-    Dialogs,
     uLogExcept,
     uPreviewHandlerRegister;
 

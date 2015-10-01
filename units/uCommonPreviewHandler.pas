@@ -76,16 +76,12 @@ end;
 {$IFDEF USE_TStreamPreviewHandler}
 procedure TBasePreviewHandler.DoPreview(Stream: TIStreamAdapter);
 begin
-    TLogException.Add('0');
   try
-    TLogException.Add('1');
+    TLogException.Add('DoPreview '+Self.ClassName);
     if IsWindow(Editor.Handle) then
     begin
-    TLogException.Add('2');
       Editor.Visible:=True;
-    TLogException.Add('3');
       Editor.SynEdit1.Lines.LoadFromStream(Stream);
-    TLogException.Add('4');
     end;
   except
     on E: Exception do
@@ -97,6 +93,7 @@ end;
 procedure TBasePreviewHandler.DoPreview(const FilePath: string);
 begin
   try
+    TLogException.Add('DoPreview '+Self.ClassName);
     if IsWindow(Editor.Handle) then
     begin
       Editor.Visible:=True;
@@ -117,10 +114,14 @@ When this method is called, stop any rendering, release any resources allocated 
 Once this method is called, the handler must be reinitialized before any attempt to call IPreviewHandler::DoPreview again.
 }
 
+type
+ TWinControlClass = class(TWinControl);
+
 procedure TBasePreviewHandler.Unload;
 begin
   try
-    if IsWindow(Editor.Handle) then
+    TLogException.Add('Unload '+Self.ClassName);
+    if IsWindow(TWinControlClass(Editor).WindowHandle) then
     begin
      Editor.Visible:=False;
      Editor.SynEdit1.Lines.Clear;

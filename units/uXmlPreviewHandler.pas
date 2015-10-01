@@ -82,12 +82,15 @@ begin
     end;
 end;
 
+type
+ TWinControlClass = class(TWinControl);
+
 constructor TXmlPreviewHandler.Create(AParent: TWinControl);
 begin
   inherited Create(AParent);
   //ReportMemoryLeaksOnShutdown:=True;
   try
-    if IsWindow(AParent.Handle) then
+    if IsWindow(TWinControlClass(AParent).WindowHandle) then
     begin
       Editor := TFrmEditor.Create(AParent);
       Editor.Parent := AParent;

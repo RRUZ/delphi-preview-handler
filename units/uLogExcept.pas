@@ -24,10 +24,10 @@ unit uLogExcept;
 interface
 
 Uses
- Classes;
+ System.Classes;
 
 type
-  TLogException=class
+  TLogException = class
   private
     FLogStream: TStream;
   public
@@ -38,15 +38,14 @@ type
 
 implementation
 
-//
 uses
   SysUtils,
   IOUtils;
-//
-{ TLogExpections }
+
+{ TLogException }
 class procedure TLogException.Add(const StrException: string);
 begin
-  TFile.AppendAllText('C:\Users\RRUZ\AppData\Local\Temp\shell.log', FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + StrException);
+  TFile.AppendAllText('C:\Users\RRUZ\AppData\Local\Temp\shell.log', FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + StrException + sLineBreak);
 end;
 
 end.

@@ -51,7 +51,6 @@ implementation
 
 uses
   Math,
-  Dialogs,
   StrUtils,
   SysUtils,
   ShlObj,
@@ -156,7 +155,6 @@ begin
     Exit;
 
     ComServer.GetRegRootAndPrefix(RootKey, RootPrefix);
-    //ShowMessage(RootPrefix);
     RootUserReg      := IfThen(ComServer.PerUserRegistration, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE);
     sClassID      := SysUtils.GUIDToString(ClassID);
     ProgID        := GetProgID;
@@ -169,7 +167,6 @@ begin
       CreateRegKey(Format('%sCLSID\%s',[RootPrefix,sClassID]), 'AppID', sAppID, RootKey);
       CreateRegKeyDWORD(Format('%sCLSID\%s',[RootPrefix,sClassID]), 'DisableLowILProcessIsolation', 1, RootKey);
 
-      //ShowMessage()
       if ProgID <> '' then
       begin
         //RegPrefix     HKEY_CLASSES_ROOT

@@ -35,7 +35,7 @@ object FrmEditor: TFrmEditor
       object Image1: TImage
         Left = 0
         Top = 0
-        Width = 140
+        Width = 139
         Height = 35
         Align = alClient
         AutoSize = True
@@ -204,7 +204,6 @@ object FrmEditor: TFrmEditor
         OnClick = Image1Click
         ExplicitLeft = 5
         ExplicitTop = 1
-        ExplicitWidth = 139
         ExplicitHeight = 33
       end
     end
