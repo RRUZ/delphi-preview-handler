@@ -102,7 +102,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in %s.Create - Message : %s : Trace %s',
+      TLogPreview.Add(Format('Error in %s.Create - Message : %s : Trace %s',
         [Self.ClassName, E.Message, E.StackTrace]));
   end;
 end;

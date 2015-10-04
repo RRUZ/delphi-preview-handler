@@ -23,11 +23,10 @@ unit uMisc;
 
 interface
 
-function GetAppDataFolder: String;
-function GetDllPath: String;
-procedure MsgBox(const Msg: string);
-function GetTempDirectory: string;
-function GetSpecialFolder(const CSIDL: integer) : string;
+  function GetAppDataFolder: String;
+  function GetDllPath: String;
+  function GetTempDirectory: string;
+  function GetSpecialFolder(const CSIDL: integer) : string;
 
 implementation
 
@@ -36,11 +35,6 @@ uses
  WinApi.Windows,
  Winapi.ShlObj,
  SysUtils;
-
-procedure MsgBox(const Msg: string);
-begin
-  Application.MessageBox(PChar(Msg), 'Information', MB_OK + MB_ICONINFORMATION);
-end;
 
 function GetDllPath: String;
  var

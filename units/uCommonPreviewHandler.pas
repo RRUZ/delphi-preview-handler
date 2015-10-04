@@ -77,7 +77,7 @@ end;
 procedure TBasePreviewHandler.DoPreview(Stream: TIStreamAdapter);
 begin
   try
-    TLogException.Add('DoPreview '+Self.ClassName);
+    TLogPreview.Add('DoPreview '+Self.ClassName);
     if IsWindow(Editor.Handle) then
     begin
       Editor.Visible:=True;
@@ -85,7 +85,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in TBasePreviewHandler.DoPreview(Stream) - Message : %s : Trace %s',
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(Stream) - Message : %s : Trace %s',
         [E.Message, E.StackTrace]));
   end;
 end;
@@ -120,7 +120,7 @@ type
 procedure TBasePreviewHandler.Unload;
 begin
   try
-    TLogException.Add('Unload '+Self.ClassName);
+    TLogPreview.Add('Unload '+Self.ClassName);
     if IsWindow(TWinControlClass(Editor).WindowHandle) then
     begin
      Editor.Visible:=False;
@@ -129,7 +129,7 @@ begin
     inherited;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in TBasePreviewHandler.Unload - Message : %s : Trace %s',
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.Unload - Message : %s : Trace %s',
         [E.Message, E.StackTrace]));
   end;
 end;

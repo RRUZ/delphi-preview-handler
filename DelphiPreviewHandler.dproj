@@ -192,7 +192,7 @@
                     <VersionInfo Name="MajorVer">1</VersionInfo>
                     <VersionInfo Name="MinorVer">0</VersionInfo>
                     <VersionInfo Name="Release">1</VersionInfo>
-                    <VersionInfo Name="Build">232</VersionInfo>
+                    <VersionInfo Name="Build">235</VersionInfo>
                     <VersionInfo Name="Debug">False</VersionInfo>
                     <VersionInfo Name="PreRelease">False</VersionInfo>
                     <VersionInfo Name="Special">False</VersionInfo>
@@ -204,7 +204,7 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">1.0.1.232</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.1.235</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName"/>
                     <VersionInfoKeys Name="LegalCopyright"/>
                     <VersionInfoKeys Name="LegalTrademarks"/>
@@ -256,6 +256,7 @@ Email Address="theroadtodelphi@gmail.com"
 Email Object="Bug in the delphi preview handler"
 Encrypt Password=""
 Errors Number=32
+InjectCode=1
 InjectInfo=1
 InjectOptions=1
 loCatchLeaks=0

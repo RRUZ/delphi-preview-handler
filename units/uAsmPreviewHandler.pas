@@ -95,7 +95,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in TAsmPreviewHandler.Create - Message : %s : Trace %s',
+      TLogPreview.Add(Format('Error in TAsmPreviewHandler.Create - Message : %s : Trace %s',
         [E.Message, E.StackTrace]));
   end;
 end;

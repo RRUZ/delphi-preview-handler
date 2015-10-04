@@ -137,6 +137,23 @@ procedure TPreviewHandlerRegister.UpdateRegistry(Register: Boolean);
       if Status <> 0 then raise EOleRegistrationError.CreateRes(@SCreateRegKeyError);
     end;
 
+    procedure CreateRegKeyREG_SZ(const Key, ValueName : string;Value : string; RootKey: HKEY);
+    var
+      Handle: HKey;
+      Status, Disposition: Integer;
+    begin
+      Status := RegCreateKeyEx(RootKey, PChar(Key), 0, '',
+        REG_OPTION_NON_VOLATILE, KEY_READ or KEY_WRITE, nil, Handle,
+        @Disposition);
+      if Status = 0 then
+      begin
+        Status := RegSetValueEx(Handle, PChar(ValueName), 0, REG_SZ,
+          PChar(Value), (Length(Value) + 1)* sizeof(char));
+        RegCloseKey(Handle);
+      end;
+      if Status <> 0 then raise EOleRegistrationError.CreateRes(@SCreateRegKeyError);
+    end;
+
 const
   Prevhost_32 = '{534A1E02-D58F-44f0-B58B-36CBED287C7C}';
   Prevhost_64 = '{6d2b5079-2f0b-48dd-ab7f-97cec514d30b}';
@@ -153,7 +170,7 @@ begin
 
   if Instancing = ciInternal then
     Exit;
-
+          test
     ComServer.GetRegRootAndPrefix(RootKey, RootPrefix);
     RootUserReg      := IfThen(ComServer.PerUserRegistration, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE);
     sClassID      := SysUtils.GUIDToString(ClassID);
@@ -164,8 +181,9 @@ begin
     begin
       inherited UpdateRegistry(True);
 
-      CreateRegKey(Format('%sCLSID\%s',[RootPrefix,sClassID]), 'AppID', sAppID, RootKey);
-      CreateRegKeyDWORD(Format('%sCLSID\%s',[RootPrefix,sClassID]), 'DisableLowILProcessIsolation', 1, RootKey);
+      CreateRegKey(Format('%sCLSID\%s',[RootPrefix, sClassID]), 'AppID', sAppID, RootKey);
+      CreateRegKeyDWORD(Format('%sCLSID\%s',[RootPrefix, sClassID]), 'DisableLowILProcessIsolation', 1, RootKey);
+      CreateRegKeyREG_SZ(Format('%sCLSID\%s',[RootPrefix, sClassID]), 'DllSurrogate', '%SystemRoot%\system32\prevhost.exe', RootKey);
 
       if ProgID <> '' then
       begin

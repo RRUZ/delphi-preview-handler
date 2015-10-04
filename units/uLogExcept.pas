@@ -24,28 +24,41 @@ unit uLogExcept;
 interface
 
 Uses
+ System.SysUtils,
  System.Classes;
 
 type
-  TLogException = class
+  TLogPreview = class
   private
     FLogStream: TStream;
   public
     property LogStream : TStream read FLogStream write FLogStream;
-    class procedure Add(const StrException :string);
+    class procedure Add(const AMessage :string); overload;
+    class procedure Add(const AException : Exception); overload;
   end;
 
 
 implementation
 
 uses
-  SysUtils,
+  uMisc,
   IOUtils;
 
+var
+ sLogFile : string;
 { TLogException }
-class procedure TLogException.Add(const StrException: string);
+class procedure TLogPreview.Add(const AMessage: string);
 begin
-  TFile.AppendAllText('C:\Users\RRUZ\AppData\Local\Temp\shell.log', FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + StrException + sLineBreak);
+  TFile.AppendAllText(sLogFile, FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + AMessage + sLineBreak);
 end;
+
+class procedure TLogPreview.Add(const AException :Exception);
+begin
+  TFile.AppendAllText(sLogFile, Format('%s %s StackTrace %s %s', [FormatDateTime('hh:nn:ss.zzz', Now), AException.Message, AException.StackTrace, sLineBreak]));
+end;
+
+initialization
+
+ sLogFile := IncludeTrailingPathDelimiter(GetTempDirectory)+'shell.log';
 
 end.

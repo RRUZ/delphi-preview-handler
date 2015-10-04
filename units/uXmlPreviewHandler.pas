@@ -88,7 +88,6 @@ type
 constructor TXmlPreviewHandler.Create(AParent: TWinControl);
 begin
   inherited Create(AParent);
-  //ReportMemoryLeaksOnShutdown:=True;
   try
     if IsWindow(TWinControlClass(AParent).WindowHandle) then
     begin
@@ -103,8 +102,8 @@ begin
     end;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in TXmlPreviewHandler.Create - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in %s.Create - Message : %s : Trace %s',
+        [Self.ClassName, E.Message, E.StackTrace]));
   end;
 end;
 

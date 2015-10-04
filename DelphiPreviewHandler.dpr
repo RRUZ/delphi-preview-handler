@@ -23,8 +23,12 @@
 library DelphiPreviewHandler;
 
 uses
+  EMemLeaks,
+  EResLeaks,
+  ESendMailSMAPI,
   EMapWin32,
   EAppDLL,
+  ExceptionLog7,
   ComServ,
   Main in 'Main.pas',
   uEditor in 'units\uEditor.pas' {FrmEditor},

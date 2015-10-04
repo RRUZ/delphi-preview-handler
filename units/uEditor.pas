@@ -113,6 +113,7 @@ var
 implementation
 
 uses
+  uLogExcept,
   System.Types,
   Registry, uMisc, IOUtils, ShellAPI, ComObj, IniFiles, GraphUtil;
 
@@ -120,8 +121,8 @@ const
   sThemesExt          ='.theme.xml';
   sSettingsLocation   ='DelphiPreviewHandler';
   sDefaultThemeName   ='nightfall.theme.xml';
-  MaxfontSize =30;
-  MinfontSize =8;
+  MaxfontSize = 30;
+  MinfontSize = 8;
 
 {$R *.dfm}
 
@@ -218,11 +219,11 @@ var
 begin
    Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
    try
-     FPathThemes    := Settings.ReadString('Global','ThemesPath','Themes');
+     FPathThemes    := Settings.ReadString('Global', 'ThemesPath', 'Themes');
      FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
      FPathThemes    := ExcludeTrailingPathDelimiter(FPathThemes);
-     FThemeName     := Settings.ReadString('Global','ThemeFile',sDefaultThemeName);
-     SynEdit1.Font.Size :=Settings.ReadInteger('Global','FontSize',10);
+     FThemeName     := Settings.ReadString('Global', 'ThemeFile', sDefaultThemeName);
+     SynEdit1.Font.Size :=Settings.ReadInteger('Global', 'FontSize',10);
    finally
      Settings.Free;
    end;
@@ -260,14 +261,14 @@ begin
       //Settings.RootKey:=HKEY_CURRENT_USER;
       //if Settings.OpenKey('\Software\'+sSettingsLocation,true) then
       try
-       Settings.WriteString('Global','ThemeFile',Theme+sThemesExt);
-       Settings.WriteInteger('Global','FontSize',SynEdit1.Font.Size);
+       Settings.WriteString('Global', 'ThemeFile', Theme+sThemesExt);
+       Settings.WriteInteger('Global', 'FontSize', SynEdit1.Font.Size);
       finally
        Settings.Free;
       end;
     except
       on E: Exception do
-        MsgBox(Format('Error in TFrmEditor.Save - Message : %s : Trace %s',
+        TLogPreview.Add(Format('Error in TFrmEditor.Save - Message : %s : Trace %s',
           [E.Message, E.StackTrace]));
     end;
   end;
@@ -279,11 +280,11 @@ var
 begin
    Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
    try
-     FPathThemes    := Settings.ReadString('Global','ThemesPath','Themes');
+     FPathThemes    := Settings.ReadString('Global', 'ThemesPath', 'Themes');
      FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
      FPathThemes    := ExcludeTrailingPathDelimiter(FPathThemes);
-     FThemeName     := Settings.ReadString('Global','ThemeFile',sDefaultThemeName);
-     SynEdit1.Font.Size :=Settings.ReadInteger('Global','FontSize',10);
+     FThemeName     := Settings.ReadString('Global', 'ThemeFile',sDefaultThemeName);
+     SynEdit1.Font.Size :=Settings.ReadInteger('Global', 'FontSize',10);
    finally
      Settings.Free;
    end;

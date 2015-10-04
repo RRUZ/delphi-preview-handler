@@ -111,13 +111,16 @@ uses
 
 destructor TComPreviewHandler.Destroy;
 begin
+  TLogPreview.Add('Destroy Init');
   FPreviewHandler.Free;
   FContainer.Free;
   inherited Destroy;
+  TLogPreview.Add('Destroy Done');
 end;
 
 procedure TComPreviewHandler.CheckContainer;
 begin
+  TLogPreview.Add('CheckContainer Init');
   if (FContainer = nil) and IsWindow(FParentWindow) then
   begin
     FContainer := TPreviewContainer.Create(nil);
@@ -126,15 +129,18 @@ begin
     FContainer.Visible:=True;
     FContainer.SetBoundsRect(FBounds);
   end;
+  TLogPreview.Add('CheckContainer Done');
 end;
 
 procedure TComPreviewHandler.CheckPreviewHandler;
 begin
+  TLogPreview.Add('CheckPreviewHandler Init');
   if FPreviewHandler = nil then
   begin
     CheckContainer;
     FPreviewHandler := PreviewHandlerClass.Create(Container);
   end;
+  TLogPreview.Add('CheckPreviewHandler Done');
 end;
 
 function TComPreviewHandler.ContextSensitiveHelp(fEnterMode: LongBool): HRESULT;
@@ -144,6 +150,7 @@ end;
 
 function TComPreviewHandler.GetSite(const riid: TGUID; out site: IInterface): HRESULT;
 begin
+  TLogPreview.Add('GetSite Init');
   site := nil;
   if FSite = nil then
     result := E_FAIL
@@ -152,10 +159,12 @@ begin
     result := S_OK
   else
     result := E_NOINTERFACE;
+  TLogPreview.Add('GetSite Done');
 end;
 
 function TComPreviewHandler.GetWindow(out wnd: HWND): HRESULT;
 begin
+  TLogPreview.Add('GetWindow Init');
   if Container = nil then
   begin
     result := E_FAIL;
@@ -165,36 +174,44 @@ begin
     wnd := Container.Handle;
     result := S_OK;
   end;
+  TLogPreview.Add('GetWindow Done');
 end;
 
 function TComPreviewHandler.IPreviewHandler_DoPreview: HRESULT;
 begin
+  TLogPreview.Add('IPreviewHandler_DoPreview Init');
   try
     CheckPreviewHandler;
     InternalDoPreview;
   except
     on E: Exception do
-      TLogException.Add(Format('Error in TComPreviewHandler.IPreviewHandler_DoPreview - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TComPreviewHandler.IPreviewHandler_DoPreview - Message : %s : Trace %s', [E.Message, E.StackTrace]));
   end;
   Result := S_OK;
+  TLogPreview.Add('IPreviewHandler_DoPreview Done');
 end;
 
 function TComPreviewHandler.QueryFocus(var phwnd: HWND): HRESULT;
 begin
+  TLogPreview.Add('QueryFocus Init');
   phwnd := GetFocus;
   Result := S_OK;
+  TLogPreview.Add('QueryFocus Done');
 end;
 
 function TComPreviewHandler.SetBackgroundColor(color: Cardinal): HRESULT;
 begin
+  TLogPreview.Add('SetBackgroundColor Init');
   FBackgroundColor := color;
   if Container <> nil then
     Container.SetBackgroundColor(FBackgroundColor);
   Result := S_OK;
+  TLogPreview.Add('SetBackgroundColor Done');
 end;
 
 function TComPreviewHandler.SetFocus: HRESULT;
 begin
+  TLogPreview.Add('SetFocus Init');
   if Container <> nil then
   begin
     if GetKeyState(VK_SHIFT) < 0 then
@@ -203,41 +220,51 @@ begin
       Container.SetFocusTabFirst;
   end;
   Result := S_OK;
+  TLogPreview.Add('SetFocus Done');
 end;
 
 function TComPreviewHandler.SetFont(const plf: TLogFont): HRESULT;
 begin
+  TLogPreview.Add('SetFont Init');
   FLogFont := plf;
   if Container <> nil then
     Container.SetTextFont(FLogFont);
   Result := S_OK;
+  TLogPreview.Add('SetFont Done');
 end;
 
 function TComPreviewHandler.SetRect(var prc: TRect): HRESULT;
 begin
+  TLogPreview.Add('SetRect Init');
   FBounds := prc;
   if Container <> nil then
     Container.SetBoundsRect(FBounds);
   Result := S_OK;
+  TLogPreview.Add('SetRect Done');
 end;
 
 function TComPreviewHandler.SetSite(const pUnkSite: IInterface): HRESULT;
 begin
+  TLogPreview.Add('SetSite Init');
   FSite := PUnkSite;
   FPreviewHandlerFrame := FSite as IPreviewHandlerFrame;
   result := S_OK;
+  TLogPreview.Add('SetSite Done');
 end;
 
 function TComPreviewHandler.SetTextColor(color: Cardinal): HRESULT;
 begin
+  TLogPreview.Add('SetTextColor Init');
   FTextColor := color;
   if Container <> nil then
     Container.SetTextColor(FTextColor);
   Result := S_OK;
+  TLogPreview.Add('SetTextColor Done');
 end;
 
 function TComPreviewHandler.SetWindow(hwnd: HWND; var prc: TRect): HRESULT;
 begin
+  TLogPreview.Add('SetWindow Init');
   FParentWindow := hwnd;
   FBounds := prc;
   if Container <> nil then
@@ -246,6 +273,7 @@ begin
     Container.SetBoundsRect(FBounds);
   end;
   Result := S_OK;
+  TLogPreview.Add('SetWindow Done');
 end;
 
 function TComPreviewHandler.TranslateAccelerator(var pmsg: tagMSG): HRESULT;
@@ -258,10 +286,12 @@ end;
 
 function TComPreviewHandler.Unload: HRESULT;
 begin
+  TLogPreview.Add('Unload Init');
   if PreviewHandler <> nil then
     PreviewHandler.Unload;
   InternalUnload;
   result := S_OK;
+  TLogPreview.Add('Unload Done');
 end;
 
 constructor TPreviewHandler.Create(AParent: TWinControl);
@@ -271,7 +301,9 @@ end;
 
 class procedure TPreviewHandler.RegisterExtentions(const AClassID: TGUID; const AName, ADescription: string;Extensions:array of string);
 begin
+  TLogPreview.Add('RegisterExtentions Init');
   TPreviewHandlerRegister.Create(Self, AClassID, AName, ADescription, Extensions);
+  TLogPreview.Add('RegisterExtentions Done');
 end;
 
 procedure TPreviewHandler.Unload;
