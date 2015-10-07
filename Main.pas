@@ -141,7 +141,7 @@ initialization
 
   //Ruby Files (*.rb;*.rbw)|*.rb;*.rbw
   TRubyPreviewHandler.RegisterExtentions(GUID_RubyPreviewHandler, 'Delphi.Ruby.PreviewHandler', 'Delphi Ruby Preview Handler',
-  ['.rb', '*.rbw']);
+  ['.rb', '.rbw']);
 
   //UNIX Shell Scripts (*.sh)|*.sh
   TUnixPreviewHandler.RegisterExtentions(GUID_UnixPreviewHandler, 'Delphi.Unix.PreviewHandler', 'Delphi Unix Preview Handler',
