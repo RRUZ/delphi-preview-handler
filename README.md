@@ -32,21 +32,21 @@ Extensions | Description
 
 [![](https://dl.dropboxusercontent.com/u/12733424/Images/followrruz.png)](https://twitter.com/RRUZ)
 
-## Features ##
+### Features ###
 <ul>
 <li>Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.</li>
 <li>+50 themes included to see your code with style</li>
 <li>Themes compatibles with the <a href='https://github.com/RRUZ/delphi-ide-theme-editor'>Delphi IDE Theme Editor</a></li>
 </ul>
 
-## Screenshots ##
+### Screenshots ###
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/1.png' />
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/2.png' />
 <img src='https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/3.png' />
 
 <a href='http://www.youtube.com/watch?feature=player_embedded&v=kFvSC7MTdcQ' target='_blank'><img src='http://img.youtube.com/vi/kFvSC7MTdcQ/0.jpg' width='425' height=344 /></a><br>
 
-## Important Note about installing  a new version ##
+### Important Note about installing a new version ###
 In order to avoid problems you must follow these steps when you install or register a new version of the preview handler.
 
   1. Close all the windows explorer instances which have the preview handler active or the preview handler was used (remember the dll remains in memory until the windows explorer was closed).
@@ -55,7 +55,8 @@ In order to avoid problems you must follow these steps when you install or regis
   4. Now proceed with the installation of the new version.
 
 
-## Downloads ##
+### Installer ###
 
-* <strike>Download the Binaries of the Delphi Preview Handler from here.</strike>
-* <a href='http://goo.gl/e3qqnr'>Installer</a>
+[![](https://dl.dropboxusercontent.com/u/12733424/github/buttons/DownloadSite1.png)](http://goo.gl/e3qqnr)
+[![](https://dl.dropboxusercontent.com/u/12733424/github/buttons/DownloadSite2.png)](https://drive.google.com/file/d/0B7KzPH8HQCZNZkpQUHlWU1lCQVU/view?usp=sharing)
+
