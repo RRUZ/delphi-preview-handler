@@ -83,6 +83,7 @@ type
     SynSQLSyn1: TSynSQLSyn;
     SynInnoSyn1: TSynInnoSyn;
     SynIniSyn1: TSynIniSyn;
+    ToolButton1: TToolButton;
     procedure ComboBoxThemesChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -199,7 +200,7 @@ end;
 
 procedure TFrmEditor.Image1Click(Sender: TObject);
 begin
-  ShellExecute(Handle, 'open', 'http://theroadtodelphi.wordpress.com',nil,nil, SW_SHOWNORMAL) ;
+  ShellExecute(Handle, 'open', 'https://github.com/RRUZ/delphi-preview-handler', nil, nil, SW_SHOWNORMAL) ;
 end;
 
 procedure TFrmEditor.FillThemes;
@@ -225,14 +226,14 @@ end;
 procedure TFrmEditor.FormCreate(Sender: TObject);
 var
   Settings : TIniFile;
-  i : integer;
+//  i : integer;
 begin
    Application.OnException := AppException;
 
    TLogPreview.Add('FormCreate');
-   TLogPreview.Add(Format('Forms %d', [Screen.FormCount]));
-    for i:=0 to Screen.FormCount-1 do
-      TLogPreview.Add(Format('  %s', [Screen.Forms[i].ClassName]));
+//   TLogPreview.Add(Format('Forms %d', [Screen.FormCount]));
+//    for i:=0 to Screen.FormCount-1 do
+//      TLogPreview.Add(Format('  %s', [Screen.Forms[i].ClassName]));
 
 
    Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');

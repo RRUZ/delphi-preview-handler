@@ -300,11 +300,11 @@ begin
   inherited Create;
 end;
 
-class procedure TPreviewHandler.RegisterExtentions(const AClassID: TGUID; const AName, ADescription: string;Extensions:array of string);
+class procedure TPreviewHandler.RegisterExtentions(const AClassID: TGUID; const AName, ADescription: string; Extensions:array of string);
 begin
-  TLogPreview.Add('RegisterExtentions Init');
+  TLogPreview.Add('RegisterExtentions Init ' + AName);
   TPreviewHandlerRegister.Create(Self, AClassID, AName, ADescription, Extensions);
-  TLogPreview.Add('RegisterExtentions Done');
+  TLogPreview.Add('RegisterExtentions Done ' + AName);
 end;
 
 procedure TPreviewHandler.Unload;

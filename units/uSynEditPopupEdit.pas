@@ -182,7 +182,7 @@ Var
   MenuItem : TMenuItem;
 begin
   SynEdit.TSynEdit(Self).PopupMenu:=Value;
-  if CompareText(MenuName,Value.Name)<>0 then
+  if CompareText(MenuName, Value.Name)<>0 then
   begin
    MenuItem:=TMenuItem.Create(Value);
    MenuItem.Caption:='-';
