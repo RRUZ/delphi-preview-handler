@@ -1,0 +1,357 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{A7720B18-DCA6-4C4E-A2FE-E3BED8AC85E5}</ProjectGuid>
+        <ProjectVersion>14.6</ProjectVersion>
+        <MainSource>DelphiPreviewHandler.dpr</MainSource>
+        <Basis>True</Basis>
+        <Config Condition="'$(Config)'==''">Release</Config>
+        <AppType>Library</AppType>
+        <FrameworkType>None</FrameworkType>
+        <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+        <Base>True</Base>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <TargetedPlatforms>3</TargetedPlatforms>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Base)'=='true') or '$(Base_Win32)'!=''">
+        <Base_Win32>true</Base_Win32>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Base)'=='true') or '$(Base_Win64)'!=''">
+        <Base_Win64>true</Base_Win64>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+        <Cfg_1>true</Cfg_1>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_1)'=='true') or '$(Cfg_1_Win32)'!=''">
+        <Cfg_1_Win32>true</Cfg_1_Win32>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+        <Cfg_2>true</Cfg_2>
+        <CfgParent>Base</CfgParent>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Build>190</VerInfo_Build>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;System.Win;Winapi;Vcl;Vcl.Imaging;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
+        <VerInfo_Keys>CompanyName=the Road To Delphi;FileDescription=Delphi Preview Handler;FileVersion=1.0.1.190;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=Go Delphi Go</VerInfo_Keys>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Release>1</VerInfo_Release>
+        <DCC_UsePackage>rtl;vcl;vclx;vclactnband;xmlrtl;VclSmp;vclimg;svnui;svn;bdertl;TeeUI;TeeDB;Tee;vcldb;dbrtl;vcldbx;vcltouch;dsnap;dsnapcon;vclib;ibxpress;adortl;IndyCore;IndySystem;IndyProtocols;inet;intrawebdb_110_150;Intraweb_110_150;vclie;websnap;webdsnap;inetdb;inetdbbde;inetdbxpress;soaprtl;vclribbon;dbexpress;DbxCommonDriver;DataSnapIndy10ServerTransport;DataSnapProviderClient;DbxClientDriver;DataSnapClient;dbxcds;DataSnapServer;AzureCloud;DBXInterBaseDriver;DBXMySQLDriver;DBXFirebirdDriver;DBXSybaseASEDriver;DBXSybaseASADriver;DBXOracleDriver;DBXMSSQLDriver;DBXInformixDriver;DBXDb2Driver;Hydra_Core_D15;SynEdit_RXE;mbColorLibDXE;JclDeveloperTools;Jcl;JclVcl;JclContainers;JvCore;JvSystem;JvStdCtrls;JvAppFrm;JvBands;JvDB;JvDlgs;JvBDE;JvControls;JvCmp;JvCrypt;JvCustom;JvDocking;JvDotNetCtrls;JvGlobus;JvHMI;JvJans;JvManagedThreads;JvMM;JvNet;JvPageComps;JvPascalInterpreter;JvPluginSystem;JvPrintPreview;JvRuntimeDesign;JvTimeFramework;JvWizards;JvXPCtrls;WinSkinDXE;bsfd2011;IceTabSet;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_DcuOutput>.\$(Config)\$(Platform)</DCC_DcuOutput>
+        <GenDll>true</GenDll>
+        <DCC_ImageBase>00400000</DCC_ImageBase>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <Icon_MainIcon>DelphiPreviewHandler_Icon2.ico</Icon_MainIcon>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <Debugger_RunParams>TcPreviewHandler.dll /u</Debugger_RunParams>
+        <Debugger_HostApplication>C:\Windows\System32\regsvr32.exe</Debugger_HostApplication>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Debugger_CWD>c:\temp</Debugger_CWD>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <Icon_MainIcon>DelphiPreviewHandler_Icon2.ico</Icon_MainIcon>
+        <DCC_Namespace>Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1)'!=''">
+        <DCC_MapFile>3</DCC_MapFile>
+        <DCC_RangeChecking>true</DCC_RangeChecking>
+        <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+        <DCC_Define>DEBUG;EUREKALOG;EUREKALOG_VER6;$(DCC_Define)</DCC_Define>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_Define>EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2)'!=''">
+        <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+        <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+        <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+        <DCC_DebugInformation>false</DCC_DebugInformation>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <DCC_ExeOutput>.\..</DCC_ExeOutput>
+        <VerInfo_Release>5</VerInfo_Release>
+        <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_DebugInformation>true</DCC_DebugInformation>
+        <DCC_MapFile>3</DCC_MapFile>
+        <VerInfo_Build>4</VerInfo_Build>
+        <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.3.5.4;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <DCC_DebugInformation>true</DCC_DebugInformation>
+        <DCC_MapFile>3</DCC_MapFile>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+    </PropertyGroup>
+    <ItemGroup>
+        <DelphiCompile Include="$(MainSource)">
+            <MainSource>MainSource</MainSource>
+        </DelphiCompile>
+        <DCCReference Include="Main.pas"/>
+        <DCCReference Include="uEditor.pas">
+            <Form>FrmEditor</Form>
+        </DCCReference>
+        <DCCReference Include="uPreviewHandler.pas"/>
+        <DCCReference Include="uMisc.pas"/>
+        <DCCReference Include="uStreamPreviewHandler.pas"/>
+        <DCCReference Include="uFilePreviewHandler.pas"/>
+        <DCCReference Include="uPreviewHandlerRegister.pas"/>
+        <DCCReference Include="uPreviewContainer.pas">
+            <Form>PreviewContainer</Form>
+        </DCCReference>
+        <DCCReference Include="uPascalPreviewHandler.pas"/>
+        <DCCReference Include="uXmlPreviewHandler.pas"/>
+        <DCCReference Include="uCppPreviewHandler.pas"/>
+        <DCCReference Include="uAsmPreviewHandler.pas"/>
+        <DCCReference Include="uDelphiIDEHighlight.pas"/>
+        <DCCReference Include="uDelphiVersions.pas"/>
+        <DCCReference Include="uRegistry.pas"/>
+        <DCCReference Include="uStackTrace.pas"/>
+        <DCCReference Include="uSynEditPopupEdit.pas"/>
+        <DCCReference Include="uLogExcept.pas"/>
+        <DCCReference Include="uCommonPreviewHandler.pas"/>
+        <DCCReference Include="uEiffelPreviewHandler.pas"/>
+        <DCCReference Include="uFortranPreviewHandler.pas"/>
+        <DCCReference Include="uJavaPreviewHandler.pas"/>
+        <DCCReference Include="uVBPreviewHandler.pas"/>
+        <DCCReference Include="uCobolPreviewHandler.pas"/>
+        <DCCReference Include="uCSharpPreviewHandler.pas"/>
+        <DCCReference Include="uCSSPreviewHandler.pas"/>
+        <DCCReference Include="uHTMLPreviewHandler.pas"/>
+        <DCCReference Include="uJScriptPreviewHandler.pas"/>
+        <DCCReference Include="uPhpPreviewHandler.pas"/>
+        <DCCReference Include="uVBScriptPreviewHandler.pas"/>
+        <DCCReference Include="uBatPreviewHandler.pas"/>
+        <DCCReference Include="uDfmPreviewHandler.pas"/>
+        <DCCReference Include="uPerlPreviewHandler.pas"/>
+        <DCCReference Include="uPythonPreviewHandler.pas"/>
+        <DCCReference Include="uRubyPreviewHandler.pas"/>
+        <DCCReference Include="uUnixPreviewHandler.pas"/>
+        <DCCReference Include="uSqlPreviewHandler.pas"/>
+        <DCCReference Include="uInnoPreviewHandler.pas"/>
+        <DCCReference Include="uIniPreviewHandler.pas"/>
+        <BuildConfiguration Include="Release">
+            <Key>Cfg_2</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Base">
+            <Key>Base</Key>
+        </BuildConfiguration>
+        <BuildConfiguration Include="Debug">
+            <Key>Cfg_1</Key>
+            <CfgParent>Base</CfgParent>
+        </BuildConfiguration>
+    </ItemGroup>
+    <Import Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')" Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+    <Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
+    <ProjectExtensions>
+        <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Delphi.Personality>
+                <Source>
+                    <Source Name="MainSource">DelphiPreviewHandler.dpr</Source>
+                </Source>
+                <VersionInfo>
+                    <VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+                    <VersionInfo Name="AutoIncBuild">True</VersionInfo>
+                    <VersionInfo Name="MajorVer">1</VersionInfo>
+                    <VersionInfo Name="MinorVer">0</VersionInfo>
+                    <VersionInfo Name="Release">1</VersionInfo>
+                    <VersionInfo Name="Build">260</VersionInfo>
+                    <VersionInfo Name="Debug">False</VersionInfo>
+                    <VersionInfo Name="PreRelease">False</VersionInfo>
+                    <VersionInfo Name="Special">False</VersionInfo>
+                    <VersionInfo Name="Private">False</VersionInfo>
+                    <VersionInfo Name="DLL">False</VersionInfo>
+                    <VersionInfo Name="Locale">1033</VersionInfo>
+                    <VersionInfo Name="CodePage">1252</VersionInfo>
+                </VersionInfo>
+                <VersionInfoKeys>
+                    <VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.1.260</VersionInfoKeys>
+                    <VersionInfoKeys Name="InternalName"/>
+                    <VersionInfoKeys Name="LegalCopyright"/>
+                    <VersionInfoKeys Name="LegalTrademarks"/>
+                    <VersionInfoKeys Name="OriginalFilename"/>
+                    <VersionInfoKeys Name="ProductName"/>
+                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+                    <VersionInfoKeys Name="Comments">Go Delphi Go</VersionInfoKeys>
+                </VersionInfoKeys>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k180.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp180.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k180.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp180.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
+                <Parameters>
+                    <Parameters Name="RunParams">TcPreviewHandler.dll /u</Parameters>
+                    <Parameters Name="HostApplication">C:\Windows\System32\regsvr32.exe</Parameters>
+                    <Parameters Name="DebugCWD">c:\temp</Parameters>
+                </Parameters>
+            </Delphi.Personality>
+            <ActiveXProjectInfo>
+                <version>1</version>
+            </ActiveXProjectInfo>
+            <Platforms>
+                <Platform value="OSX32">False</Platform>
+                <Platform value="Win32">True</Platform>
+                <Platform value="Win64">True</Platform>
+            </Platforms>
+        </BorlandProject>
+        <ProjectFileVersion>12</ProjectFileVersion>
+    </ProjectExtensions>
+</Project>
+
+<!-- EurekaLog First Line
+[Exception Log]
+EurekaLog Version=7001
+Activate=1
+atWin32=1
+AutoCrashOperation=2
+boHandleSafeCallExceptions=1
+boUseMainModuleOptions=1
+csoAllowedRenderMethods=64
+csoShowWindowsThreads=1
+DeleteMapAfterCompile=1
+Dialog Class=""
+dpJCL=1
+Email Address="theroadtodelphi@gmail.com"
+Email Object="Bug in the delphi preview handler"
+Encrypt Password=""
+Errors Number=32
+InjectCode=1
+InjectInfo=1
+InjectOptions=1
+loCatchLeaks=0
+loEnableMMDebugMode=0
+loFreeAllLeaks=1
+loHideRTLLeaks=0
+loMaxLeaks=1024
+loOnlyUnderIDE=0
+loProcessesSection=1
+Output Path=""
+ProjectID="{185A67E1-86DA-4B8C-AB0F-A594B097B1F2}"
+SMTP From="eurekalog@email.com"
+SMTP Host=""
+SMTP UserID=""
+sndAddDateInFileName=0
+sndBugZillaLogin=""
+sndBugZillaPort=0
+sndBugZillaURL=""
+sndFogBugzHost=""
+sndFogBugzLogin=""
+sndFogBugzPort=0
+sndFTPLogin=""
+sndFTPPort=0
+sndFTPURL=""
+sndHTTPPort=0
+sndHTTPURL=""
+sndJIRAHost=""
+sndJIRALogin=""
+sndJIRAPort=0
+sndMantisLogin=""
+sndMantisPort=0
+sndMantisURL=""
+sndMAPISubject="Bug in the delphi preview handler"
+sndMAPITarget="theroadtodelphi@gmail.com"
+sndScreenshot=0
+sndShellRecepient="theroadtodelphi@gmail.com"
+sndShellSubject="Bug in the delphi preview handler"
+sndShowSendDialog=0
+sndShowSuccessBugClosedOnly=0
+sndShowSuccessMsg=0
+sndSMAPISubject="Bug in the delphi preview handler"
+sndSMAPITarget="theroadtodelphi@gmail.com"
+sndSMTPClientFrom="eurekalog@email.com"
+sndSMTPClientHost=""
+sndSMTPClientLogin=""
+sndSMTPClientSubject="Bug in the delphi preview handler"
+sndSMTPClientTarget="theroadtodelphi@gmail.com"
+sndSMTPServerFrom="eurekalog@email.com"
+sndSMTPServerSubject="Bug in the delphi preview handler"
+sndSMTPServerTarget="theroadtodelphi@gmail.com"
+soActCtlsControlClass=1
+soActCtlsControlText=1
+soActCtlsFormClass=1
+soActCtlsFormText=1
+soAppCompilationDate=1
+soAppName=1
+soAppParameters=1
+soAppStartDate=1
+soAppUpTime=1
+soAppVersionNumber=1
+soCmpDisplayDPI=1
+soCmpDisplayMode=1
+soCmpFreeDisk=1
+soCmpFreeMemory=1
+soCmpName=1
+soCmpPrinter=1
+soCmpProcessor=1
+soCmpSysUpTime=1
+soCmpTotalDisk=1
+soCmpTotalMemory=1
+soCmpVideoCard=1
+soCustomData=1
+soExcCount=1
+soExcDate=1
+soExcModuleName=1
+soExcModuleVersion=1
+soExcNote=1
+soExcStatus=1
+soNetDHCP=1
+soNetDNS1=1
+soNetDNS2=1
+soNetGateway=1
+soNetIP=1
+soNetSubmask=1
+soOSBuildN=1
+soOSCharset=1
+soOSLanguage=1
+soOSType=1
+soOSUpdate=1
+soUserCompany=1
+soUserID=1
+soUserPrivileges=1
+TextsCollection=""
+TrakerUser=""
+WebPort=0
+WebURL=""
+EurekaLog Last Line -->

@@ -48,27 +48,27 @@ var
  sLogFile : string;
 
 
-{.$DEFINE ENABLELOG}
+{$DEFINE ENABLELOG}
 
 
-procedure  AppendAllText(const Path, Contents: string);
+procedure  AppendAllText(const FileName, Contents: string);
 {$IFDEF ENABLELOG}
 var
   LFileStream: TFileStream;
-  UTFStr: TBytes;
+  LBuffer: TBytes;
 {$ENDIF}
 begin
 {$IFDEF ENABLELOG}
 
-  if (TFile.Exists(Path)) then
-    LFileStream := TFileStream.Create(Path, fmOpenReadWrite or fmShareDenyNone)
+  if (TFile.Exists(FileName)) then
+    LFileStream := TFileStream.Create(FileName, fmOpenReadWrite or fmShareDenyNone)
   else
-    LFileStream := TFileStream.Create(Path, fmCreate or fmShareDenyNone);
+    LFileStream := TFileStream.Create(FileName, fmCreate or fmShareDenyNone);
 
   try
     LFileStream.Seek(0, soFromEnd);
-    UTFStr := TEncoding.ANSI.GetBytes(Contents);
-    LFileStream.WriteBuffer(UTFStr, Length(UTFStr));
+    LBuffer := TEncoding.ANSI.GetBytes(Contents);
+    LFileStream.WriteBuffer(LBuffer, Length(LBuffer));
   finally
     LFileStream.Free;
   end;
