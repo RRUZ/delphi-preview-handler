@@ -1,12 +1,33 @@
 <img src="https://dl.dropboxusercontent.com/u/12733424/github/delphi-preview-handler/logo.png" alt="" align="left" />
-The **Delphi Preview Handler**, is a <a href='http://msdn.microsoft.com/en-us/magazine/cc163487.aspx'>preview handler</a> for Windows Vista ,7, 8 and 10 which allow you read your object pascal, C++ and Assembly code with Syntax highlighting without open in a editor, this preview handler can render these file extensions
+The **Delphi Preview Handler**, is a <a href='http://msdn.microsoft.com/en-us/magazine/cc163487.aspx'>preview handler</a> for Windows Vista ,7, 8 and 10 which allow you read your source code with Syntax highlighting without open in a editor, this preview handler can render these file extensions
 
 Extensions | Description
 ------------ | -------------
 .pp , .pas, .lpr, .lpk, .lfm, .inc | Free Pascal/Lazarus Files
-.pas, .dpr, .dfm, .dpk, .inc, .dproj, .bdsproj  | Delphi Files
+.pas, .dpr, .dpk, .inc, .dproj, .bdsproj  | Delphi  Files
 .c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu | C and C++ source Files 
 .asm | Assembler source files
+.e, .ace | Eiffel files
+.f, .for | Fortran files
+.java | Java files
+.bas, .vb | Visual Basic files
+.cbl, .cob | COBOL files
+.cs | C# files
+.css | Cascading Stylesheet files
+.htm, .html | HTML Documents
+.js | Javascript files
+.php, .php3, .phtml | PHP files
+.vbs | VBScript files
+.bat, .cmd | MS-DOS Batch Files
+.dfm, .xfm | Borland Form Files
+.pl, .pm, .cgi | Perl Files
+.py | Python files
+.rb, .rbw | Ruby files
+.sh | UNIX Shell Scripts
+.sql | SQL files
+.iss | Inno Setup Scripts
+.ini | INI files
+
 
 
 [![](https://dl.dropboxusercontent.com/u/12733424/Images/followrruz.png)](https://twitter.com/RRUZ)
@@ -16,7 +37,6 @@ Extensions | Description
 <li>Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.</li>
 <li>+50 themes included to see your code with style</li>
 <li>Themes compatibles with the <a href='https://github.com/RRUZ/delphi-ide-theme-editor'>Delphi IDE Theme Editor</a></li>
-<li>Support these file extensions .pp, .lpr, .lfm, .lpk, .inc, .pas, .dpr,.dfm, .dpk,.dproj, .bdsproj,.c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu, .asm.</li>
 </ul>
 
 ## Screenshots ##
