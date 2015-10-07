@@ -170,7 +170,7 @@ begin
 
   if Instancing = ciInternal then
     Exit;
-          test
+
     ComServer.GetRegRootAndPrefix(RootKey, RootPrefix);
     RootUserReg      := IfThen(ComServer.PerUserRegistration, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE);
     sClassID      := SysUtils.GUIDToString(ClassID);
@@ -211,7 +211,8 @@ begin
       begin
         DeleteRegValue('SOFTWARE\Microsoft\Windows\CurrentVersion\PreviewHandlers', sClassID, RootUserReg);
         DeleteRegKey(RootPrefix + ProgID + '\shellex', RootKey);
-        //DeleteRegValue('AppID\'+sClassID,'DllSurrogate',RootKey);
+        DeleteRegValue(Format('%sCLSID\%s',[RootPrefix, sClassID]), 'DllSurrogate', RootKey);
+        DeleteRegValue(Format('%sCLSID\%s',[RootPrefix, sClassID]), 'DisableLowILProcessIsolation', RootKey);
         for i:=0 to FExtensions.Count -1 do
          DeleteRegKey(RootPrefix + FExtensions[i] + '\shellex\' + SID_IPreviewHandler, RootKey);
       end;

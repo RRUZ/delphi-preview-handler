@@ -90,12 +90,14 @@ type
     procedure ToolButtonZommOutClick(Sender: TObject);
     procedure ToolButtonSaveClick(Sender: TObject);
     procedure ToolButtonBugReportClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     FCurrentTheme:  TIDETheme;
     FPathThemes: string;
     FThemeName: string;
     FRefreshSynHighlighter : TProcRefreshSynHighlighter;
     function GetThemeNameFromFile(const FileName:string):string;
+    procedure AppException(Sender: TObject; E: Exception);
   public
     procedure FillThemes;
     procedure LoadTheme;
@@ -173,6 +175,13 @@ end;
 
 { TFrmEditor }
 
+procedure TFrmEditor.AppException(Sender: TObject; E: Exception);
+begin
+  //log unhandled exceptions (TSynEdit, etc)
+  TLogPreview.Add('AppException');
+  TLogPreview.Add(E);
+end;
+
 procedure TFrmEditor.ComboBoxThemesChange(Sender: TObject);
 var
  FileName : string;
@@ -216,14 +225,23 @@ end;
 procedure TFrmEditor.FormCreate(Sender: TObject);
 var
   Settings : TIniFile;
+  i : integer;
 begin
+   Application.OnException := AppException;
+
+   TLogPreview.Add('FormCreate');
+   TLogPreview.Add(Format('Forms %d', [Screen.FormCount]));
+    for i:=0 to Screen.FormCount-1 do
+      TLogPreview.Add(Format('  %s', [Screen.Forms[i].ClassName]));
+
+
    Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
    try
      FPathThemes    := Settings.ReadString('Global', 'ThemesPath', 'Themes');
      FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
      FPathThemes    := ExcludeTrailingPathDelimiter(FPathThemes);
      FThemeName     := Settings.ReadString('Global', 'ThemeFile', sDefaultThemeName);
-     SynEdit1.Font.Size :=Settings.ReadInteger('Global', 'FontSize',10);
+     SynEdit1.Font.Size :=Settings.ReadInteger('Global', 'FontSize', 10);
    finally
      Settings.Free;
    end;
@@ -231,6 +249,11 @@ begin
   FillThemes;
 end;
 
+
+procedure TFrmEditor.FormDestroy(Sender: TObject);
+begin
+   TLogPreview.Add('FormDestroy');
+end;
 
 procedure TFrmEditor.LoadTheme;
 var

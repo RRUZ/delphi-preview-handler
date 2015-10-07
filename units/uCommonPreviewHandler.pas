@@ -71,6 +71,7 @@ Uses
 constructor TBasePreviewHandler.Create(AParent: TWinControl);
 begin
   inherited ;
+  FEditor := nil;
 end;
 
 {$IFDEF USE_TStreamPreviewHandler}
@@ -78,7 +79,7 @@ procedure TBasePreviewHandler.DoPreview(Stream: TIStreamAdapter);
 begin
   try
     TLogPreview.Add('DoPreview '+Self.ClassName);
-    if IsWindow(Editor.Handle) then
+    if (Editor<>nil) and IsWindow(Editor.Handle) then
     begin
       Editor.Visible:=True;
       Editor.SynEdit1.Lines.LoadFromStream(Stream);
@@ -94,7 +95,7 @@ procedure TBasePreviewHandler.DoPreview(const FilePath: string);
 begin
   try
     TLogException.Add('DoPreview '+Self.ClassName);
-    if IsWindow(Editor.Handle) then
+    if Editor<>nil) and IsWindow(Editor.Handle) then
     begin
       Editor.Visible:=True;
       Editor.SynEdit1.Lines.LoadFromFile(FilePath);
@@ -120,13 +121,19 @@ type
 procedure TBasePreviewHandler.Unload;
 begin
   try
-    TLogPreview.Add('Unload '+Self.ClassName);
-    if IsWindow(TWinControlClass(Editor).WindowHandle) then
-    begin
-     Editor.Visible:=False;
-     Editor.SynEdit1.Lines.Clear;
-    end;
+    TLogPreview.Add('Unload  Init '+Self.ClassName);
+//    if IsWindow(TWinControlClass(Editor).WindowHandle) then
+//    begin
+//     Editor.Visible:=False;
+//     Editor.SynEdit1.Lines.Clear;
+//    end;
+//    if Editor<>nil then
+//    begin
+//      Editor.Free;
+//      Editor:=nil;
+//    end;
     inherited;
+    TLogPreview.Add('Unload  Done '+Self.ClassName);
   except
     on E: Exception do
       TLogPreview.Add(Format('Error in TBasePreviewHandler.Unload - Message : %s : Trace %s',

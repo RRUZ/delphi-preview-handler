@@ -46,15 +46,49 @@ uses
 
 var
  sLogFile : string;
+
+
+
+procedure  AppendAllText(const Path, Contents: string);
+var
+  LFileStream: TFileStream;
+  UTFStr: TBytes;
+begin
+  // check if the file exists
+  if (TFile.Exists(Path)) then
+    LFileStream := TFileStream.Create(Path, fmOpenReadWrite or fmShareDenyNone)
+  else
+    LFileStream := TFileStream.Create(Path, fmCreate or fmShareDenyNone);
+
+  try
+    LFileStream.Seek(0, soFromEnd);
+    UTFStr := TEncoding.ANSI.GetBytes(Contents);
+    LFileStream.WriteBuffer(UTFStr, Length(UTFStr));
+  finally
+    // Close the FileStream
+    LFileStream.Free;
+  end;
+end;
+
 { TLogException }
 class procedure TLogPreview.Add(const AMessage: string);
 begin
-  TFile.AppendAllText(sLogFile, FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + AMessage + sLineBreak);
+ try
+  AppendAllText(sLogFile, FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + AMessage + sLineBreak);
+ except
+   on e : EFOpenError do
+   ;
+ end;
 end;
 
 class procedure TLogPreview.Add(const AException :Exception);
 begin
-  TFile.AppendAllText(sLogFile, Format('%s %s StackTrace %s %s', [FormatDateTime('hh:nn:ss.zzz', Now), AException.Message, AException.StackTrace, sLineBreak]));
+ try
+  AppendAllText(sLogFile, Format('%s %s StackTrace %s %s', [FormatDateTime('hh:nn:ss.zzz', Now), AException.Message, AException.StackTrace, sLineBreak]));
+ except
+   on e : EFOpenError do
+   ;
+ end;
 end;
 
 initialization

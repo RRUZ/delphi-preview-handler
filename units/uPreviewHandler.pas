@@ -123,6 +123,7 @@ begin
   TLogPreview.Add('CheckContainer Init');
   if (FContainer = nil) and IsWindow(FParentWindow) then
   begin
+    TLogPreview.Add('ParentWindow '+IntToHex(ParentWindow, 8));
     FContainer := TPreviewContainer.Create(nil);
     FContainer.ParentWindow := FParentWindow;
     FContainer.BorderStyle := bsNone;

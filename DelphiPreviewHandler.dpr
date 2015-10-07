@@ -25,9 +25,9 @@ library DelphiPreviewHandler;
 uses
   EMemLeaks,
   EResLeaks,
-  ESendMailSMAPI,
+  EDebugExports,
+  EDebugJCL,
   EMapWin32,
-  EAppDLL,
   ExceptionLog7,
   ComServ,
   Main in 'Main.pas',

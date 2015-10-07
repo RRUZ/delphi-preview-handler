@@ -192,7 +192,7 @@
                     <VersionInfo Name="MajorVer">1</VersionInfo>
                     <VersionInfo Name="MinorVer">0</VersionInfo>
                     <VersionInfo Name="Release">1</VersionInfo>
-                    <VersionInfo Name="Build">235</VersionInfo>
+                    <VersionInfo Name="Build">257</VersionInfo>
                     <VersionInfo Name="Debug">False</VersionInfo>
                     <VersionInfo Name="PreRelease">False</VersionInfo>
                     <VersionInfo Name="Special">False</VersionInfo>
@@ -204,7 +204,7 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">1.0.1.235</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.1.257</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName"/>
                     <VersionInfoKeys Name="LegalCopyright"/>
                     <VersionInfoKeys Name="LegalTrademarks"/>
@@ -242,7 +242,6 @@
 [Exception Log]
 EurekaLog Version=7001
 Activate=1
-atDLL=1
 atWin32=1
 AutoCrashOperation=2
 boHandleSafeCallExceptions=1
@@ -251,7 +250,7 @@ csoAllowedRenderMethods=64
 csoShowWindowsThreads=1
 DeleteMapAfterCompile=1
 Dialog Class=""
-dpDLLExports=0
+dpJCL=1
 Email Address="theroadtodelphi@gmail.com"
 Email Object="Bug in the delphi preview handler"
 Encrypt Password=""
@@ -268,8 +267,6 @@ loOnlyUnderIDE=0
 loProcessesSection=1
 Output Path=""
 ProjectID="{185A67E1-86DA-4B8C-AB0F-A594B097B1F2}"
-Sender Classes="TELMailSimpleMAPISender"
-seSMAPI=1
 SMTP From="eurekalog@email.com"
 SMTP Host=""
 SMTP UserID=""
