@@ -1,6 +1,6 @@
 //**************************************************************************************************
 //
-// Unit uUnixPreviewHandler
+// Unit uGlobalPreviewHandler
 // unit for the Delphi Preview Handler https://github.com/RRUZ/delphi-preview-handler
 //
 // The contents of this file are subject to the Mozilla Public License Version 1.1 (the "License");
@@ -11,7 +11,7 @@
 // ANY KIND, either express or implied. See the License for the specific language governing rights
 // and limitations under the License.
 //
-// The Original Code is uUnixPreviewHandler.pas.
+// The Original Code is uGlobalPreviewHandler.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
@@ -19,8 +19,7 @@
 //
 //*************************************************************************************************
 
-
-unit uUnixPreviewHandler;
+unit uGlobalPreviewHandler;
 
 interface
 
@@ -34,12 +33,10 @@ uses
   uCommonPreviewHandler,
   uPreviewHandler;
 
-
 const
-  GUID_UnixPreviewHandler: TGUID = '{B8961094-8033-4D5B-AAB3-A6BCC76E0015}';
-
+  GUID_GlobalPreviewHandler: TGUID = '{AD8855FB-F908-4DDF-982C-ADB9DE5FF000}';
 type
-  TUnixPreviewHandler = class(TBasePreviewHandler)
+  TGlobalPreviewHandler = class(TBasePreviewHandler)
   public
     constructor Create(AParent: TWinControl); override;
   end;
@@ -52,48 +49,24 @@ Uses
  uDelphiVersions,
  uLogExcept,
  SynEdit,
- SynHighlighterUNIXShellScript,
  Windows,
  Forms,
  uMisc;
 
-procedure RefreshSynHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
-var
-  DelphiVer : TDelphiVersions;
-begin
-    DelphiVer := DelphiXE;
-    RefreshSynEdit(FCurrentTheme, SynEdit);
-    with TSynUNIXShellScriptSyn(SynEdit.Highlighter) do
-    begin
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, SecondKeyAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
-      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, VarAttri, DelphiVer);
-    end;
-end;
-
 type
  TWinControlClass = class(TWinControl);
 
-constructor TUnixPreviewHandler.Create(AParent: TWinControl);
+constructor TGlobalPreviewHandler.Create(AParent: TWinControl);
 begin
   inherited Create(AParent);
   try
     if IsWindow(TWinControlClass(AParent).WindowHandle) then
     begin
-      Editor := TFrmEditor.Create(AParent);
+      Editor        := TFrmEditor.Create(AParent);
       Editor.Parent := AParent;
       Editor.Align  := alClient;
       Editor.BorderStyle :=bsNone;
-      //Editor.Visible:=True;
-      Editor.SynEdit1.Highlighter:=Editor.SynUNIXShellScriptSyn1;
-      Editor.RefreshSynHighlighter:=RefreshSynHighlighter;
-      Editor.LoadTheme;
+      Editor.Extensions  :=FExtensions;
     end;
   except
     on E: Exception do
@@ -104,4 +77,3 @@ end;
 
 
 end.
-

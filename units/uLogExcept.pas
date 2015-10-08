@@ -48,7 +48,7 @@ var
  sLogFile : string;
 
 
-{$DEFINE ENABLELOG}
+{.$DEFINE ENABLELOG}
 
 
 procedure  AppendAllText(const FileName, Contents: string);

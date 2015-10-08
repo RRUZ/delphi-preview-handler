@@ -28,6 +28,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, SynEdit, pngimage,
+  System.Generics.Collections,
   SynEditHighlighter,
   uDelphiIDEHighlight,
   uDelphiVersions,
@@ -42,7 +43,7 @@ uses
   SynHighlighterUNIXShellScript, SynHighlighterRuby;
 
 type
-  TProcRefreshSynHighlighter = procedure (FCurrentTheme:TIDETheme;SynEdit: SynEdit.TSynEdit);
+  TProcRefreshSynHighlighter = procedure (FCurrentTheme:TIDETheme; SynEdit: SynEdit.TSynEdit);
 
   TFrmEditor = class(TForm)
     SynEdit1: TSynEdit;
@@ -96,15 +97,23 @@ type
     FCurrentTheme:  TIDETheme;
     FPathThemes: string;
     FThemeName: string;
+    FFileName : string;
     FRefreshSynHighlighter : TProcRefreshSynHighlighter;
+    FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
     function GetThemeNameFromFile(const FileName:string):string;
     procedure AppException(Sender: TObject; E: Exception);
+    function  GetHighlighter : TSynCustomHighlighter;
+    procedure RunRefreshHighlighter;
   public
     procedure FillThemes;
     procedure LoadTheme;
     property PathThemes : string read FPathThemes write FPathThemes;
     property ThemeName  : string read FThemeName write FThemeName;
     property RefreshSynHighlighter : TProcRefreshSynHighlighter read FRefreshSynHighlighter write FRefreshSynHighlighter;
+
+
+    property  Extensions  : TDictionary<TSynCustomHighlighterClass, TStrings>  read  FExtensions write FExtensions;
+    procedure LoadFile(const FileName : string);
   end;
 
     procedure SetSynAttr(FCurrentTheme:TIDETheme;Element: TIDEHighlightElements; SynAttr: TSynHighlighterAttributes;DelphiVersion : TDelphiVersions);
@@ -128,6 +137,517 @@ const
   MinfontSize = 8;
 
 {$R *.dfm}
+
+procedure RefreshSynPasHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+
+    with TSynPasSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Assembler, AsmAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Character, CharAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, DirectiveAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Float, FloatAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Hex, HexAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynCobolHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynCobolSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, AreaAIdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, PreprocessorAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, BooleanAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, SequenceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, IndicatorAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, TagAreaAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.EnabledBreak, DebugLinesAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynCppHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynCppSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Assembler, AsmAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Character, CharAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, DirecAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Float, FloatAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Hex, HexAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, InvalidAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, OctalAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+
+procedure RefreshSynCSharpHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynCSSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Assembler, AsmAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, DirecAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ErrorLine, InvalidAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynCSSHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynCssSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, PropertyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, ColorAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.PlainText, TextAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, ValueAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, UndefPropertyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, ImportantPropertyAttri, DelphiVer);
+    end;
+end;
+
+
+procedure RefreshSynDfmHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynDfmSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynEiffelHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynEiffelSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, BasicTypesAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, LaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, OperatorAndSymbolsAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, PredefinedAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, ResultValueAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynFortranHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynFortranSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynHTMLHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynHTMLSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, AndAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.PlainText, TextAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, UndefKeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, ValueAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynIniHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynIniSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, TextAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, SectionAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynInnoHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynInnoSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, ConstantAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ErrorLine, InvalidAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, ParameterAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, SectionAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynJavaHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynJavaSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, DocumentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.IllegalChar, InvalidAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+
+procedure RefreshSynJScriptHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynJScriptSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, NonReservedKeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, EventAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynPerlHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynPerlSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ErrorLine, InvalidAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, OperatorAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, PragmaAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, VariableAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynPhpHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynPHPSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, VariableAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynPythonHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynPythonSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, NonKeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, SystemAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Hex, OctalAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Hex, HexAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Float, FloatAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, DocStringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ErrorLine, ErrorAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynRubyHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynRubySyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, SecondKeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynSqlHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynSQLSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, ConditionalCommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, DataTypeAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, DefaultPackageAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, DelimitedIdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ErrorLine, ExceptionAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, FunctionAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, PLSQLAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, SQLPlusAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, TableNameAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, VariableAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynUnixHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynUNIXShellScriptSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, SecondKeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, VarAttri, DelphiVer);
+    end;
+end;
+
+
+procedure RefreshSynVBHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynVBSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynVbScriptHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynVBScriptSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynXmlHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+
+    with TSynXMLSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.AttributeNames, AttributeAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.AttributeValues, AttributeValueAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CDATAAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, DocTypeAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, ElementAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, EntityRefAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, NamespaceAttributeAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, NamespaceAttributeValueAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Preprocessor, ProcessingInstructionAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, SymbolAttri,DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Character, TextAttri,DelphiVer);
+    end;
+end;
+
+
+procedure RefreshBatSynHighlighter(FCurrentTheme:TIDETheme; SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+    DelphiVer := DelphiXE;
+    RefreshSynEdit(FCurrentTheme, SynEdit);
+    with TSynBatSyn(SynEdit.Highlighter) do
+    begin
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri, DelphiVer);
+      SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, VariableAttri, DelphiVer);
+    end;
+end;
+
+procedure RefreshSynAsmHighlighter(FCurrentTheme:TIDETheme;SynEdit: TSynEdit);
+var
+  DelphiVer : TDelphiVersions;
+begin
+  DelphiVer := DelphiXE;
+  RefreshSynEdit(FCurrentTheme, SynEdit);
+  with TSynAsmSyn(SynEdit.Highlighter) do
+  begin
+    SetSynAttr(FCurrentTheme, TIDEHighlightElements.Comment, CommentAttri,DelphiVer);
+    SetSynAttr(FCurrentTheme, TIDEHighlightElements.Identifier, IdentifierAttri,DelphiVer);
+    SetSynAttr(FCurrentTheme, TIDEHighlightElements.ReservedWord, KeyAttri,DelphiVer);
+    SetSynAttr(FCurrentTheme, TIDEHighlightElements.Number, NumberAttri,DelphiVer);
+    SetSynAttr(FCurrentTheme, TIDEHighlightElements.Whitespace, SpaceAttri,DelphiVer);
+    SetSynAttr(FCurrentTheme, TIDEHighlightElements.String, StringAttri,DelphiVer);
+    SetSynAttr(FCurrentTheme, TIDEHighlightElements.Symbol, SymbolAttri,DelphiVer);
+  end;
+end;
 
 
 procedure SetSynAttr(FCurrentTheme:TIDETheme;Element: TIDEHighlightElements; SynAttr: TSynHighlighterAttributes; DelphiVersion: TDelphiVersions);
@@ -190,7 +710,7 @@ begin
   FileName:=TComboBox(Sender).Text;
   FileName:=IncludeTrailingPathDelimiter(PathThemes)+FileName+sThemesExt;
   LoadThemeFromXMLFile(FCurrentTheme, FileName);
-  FRefreshSynHighlighter(FCurrentTheme,SynEdit1);
+  RunRefreshHighlighter();
 end;
 
 function TFrmEditor.GetThemeNameFromFile(const FileName:string): string;
@@ -229,13 +749,10 @@ var
 //  i : integer;
 begin
    Application.OnException := AppException;
-
    TLogPreview.Add('FormCreate');
 //   TLogPreview.Add(Format('Forms %d', [Screen.FormCount]));
 //    for i:=0 to Screen.FormCount-1 do
 //      TLogPreview.Add(Format('  %s', [Screen.Forms[i].ClassName]));
-
-
    Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
    try
      FPathThemes    := Settings.ReadString('Global', 'ThemesPath', 'Themes');
@@ -246,7 +763,6 @@ begin
    finally
      Settings.Free;
    end;
-
   FillThemes;
 end;
 
@@ -256,16 +772,139 @@ begin
    TLogPreview.Add('FormDestroy');
 end;
 
+
+function TFrmEditor.GetHighlighter: TSynCustomHighlighter;
+var
+  LExt    : string;
+  LHighlighterClass : TSynCustomHighlighterClass;
+  LItem : TPair<TSynCustomHighlighterClass, TStrings>;
+  i : integer;
+begin
+ Result:=SynPasSyn1;
+
+  LExt:= LowerCase(ExtractFileExt(FFileName));
+  for LItem in FExtensions do
+    if LItem.Value.IndexOf(LExt)>=0 then
+    begin
+      LHighlighterClass:=LItem.Key;
+      Break;
+    end;
+
+  for i := 0 to ComponentCount-1 do
+   if (Components[i] is TSynCustomHighlighter) and (Components[i].ClassType = LHighlighterClass) then
+   begin
+    TLogPreview.Add('found '+Components[i].Name);
+    Result:=TSynCustomHighlighter(Components[i]);
+    break;
+   end;
+end;
+
+
+procedure TFrmEditor.LoadFile(const FileName: string);
+var
+ LSynCustomHighlighter : TSynCustomHighlighter;
+begin
+  TLogPreview.Add('TFrmEditor.LoadFile Init');
+  FFileName:= FileName;
+  LSynCustomHighlighter := GetHighlighter;
+  if SynEdit1.Highlighter<>LSynCustomHighlighter then
+  begin
+    SynEdit1.Lines.Clear;
+    SynEdit1.Highlighter := LSynCustomHighlighter;
+    LoadTheme();
+  end;
+
+  SynEdit1.Lines.LoadFromFile(FFileName);
+  TLogPreview.Add('TFrmEditor.LoadFile Done');
+end;
+
 procedure TFrmEditor.LoadTheme;
 var
  FileName : string;
 begin
-  FileName:=ThemeName;
-  FileName:=IncludeTrailingPathDelimiter(PathThemes)+FileName;
+  TLogPreview.Add('TFrmEditor.LoadTheme Init');
+  FileName:=IncludeTrailingPathDelimiter(PathThemes)+ThemeName;
   LoadThemeFromXMLFile(FCurrentTheme, FileName);
-  FRefreshSynHighlighter(FCurrentTheme,SynEdit1);
+  RunRefreshHighlighter;
+  TLogPreview.Add('TFrmEditor.LoadTheme Done');
 end;
 
+
+procedure TFrmEditor.RunRefreshHighlighter;
+begin
+  if SynEdit1.Highlighter<>nil then
+   if SynEdit1.Highlighter = SynPasSyn1 then
+     RefreshSynPasHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynXMLSyn1 then
+     RefreshSynXmlHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynAsmSyn1 then
+     RefreshSynAsmHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynBatSyn1 then
+     RefreshBatSynHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynCobolSyn1 then
+     RefreshSynCobolHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynCppSyn1 then
+     RefreshSynCppHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynCSSyn1 then
+     RefreshSynCSharpHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynCssSyn1 then
+     RefreshSynCSSHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynDfmSyn1 then
+     RefreshSynDfmHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynEiffelSyn1 then
+     RefreshSynEiffelHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynFortranSyn1 then
+     RefreshSynFortranHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynHTMLSyn1 then
+     RefreshSynHTMLHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynIniSyn1 then
+     RefreshSynIniHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynInnoSyn1 then
+     RefreshSynInnoHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynJavaSyn1 then
+     RefreshSynJavaHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynJScriptSyn1 then
+     RefreshSynJScriptHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynPerlSyn1 then
+     RefreshSynPerlHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynPHPSyn1 then
+     RefreshSynPhpHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynPythonSyn1 then
+     RefreshSynPythonHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynRubySyn1 then
+     RefreshSynRubyHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynSQLSyn1 then
+     RefreshSynSqlHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynUNIXShellScriptSyn1 then
+     RefreshSynUnixHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynVBSyn1 then
+     RefreshSynVBHighlighter(FCurrentTheme, SynEdit1)
+   else
+   if SynEdit1.Highlighter = SynVBScriptSyn1 then
+     RefreshSynVbScriptHighlighter(FCurrentTheme, SynEdit1);
+end;
 
 procedure TFrmEditor.ToolButtonBugReportClick(Sender: TObject);
 begin

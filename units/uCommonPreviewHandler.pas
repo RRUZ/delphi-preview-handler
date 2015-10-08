@@ -22,7 +22,7 @@ unit uCommonPreviewHandler;
 
 interface
 
-{$DEFINE USE_TStreamPreviewHandler}
+{.$DEFINE USE_TStreamPreviewHandler}
 
 uses
   uStackTrace,
@@ -42,7 +42,7 @@ type
 {$IFDEF USE_TStreamPreviewHandler}
   TBasePreviewHandler = class(TStreamPreviewHandler)
 {$ElSE}
-ssTBasePreviewHandler = class(TFilePreviewHandler)
+  TBasePreviewHandler = class(TFilePreviewHandler)
 {$ENDIF}
   private
     FEditor: TFrmEditor;
@@ -94,15 +94,15 @@ end;
 procedure TBasePreviewHandler.DoPreview(const FilePath: string);
 begin
   try
-    TLogException.Add('DoPreview '+Self.ClassName);
-    if Editor<>nil) and IsWindow(Editor.Handle) then
+    TLogPreview.Add('DoPreview '+Self.ClassName);
+    if (Editor<>nil) and IsWindow(Editor.Handle) then
     begin
       Editor.Visible:=True;
-      Editor.SynEdit1.Lines.LoadFromFile(FilePath);
+      Editor.LoadFile(FilePath);
     end;
   except
     on E: Exception do
-      TLogExpections.Add(Format('Error in TBasePreviewHandler.DoPreview(FilePath) - Message : %s : Trace %s',
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(FilePath) - Message : %s : Trace %s',
         [E.Message, E.StackTrace]));
   end;
 end;

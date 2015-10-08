@@ -33,15 +33,22 @@ uses
   ShlObj,
   Windows,
   uPreviewContainer,
+  SynEditHighlighter,
+  System.Generics.Collections,
   ActiveX;
 
 
 type
   TPreviewHandler = class abstract
   public
+    class var FExtensions  : TDictionary<TSynCustomHighlighterClass, TStrings>;
     constructor Create(AParent: TWinControl); virtual;
     class function GetComClass: TComClass; virtual; abstract;
-    class procedure RegisterExtentions(const AClassID: TGUID; const AName, ADescription : string;Extensions:array of string);
+    class procedure RegisterExtentions(const AClassID: TGUID; const AName, ADescription : string; Extensions: array of string);
+
+    class procedure AddExtentions(ClassType : TSynCustomHighlighterClass; Extensions: array of string);
+    class procedure RegisterPreview(const AClassID: TGUID; const AName, ADescription : string);
+
     procedure Unload; virtual;
   end;
 
@@ -295,6 +302,17 @@ begin
   TLogPreview.Add('Unload Done');
 end;
 
+class procedure TPreviewHandler.AddExtentions(ClassType : TSynCustomHighlighterClass; Extensions: array of string);
+var
+  i : integer;
+begin
+  if not FExtensions.ContainsKey(ClassType) then
+    FExtensions.Add(ClassType, TStringList.Create);
+
+   for i:=0 to Length(Extensions)-1 do
+     FExtensions.Items[ClassType].Add(LowerCase(Extensions[i]));
+end;
+
 constructor TPreviewHandler.Create(AParent: TWinControl);
 begin
   inherited Create;
@@ -305,6 +323,35 @@ begin
   TLogPreview.Add('RegisterExtentions Init ' + AName);
   TPreviewHandlerRegister.Create(Self, AClassID, AName, ADescription, Extensions);
   TLogPreview.Add('RegisterExtentions Done ' + AName);
+end;
+
+class procedure TPreviewHandler.RegisterPreview(const AClassID: TGUID;
+  const AName, ADescription: string);
+var
+  Extensions : array of string;
+  LItem : TPair<TSynCustomHighlighterClass, TStrings>;
+  i, c, j : integer;
+begin
+  TLogPreview.Add('RegisterPreview Init ' + AName);
+
+  c:=0;
+  for LItem in FExtensions do
+    Inc(c, LItem.Value.Count);
+
+  TLogPreview.Add('RegisterPreview count ' + IntToStr(c));
+  SetLength(Extensions, c);
+
+  j:=0;
+  for LItem in FExtensions do
+   for i := 0 to   LItem.Value.Count-1 do
+   begin
+     Extensions[j] := LItem.Value[i];
+     Inc(j);
+   end;
+
+  TPreviewHandlerRegister.Create(Self, AClassID, AName, ADescription, Extensions);
+
+  TLogPreview.Add('RegisterPreview Done ' + AName);
 end;
 
 procedure TPreviewHandler.Unload;

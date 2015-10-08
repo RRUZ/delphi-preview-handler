@@ -38,10 +38,6 @@ uses
   uFilePreviewHandler in 'uFilePreviewHandler.pas',
   uPreviewHandlerRegister in 'uPreviewHandlerRegister.pas',
   uPreviewContainer in 'uPreviewContainer.pas' {PreviewContainer},
-  uPascalPreviewHandler in 'uPascalPreviewHandler.pas',
-  uXmlPreviewHandler in 'uXmlPreviewHandler.pas',
-  uCppPreviewHandler in 'uCppPreviewHandler.pas',
-  uAsmPreviewHandler in 'uAsmPreviewHandler.pas',
   uDelphiIDEHighlight in 'uDelphiIDEHighlight.pas',
   uDelphiVersions in 'uDelphiVersions.pas',
   uRegistry in 'uRegistry.pas',
@@ -49,30 +45,7 @@ uses
   uSynEditPopupEdit in 'uSynEditPopupEdit.pas',
   uLogExcept in 'uLogExcept.pas',
   uCommonPreviewHandler in 'uCommonPreviewHandler.pas',
-  uEiffelPreviewHandler in 'uEiffelPreviewHandler.pas',
-  uFortranPreviewHandler in 'uFortranPreviewHandler.pas',
-  uJavaPreviewHandler in 'uJavaPreviewHandler.pas',
-  uVBPreviewHandler in 'uVBPreviewHandler.pas',
-  uCobolPreviewHandler in 'uCobolPreviewHandler.pas',
-  uCSharpPreviewHandler in 'uCSharpPreviewHandler.pas',
-  uCSSPreviewHandler in 'uCSSPreviewHandler.pas',
-  uHTMLPreviewHandler in 'uHTMLPreviewHandler.pas',
-  uJScriptPreviewHandler in 'uJScriptPreviewHandler.pas',
-  uPhpPreviewHandler in 'uPhpPreviewHandler.pas',
-  uVBScriptPreviewHandler in 'uVBScriptPreviewHandler.pas',
-  uBatPreviewHandler in 'uBatPreviewHandler.pas',
-  uDfmPreviewHandler in 'uDfmPreviewHandler.pas',
-  uPerlPreviewHandler in 'uPerlPreviewHandler.pas',
-  uPythonPreviewHandler in 'uPythonPreviewHandler.pas',
-  uRubyPreviewHandler in 'uRubyPreviewHandler.pas',
-  uUnixPreviewHandler in 'uUnixPreviewHandler.pas',
-  uSqlPreviewHandler in 'uSqlPreviewHandler.pas',
-  uInnoPreviewHandler in 'uInnoPreviewHandler.pas',
-  uIniPreviewHandler in 'uIniPreviewHandler.pas';
-
-
-
-
+  uGlobalPreviewHandler in 'uGlobalPreviewHandler.pas';
 
 exports
   DllGetClassObject,

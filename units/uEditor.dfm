@@ -32,7 +32,6 @@ object FrmEditor: TFrmEditor
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = 0
       object Image1: TImage
         Left = 0
         Top = 0
@@ -127,8 +126,6 @@ object FrmEditor: TFrmEditor
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 140
-      ExplicitWidth = 748
       object ToolBar1: TToolBar
         Left = 0
         Top = 13
@@ -139,7 +136,6 @@ object FrmEditor: TFrmEditor
         Caption = 'ToolBar1'
         Images = ImageList1
         TabOrder = 0
-        ExplicitWidth = 748
         object ToolButtonZoomIn: TToolButton
           Left = 0
           Top = 0
@@ -224,10 +220,8 @@ object FrmEditor: TFrmEditor
       Gutter.Font.Name = 'Courier New'
       Gutter.Font.Style = []
       Gutter.ShowLineNumbers = True
-      Highlighter = SynPasSyn1
       ReadOnly = True
       FontSmoothing = fsmNone
-      ExplicitTop = 5
     end
   end
   object SynPasSyn1: TSynPasSyn
