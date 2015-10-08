@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uLogExcept
 // unit for the Delphi Preview Handler  https://github.com/RRUZ/delphi-preview-handler
@@ -17,26 +17,25 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
+// *************************************************************************************************
 
 unit uLogExcept;
 
 interface
 
 Uses
- System.SysUtils,
- System.Classes;
+  System.SysUtils,
+  System.Classes;
 
 type
   TLogPreview = class
   private
     FLogStream: TStream;
   public
-    property LogStream : TStream read FLogStream write FLogStream;
-    class procedure Add(const AMessage :string); overload;
-    class procedure Add(const AException : Exception); overload;
+    property LogStream: TStream read FLogStream write FLogStream;
+    class procedure Add(const AMessage: string); overload;
+    class procedure Add(const AException: Exception); overload;
   end;
-
 
 implementation
 
@@ -45,13 +44,11 @@ uses
   IOUtils;
 
 var
- sLogFile : string;
+  sLogFile: string;
 
+  { .$DEFINE ENABLELOG }
 
-{.$DEFINE ENABLELOG}
-
-
-procedure  AppendAllText(const FileName, Contents: string);
+procedure AppendAllText(const FileName, Contents: string);
 {$IFDEF ENABLELOG}
 var
   LFileStream: TFileStream;
@@ -59,7 +56,6 @@ var
 {$ENDIF}
 begin
 {$IFDEF ENABLELOG}
-
   if (TFile.Exists(FileName)) then
     LFileStream := TFileStream.Create(FileName, fmOpenReadWrite or fmShareDenyNone)
   else
@@ -78,26 +74,25 @@ end;
 { TLogException }
 class procedure TLogPreview.Add(const AMessage: string);
 begin
- try
-  AppendAllText(sLogFile, FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + AMessage + sLineBreak);
- except
-   on e : EFOpenError do
-   ;
- end;
+  try
+    AppendAllText(sLogFile, FormatDateTime('hh:nn:ss.zzz', Now) + ' ' + AMessage + sLineBreak);
+  except
+    on e: EFOpenError do;
+  end;
 end;
 
-class procedure TLogPreview.Add(const AException :Exception);
+class procedure TLogPreview.Add(const AException: Exception);
 begin
- try
-  AppendAllText(sLogFile, Format('%s %s StackTrace %s %s', [FormatDateTime('hh:nn:ss.zzz', Now), AException.Message, AException.StackTrace, sLineBreak]));
- except
-   on e : EFOpenError do
-   ;
- end;
+  try
+    AppendAllText(sLogFile, Format('%s %s StackTrace %s %s', [FormatDateTime('hh:nn:ss.zzz', Now), AException.Message,
+      AException.StackTrace, sLineBreak]));
+  except
+    on e: EFOpenError do;
+  end;
 end;
 
 initialization
 
- sLogFile := IncludeTrailingPathDelimiter(GetTempDirectory)+'shell.log';
+sLogFile := IncludeTrailingPathDelimiter(GetTempDirectory) + 'shell.log';
 
 end.

@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uStackTrace
 // unit for the Delphi Preview Handler  https://github.com/RRUZ/delphi-preview-handler
@@ -17,8 +17,7 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
-
+// *************************************************************************************************
 
 unit uStackTrace;
 
@@ -29,22 +28,23 @@ uses
 
 implementation
 
-function GetExceptionStackInfoProc(P: PExceptionRecord):Pointer;
+function GetExceptionStackInfoProc(P: PExceptionRecord): Pointer;
 begin
   Result := TJclStackInfoList.Create(False, 0, nil);
 end;
 
 function GetStackInfoStringProc(Info: Pointer): string;
 var
-  StackInfoList : TJclStackInfoList;
-  List  : TStringList;
+  StackInfoList: TJclStackInfoList;
+  List: TStringList;
 begin
-  if Info = nil then Exit;
-  List  := TStringList.Create;
+  if Info = nil then
+    Exit;
+  List := TStringList.Create;
   try
-   StackInfoList := TJclStackInfoList(Info);
-   StackInfoList.AddToStrings(List);
-   Result :=  List.Text;
+    StackInfoList := TJclStackInfoList(Info);
+    StackInfoList.AddToStrings(List);
+    Result := List.Text;
   finally
     List.Free;
   end;
@@ -56,19 +56,22 @@ begin
 end;
 
 initialization
-  if JclStartExceptionTracking then
-  begin
-    Exception.GetExceptionStackInfoProc := GetExceptionStackInfoProc;
-    Exception.GetStackInfoStringProc    := GetStackInfoStringProc;
-    Exception.CleanUpStackInfoProc      := CleanUpStackInfoProc;
-  end;
+
+if JclStartExceptionTracking then
+begin
+  Exception.GetExceptionStackInfoProc := GetExceptionStackInfoProc;
+  Exception.GetStackInfoStringProc := GetStackInfoStringProc;
+  Exception.CleanUpStackInfoProc := CleanUpStackInfoProc;
+end;
 
 finalization
-  if JclExceptionTrackingActive then
-  begin
-    Exception.GetExceptionStackInfoProc := nil;
-    Exception.GetStackInfoStringProc    := nil;
-    Exception.CleanUpStackInfoProc      := nil;
-    JclStopExceptionTracking;
-  end;
+
+if JclExceptionTrackingActive then
+begin
+  Exception.GetExceptionStackInfoProc := nil;
+  Exception.GetStackInfoStringProc := nil;
+  Exception.CleanUpStackInfoProc := nil;
+  JclStopExceptionTracking;
+end;
+
 end.

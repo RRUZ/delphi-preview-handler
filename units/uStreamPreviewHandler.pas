@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uStreamPreviewHandler
 // unit for the Delphi Preview Handler https://github.com/RRUZ/delphi-preview-handler
@@ -17,8 +17,7 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
-
+// *************************************************************************************************
 
 unit uStreamPreviewHandler;
 
@@ -45,23 +44,21 @@ type
     property BaseStream: IStream read FBaseStream;
   end;
 
-
   TStreamPreviewHandler = class abstract(TPreviewHandler)
   public
     procedure DoPreview(Stream: TIStreamAdapter); virtual; abstract;
     class function GetComClass: TComClass; override; final;
   end;
 
-
 implementation
 
 uses
- PropSys,
- SysUtils;
+  PropSys,
+  SysUtils;
 
 type
   TComStreamPreviewHandler = class(TComPreviewHandler, IInitializeWithStream)
-  //strict private
+    // strict private
     function IInitializeWithStream.Initialize = IInitializeWithStream_Initialize;
     function IInitializeWithStream_Initialize(const pstream: IStream; grfMode: Cardinal): HRESULT; stdcall;
   private
@@ -72,14 +69,14 @@ type
     procedure InternalUnload; override;
     procedure InternalDoPreview; override;
     property PreviewHandler: TStreamPreviewHandler read GetPreviewHandler;
-    property Mode : Cardinal read FMode write FMode;
-    property IStream : IStream read FIStream write FIStream;
+    property Mode: Cardinal read FMode write FMode;
+    property IStream: IStream read FIStream write FIStream;
   end;
 
 resourcestring
-    sSetSizeNotImplemented = '%s.SetSize not implemented';
+  sSetSizeNotImplemented = '%s.SetSize not implemented';
 
-{TComStreamPreviewHandler}
+  { TComStreamPreviewHandler }
 function TComStreamPreviewHandler.GetPreviewHandler: TStreamPreviewHandler;
 begin
   Result := inherited PreviewHandler as TStreamPreviewHandler;
@@ -87,9 +84,9 @@ end;
 
 function TComStreamPreviewHandler.IInitializeWithStream_Initialize(const pstream: IStream; grfMode: Cardinal): HRESULT;
 begin
-  FIStream := pStream;
-  FMode    := grfMode;
-  result   := S_OK;
+  FIStream := pstream;
+  FMode := grfMode;
+  Result := S_OK;
 end;
 
 procedure TComStreamPreviewHandler.InternalUnload;
@@ -109,13 +106,13 @@ begin
   end;
 end;
 
-{TStreamPreviewHandler}
+{ TStreamPreviewHandler }
 class function TStreamPreviewHandler.GetComClass: TComClass;
 begin
   Result := TComStreamPreviewHandler;
 end;
 
-{TIStreamAdapter}
+{ TIStreamAdapter }
 constructor TIStreamAdapter.Create(Stream: IStream);
 begin
   inherited Create;
@@ -124,23 +121,23 @@ end;
 
 function TIStreamAdapter.GetSize: Int64;
 var
-  statStg     : TStatStg;
-  grfStatFlag : Longint;
+  statStg: TStatStg;
+  grfStatFlag: Longint;
 begin
   Result := -1;
-  grfStatFlag:=STATFLAG_NONAME;
+  grfStatFlag := STATFLAG_NONAME;
   if BaseStream.Stat(statStg, grfStatFlag) = S_OK then
     Result := statStg.cbSize;
 end;
 
 function TIStreamAdapter.Read(var Buffer; Count: Longint): Longint;
 begin
-  BaseStream.Read(@Buffer, Count, @result);
+  BaseStream.Read(@Buffer, Count, @Result);
 end;
 
 function TIStreamAdapter.Seek(const Offset: Int64; Origin: TSeekOrigin): Int64;
 begin
-  BaseStream.Seek(Offset, Ord(Origin), result);
+  BaseStream.Seek(Offset, Ord(Origin), Result);
 end;
 
 procedure TIStreamAdapter.SetSize(const NewSize: Int64);
@@ -152,6 +149,5 @@ procedure TIStreamAdapter.SetSize(NewSize: Longint);
 begin
   raise EStreamError.CreateResFmt(@sSetSizeNotImplemented, [Classname]);
 end;
-
 
 end.

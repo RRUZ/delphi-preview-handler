@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uFilePreviewHandler
 // unit for the Delphi Preview Handler  https://github.com/RRUZ/delphi-preview-handler
@@ -17,7 +17,7 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
+// *************************************************************************************************
 
 unit uFilePreviewHandler;
 
@@ -37,13 +37,13 @@ type
 implementation
 
 uses
-    Windows,
-    PropSys,
-    SysUtils;
+  Windows,
+  PropSys,
+  SysUtils;
 
 type
   TComFilePreviewHandler = class(TComPreviewHandler, IInitializeWithFile)
- // strict private
+    // strict private
     function IInitializeWithFile.Initialize = IInitializeWithFile_Initialize;
     function IInitializeWithFile_Initialize(pszFilePath: LPCWSTR; grfMode: DWORD): HRESULT; stdcall;
   private
@@ -54,8 +54,8 @@ type
     procedure InternalDoPreview; override;
     procedure InternalUnload; override;
     property PreviewHandler: TFilePreviewHandler read GetPreviewHandler;
-    property FilePath : TFileName read FFilePath;
-    property Mode : DWORD read FMode;
+    property FilePath: TFileName read FFilePath;
+    property Mode: DWORD read FMode;
   end;
 
 function TComFilePreviewHandler.GetPreviewHandler: TFilePreviewHandler;
@@ -67,7 +67,7 @@ function TComFilePreviewHandler.IInitializeWithFile_Initialize(pszFilePath: LPCW
 begin
   FFilePath := pszFilePath;
   FMode := grfMode;
-  result := S_OK;
+  Result := S_OK;
 end;
 
 procedure TComFilePreviewHandler.InternalDoPreview;
@@ -82,8 +82,7 @@ end;
 
 class function TFilePreviewHandler.GetComClass: TComClass;
 begin
-  result := TComFilePreviewHandler;
+  Result := TComFilePreviewHandler;
 end;
-
 
 end.

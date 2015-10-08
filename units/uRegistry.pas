@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uRegistry
 // unit for the Delphi Preview Handler   https://github.com/RRUZ/delphi-preview-handler
@@ -17,7 +17,7 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
+// *************************************************************************************************
 
 unit uRegistry;
 
@@ -43,7 +43,7 @@ begin
     Reg := TRegistry.Create;
     try
       Reg.RootKey := RootKey;
-      Result      := Reg.OpenKey(RegPath, True);
+      Result := Reg.OpenKey(RegPath, True);
       if Result then
         Reg.WriteString(RegValue, Str);
     finally
@@ -54,8 +54,7 @@ begin
   end;
 end;
 
-function RegReadStr(const RegPath, RegValue: string; var Str: string;
-  const RootKey: HKEY): boolean;
+function RegReadStr(const RegPath, RegValue: string; var Str: string; const RootKey: HKEY): boolean;
 var
   Reg: TRegistry;
 begin
@@ -63,7 +62,7 @@ begin
     Reg := TRegistry.Create;
     try
       Reg.RootKey := RootKey;
-      Result      := Reg.OpenKey(RegPath, True);
+      Result := Reg.OpenKey(RegPath, True);
       if Result then
         Str := Reg.ReadString(RegValue);
     finally
@@ -74,8 +73,7 @@ begin
   end;
 end;
 
-function RegWriteInt(const RegPath, RegValue: string; IntValue: integer;
-  const RootKey: HKEY): boolean;
+function RegWriteInt(const RegPath, RegValue: string; IntValue: integer; const RootKey: HKEY): boolean;
 var
   Reg: TRegistry;
 begin
@@ -83,7 +81,7 @@ begin
     Reg := TRegistry.Create;
     try
       Reg.RootKey := RootKey;
-      Result      := Reg.OpenKey(RegPath, True);
+      Result := Reg.OpenKey(RegPath, True);
       if Result then
         Reg.WriteInteger(RegValue, IntValue);
     finally
@@ -94,8 +92,7 @@ begin
   end;
 end;
 
-function RegReadInt(const RegPath, RegValue: string; var IntValue: integer;
-  const RootKey: HKEY): boolean;
+function RegReadInt(const RegPath, RegValue: string; var IntValue: integer; const RootKey: HKEY): boolean;
 var
   Reg: TRegistry;
 begin
@@ -103,7 +100,7 @@ begin
     Reg := TRegistry.Create;
     try
       Reg.RootKey := RootKey;
-      Result      := Reg.OpenKey(RegPath, True);
+      Result := Reg.OpenKey(RegPath, True);
       if Result then
         IntValue := Reg.ReadInteger(RegValue);
     finally
@@ -122,7 +119,7 @@ begin
     Reg := TRegistry.Create;
     try
       Reg.RootKey := RootKey;
-      Result      := Reg.KeyExists(RegPath);
+      Result := Reg.KeyExists(RegPath);
     finally
       Reg.Free;
     end;

@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uCommonPreviewHandler
 // unit for the Delphi Preview Handler  https://github.com/RRUZ/delphi-preview-handler
@@ -17,12 +17,12 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
+// *************************************************************************************************
 unit uCommonPreviewHandler;
 
 interface
 
-{.$DEFINE USE_TStreamPreviewHandler}
+{ .$DEFINE USE_TStreamPreviewHandler }
 
 uses
   uStackTrace,
@@ -41,7 +41,7 @@ uses
 type
 {$IFDEF USE_TStreamPreviewHandler}
   TBasePreviewHandler = class(TStreamPreviewHandler)
-{$ElSE}
+{$ELSE}
   TBasePreviewHandler = class(TFilePreviewHandler)
 {$ENDIF}
   private
@@ -51,93 +51,89 @@ type
     procedure Unload; override;
 {$IFDEF USE_TStreamPreviewHandler}
     procedure DoPreview(Stream: TIStreamAdapter); override;
-{$ElSE}
+{$ELSE}
     procedure DoPreview(const FilePath: string); override;
 {$ENDIF}
-    property Editor : TFrmEditor read FEditor write FEditor;
+    property Editor: TFrmEditor read FEditor write FEditor;
   end;
-
 
 implementation
 
 Uses
- uLogExcept,
- SynEdit,
- Windows,
- Forms,
- uMisc;
-
+  uLogExcept,
+  SynEdit,
+  Windows,
+  Forms,
+  uMisc;
 
 constructor TBasePreviewHandler.Create(AParent: TWinControl);
 begin
-  inherited ;
+  inherited;
   FEditor := nil;
 end;
 
 {$IFDEF USE_TStreamPreviewHandler}
+
 procedure TBasePreviewHandler.DoPreview(Stream: TIStreamAdapter);
 begin
   try
-    TLogPreview.Add('DoPreview '+Self.ClassName);
-    if (Editor<>nil) and IsWindow(Editor.Handle) then
+    TLogPreview.Add('DoPreview ' + Self.ClassName);
+    if (Editor <> nil) and IsWindow(Editor.Handle) then
     begin
-      Editor.Visible:=True;
+      Editor.Visible := True;
       Editor.SynEdit1.Lines.LoadFromStream(Stream);
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(Stream) - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(Stream) - Message : %s : Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
-{$ElSE}
+{$ELSE}
+
 procedure TBasePreviewHandler.DoPreview(const FilePath: string);
 begin
   try
-    TLogPreview.Add('DoPreview '+Self.ClassName);
-    if (Editor<>nil) and IsWindow(Editor.Handle) then
+    TLogPreview.Add('DoPreview ' + Self.ClassName);
+    if (Editor <> nil) and IsWindow(Editor.Handle) then
     begin
-      Editor.Visible:=True;
+      Editor.Visible := True;
       Editor.LoadFile(FilePath);
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(FilePath) - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(FilePath) - Message : %s : Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 {$ENDIF}
-
 {
-http://msdn.microsoft.com/en-us/library/bb776865%28v=vs.85%29.aspx
-IPreviewHandler::Unload
-When this method is called, stop any rendering, release any resources allocated by reading data from the stream, and release the IStream itself.
-Once this method is called, the handler must be reinitialized before any attempt to call IPreviewHandler::DoPreview again.
+  http://msdn.microsoft.com/en-us/library/bb776865%28v=vs.85%29.aspx
+  IPreviewHandler::Unload
+  When this method is called, stop any rendering, release any resources allocated by reading data from the stream, and release the IStream itself.
+  Once this method is called, the handler must be reinitialized before any attempt to call IPreviewHandler::DoPreview again.
 }
 
 type
- TWinControlClass = class(TWinControl);
+  TWinControlClass = class(TWinControl);
 
 procedure TBasePreviewHandler.Unload;
 begin
   try
-    TLogPreview.Add('Unload  Init '+Self.ClassName);
-//    if IsWindow(TWinControlClass(Editor).WindowHandle) then
-//    begin
-//     Editor.Visible:=False;
-//     Editor.SynEdit1.Lines.Clear;
-//    end;
-//    if Editor<>nil then
-//    begin
-//      Editor.Free;
-//      Editor:=nil;
-//    end;
+    TLogPreview.Add('Unload  Init ' + Self.ClassName);
+    // if IsWindow(TWinControlClass(Editor).WindowHandle) then
+    // begin
+    // Editor.Visible:=False;
+    // Editor.SynEdit1.Lines.Clear;
+    // end;
+    // if Editor<>nil then
+    // begin
+    // Editor.Free;
+    // Editor:=nil;
+    // end;
     inherited;
-    TLogPreview.Add('Unload  Done '+Self.ClassName);
+    TLogPreview.Add('Unload  Done ' + Self.ClassName);
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TBasePreviewHandler.Unload - Message : %s : Trace %s',
-        [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.Unload - Message : %s : Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 

@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uGlobalPreviewHandler
 // unit for the Delphi Preview Handler https://github.com/RRUZ/delphi-preview-handler
@@ -17,7 +17,7 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
+// *************************************************************************************************
 
 unit uGlobalPreviewHandler;
 
@@ -35,26 +35,26 @@ uses
 
 const
   GUID_GlobalPreviewHandler: TGUID = '{AD8855FB-F908-4DDF-982C-ADB9DE5FF000}';
+
 type
   TGlobalPreviewHandler = class(TBasePreviewHandler)
   public
     constructor Create(AParent: TWinControl); override;
   end;
 
-
 implementation
 
 Uses
- uDelphiIDEHighlight,
- uDelphiVersions,
- uLogExcept,
- SynEdit,
- Windows,
- Forms,
- uMisc;
+  uDelphiIDEHighlight,
+  uDelphiVersions,
+  uLogExcept,
+  SynEdit,
+  Windows,
+  Forms,
+  uMisc;
 
 type
- TWinControlClass = class(TWinControl);
+  TWinControlClass = class(TWinControl);
 
 constructor TGlobalPreviewHandler.Create(AParent: TWinControl);
 begin
@@ -62,18 +62,16 @@ begin
   try
     if IsWindow(TWinControlClass(AParent).WindowHandle) then
     begin
-      Editor        := TFrmEditor.Create(AParent);
+      Editor := TFrmEditor.Create(AParent);
       Editor.Parent := AParent;
-      Editor.Align  := alClient;
-      Editor.BorderStyle :=bsNone;
-      Editor.Extensions  :=FExtensions;
+      Editor.Align := alClient;
+      Editor.BorderStyle := bsNone;
+      Editor.Extensions := FExtensions;
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in %s.Create - Message : %s : Trace %s',
-        [Self.ClassName, E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in %s.Create - Message : %s : Trace %s', [Self.ClassName, E.Message, E.StackTrace]));
   end;
 end;
-
 
 end.
