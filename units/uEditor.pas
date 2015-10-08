@@ -40,7 +40,8 @@ uses
   SynHighlighterHtml, SynHighlighterCSS, SynHighlighterCS, SynHighlighterCobol,
   SynHighlighterVB, SynHighlighterM3, SynHighlighterJava, SynHighlighterSml,
   SynHighlighterIni, SynHighlighterInno, SynHighlighterSQL,
-  SynHighlighterUNIXShellScript, SynHighlighterRuby;
+  SynHighlighterUNIXShellScript, SynHighlighterRuby, Vcl.Menus, SynEditExport,
+  SynExportHTML, SynExportRTF;
 
 type
   TProcRefreshSynHighlighter = procedure (FCurrentTheme:TIDETheme; SynEdit: SynEdit.TSynEdit);
@@ -85,6 +86,16 @@ type
     SynInnoSyn1: TSynInnoSyn;
     SynIniSyn1: TSynIniSyn;
     ToolButton1: TToolButton;
+    ToolButtonExport: TToolButton;
+    PopupMenuExport: TPopupMenu;
+    SynExporterHTML1: TSynExporterHTML;
+    ExporttoHTML1: TMenuItem;
+    SynExporterRTF1: TSynExporterRTF;
+    dlgFileSaveAs: TSaveDialog;
+    N1: TMenuItem;
+    Copynativeformattoclipboard1: TMenuItem;
+    Copyastexttoclipboard1: TMenuItem;
+    ExporttoRTF1: TMenuItem;
     procedure ComboBoxThemesChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
@@ -93,6 +104,10 @@ type
     procedure ToolButtonSaveClick(Sender: TObject);
     procedure ToolButtonBugReportClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure ExporttoHTML1Click(Sender: TObject);
+    procedure Copynativeformattoclipboard1Click(Sender: TObject);
+    procedure Copyastexttoclipboard1Click(Sender: TObject);
+    procedure ExporttoRTF1Click(Sender: TObject);
   private
     FCurrentTheme:  TIDETheme;
     FPathThemes: string;
@@ -125,6 +140,7 @@ var
 implementation
 
 uses
+  Vcl.Clipbrd,
   uLogExcept,
   System.Types,
   Registry, uMisc, IOUtils, ShellAPI, ComObj, IniFiles, GraphUtil;
@@ -652,8 +668,8 @@ end;
 
 procedure SetSynAttr(FCurrentTheme:TIDETheme;Element: TIDEHighlightElements; SynAttr: TSynHighlighterAttributes; DelphiVersion: TDelphiVersions);
 begin
-  SynAttr.Background := GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[Element].BackgroundColorNew),DelphiVersion);
-  SynAttr.Foreground := GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[Element].ForegroundColorNew),DelphiVersion);
+  SynAttr.Background := GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[Element].BackgroundColorNew), DelphiVersion);
+  SynAttr.Foreground := GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[Element].ForegroundColorNew), DelphiVersion);
   SynAttr.Style      := [];
   if FCurrentTheme[Element].Bold then
     SynAttr.Style := SynAttr.Style + [fsBold];
@@ -711,7 +727,96 @@ begin
   FileName:=IncludeTrailingPathDelimiter(PathThemes)+FileName+sThemesExt;
   LoadThemeFromXMLFile(FCurrentTheme, FileName);
   RunRefreshHighlighter();
+
+  SynExporterHTML1.Color :=
+    GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[TIDEHighlightElements.Whitespace].BackgroundColorNew), DelphiXE);
+
+  SynExporterRTF1.Color :=
+    GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[TIDEHighlightElements.Whitespace].BackgroundColorNew), DelphiXE);
 end;
+
+procedure TFrmEditor.Copyastexttoclipboard1Click(Sender: TObject);
+var
+  Exporter: TSynCustomExporter;
+begin
+  Exporter := SynExporterRTF1;
+  with Exporter do
+  begin
+    Title := 'Source file exported to clipboard (as text)';
+    ExportAsText := True;
+    Highlighter := SynEdit1.Highlighter;
+    ExportAll(SynEdit1.Lines);
+    CopyToClipboard;
+  end;
+end;
+
+
+procedure TFrmEditor.Copynativeformattoclipboard1Click(Sender: TObject);
+begin
+  Clipboard.Open;
+  try
+    Clipboard.AsText := SynEdit1.Lines.Text;
+    with SynExporterRTF1 do begin
+      Title := 'Source file exported to clipboard (native format)';
+      ExportAsText := FALSE;
+      Highlighter := SynEdit1.Highlighter;
+      ExportAll(SynEdit1.Lines);
+      CopyToClipboard;
+    end;
+  finally
+    Clipboard.Close;
+  end;
+end;
+
+
+procedure TFrmEditor.ExporttoHTML1Click(Sender: TObject);
+var
+  FileName: string;
+  Exporter: TSynCustomExporter;
+begin
+  dlgFileSaveAs.Filter := SynExporterHTML1.DefaultFilter;
+  if dlgFileSaveAs.Execute then
+  begin
+    FileName := dlgFileSaveAs.FileName;
+    if ExtractFileExt(FileName) = '' then
+     FileName := FileName + '.html';
+    Exporter := SynExporterHTML1;
+    if Assigned(Exporter) then
+    with Exporter do begin
+      Title := 'Source file exported to file';
+      Highlighter := SynEdit1.Highlighter;
+      ExportAsText := true;
+      ExportAll(SynEdit1.Lines);
+      SaveToFile(FileName);
+    end;
+  end;
+end;
+
+
+procedure TFrmEditor.ExporttoRTF1Click(Sender: TObject);
+var
+  FileName: string;
+  Exporter: TSynCustomExporter;
+begin
+  dlgFileSaveAs.Filter := SynExporterRTF1.DefaultFilter;
+  if dlgFileSaveAs.Execute then
+  begin
+    FileName := dlgFileSaveAs.FileName;
+    if ExtractFileExt(FileName) = '' then
+     FileName := FileName + '.rtf';
+    Exporter := SynExporterRTF1;
+    if Assigned(Exporter) then
+    with Exporter do
+    begin
+      Title := 'Source file exported to file';
+      Highlighter := SynEdit1.Highlighter;
+      ExportAsText := true;
+      ExportAll(SynEdit1.Lines);
+      SaveToFile(FileName);
+    end;
+  end;
+end;
+
 
 function TFrmEditor.GetThemeNameFromFile(const FileName:string): string;
 begin
@@ -812,6 +917,12 @@ begin
     SynEdit1.Lines.Clear;
     SynEdit1.Highlighter := LSynCustomHighlighter;
     LoadTheme();
+
+    SynExporterHTML1.Color :=
+      GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[TIDEHighlightElements.Whitespace].BackgroundColorNew), DelphiXE);
+
+    SynExporterRTF1.Color :=
+      GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[TIDEHighlightElements.Whitespace].BackgroundColorNew), DelphiXE);
   end;
 
   SynEdit1.Lines.LoadFromFile(FFileName);
