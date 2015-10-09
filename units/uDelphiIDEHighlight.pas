@@ -137,7 +137,6 @@ function SaveIDEThemeToXmlFile(DelphiVersion: TDelphiVersions; const ATheme: TID
 
 function LoadThemeFromXMLFile(var ATheme: TIDETheme; const FileName: TFileName): Boolean;
 function SetIDEDefaultTheme(DelphiVersion: TDelphiVersions): Boolean;
-function ApplyIDETheme(DelphiVersion: TDelphiVersions; const ATheme: TIDETheme): Boolean;
 function GetIDEDefaultTheme(DelphiVersion: TDelphiVersions): TIDETheme;
 
 function ExistIDEThemeToImport(DelphiVersion: TDelphiVersions): Boolean;
@@ -206,17 +205,6 @@ begin
   end;
 end;
 
-function ApplyIDETheme(DelphiVersion: TDelphiVersions; const ATheme: TIDETheme): Boolean;
-var
-  FileName: TFileName;
-begin
-  FileName := SaveIDEThemeToRegFile(DelphiVersion, ATheme, ExtractFilePath(ParamStr(0)), 'Dummy');
-  try
-    Result := FileExists(FileName) and RunAndWait(0, 'regedit.exe', '/S "' + FileName + '"');
-  finally
-    // TFile.Delete(FileName);
-  end;
-end;
 
 function SetIDEDefaultTheme(DelphiVersion: TDelphiVersions): Boolean;
 var

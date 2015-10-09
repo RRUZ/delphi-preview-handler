@@ -46,7 +46,7 @@ type
 
   TFrmEditor = class(TForm)
     SynEdit1: TSynEdit;
-    PanelBottom: TPanel;
+    PanelTop: TPanel;
     Image1: TImage;
     SynPasSyn1: TSynPasSyn;
     PanelEditor: TPanel;
@@ -100,6 +100,7 @@ type
     Lines1: TMenuItem;
     PopupMenuThemes: TPopupMenu;
     ToolButtonThemes: TToolButton;
+    CoolBar1: TCoolBar;
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
     procedure ToolButtonZoomInClick(Sender: TObject);
@@ -329,7 +330,7 @@ var
   i: integer;
 begin
   Result := SynPasSyn1;
-
+  LHighlighterClass := TSynCustomHighlighter;
   LExt := LowerCase(ExtractFileExt(FFileName));
   for LItem in FExtensions do
     if LItem.Value.IndexOf(LExt) >= 0 then

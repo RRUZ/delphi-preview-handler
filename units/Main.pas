@@ -25,7 +25,8 @@
 // done : Add export option
 // done : Replace combo theme using Dropdown button
 // Add search option
-// Add update button
+// Add update option
+// Add About
 
 
 

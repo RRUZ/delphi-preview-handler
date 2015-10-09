@@ -16,7 +16,7 @@ object FrmEditor: TFrmEditor
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
-  object PanelBottom: TPanel
+  object PanelTop: TPanel
     Left = 0
     Top = 0
     Width = 888
@@ -26,20 +26,162 @@ object FrmEditor: TFrmEditor
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
-    object PanelImage: TPanel
-      Left = 855
+    object PanelToolBar: TPanel
+      Left = 0
       Top = 0
-      Width = 33
+      Width = 856
+      Height = 35
+      Align = alClient
+      BevelOuter = bvNone
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 0
+      ExplicitWidth = 888
+      object CoolBar1: TCoolBar
+        Left = 0
+        Top = 0
+        Width = 856
+        Height = 35
+        Align = alClient
+        AutoSize = True
+        BandBorderStyle = bsNone
+        Bands = <
+          item
+            Control = ToolBar1
+            ImageIndex = -1
+            MinHeight = 35
+            Width = 854
+          end>
+        Ctl3D = False
+        EdgeInner = esNone
+        EdgeOuter = esNone
+        ExplicitWidth = 888
+        object ToolBar1: TToolBar
+          Left = 11
+          Top = 0
+          Width = 845
+          Height = 35
+          Align = alClient
+          AutoSize = True
+          ButtonHeight = 30
+          ButtonWidth = 103
+          Caption = 'ToolBar1'
+          Ctl3D = True
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'Calibri'
+          Font.Style = []
+          Images = ImageList1
+          List = True
+          ParentFont = False
+          ParentShowHint = False
+          ShowCaptions = True
+          ShowHint = True
+          TabOrder = 0
+          object ToolButtonZoomIn: TToolButton
+            Left = 0
+            Top = 0
+            Hint = 'Zoom In'
+            AutoSize = True
+            Caption = 'Zoom In'
+            ImageIndex = 7
+            OnClick = ToolButtonZoomInClick
+          end
+          object ToolButtonZommOut: TToolButton
+            Left = 75
+            Top = 0
+            Hint = 'Zoom Out'
+            AutoSize = True
+            Caption = 'Zoom Out'
+            ImageIndex = 8
+            OnClick = ToolButtonZommOutClick
+          end
+          object ToolButton2: TToolButton
+            Left = 158
+            Top = 0
+            Hint = 'Search'
+            AutoSize = True
+            Caption = 'Search'
+            ImageIndex = 16
+          end
+          object ToolButtonSelectMode: TToolButton
+            Left = 225
+            Top = 0
+            Hint = 'Selection mode'
+            AutoSize = True
+            Caption = 'Select Mode'
+            DropdownMenu = PopupMenuSelectionMode
+            ImageIndex = 17
+            Style = tbsDropDown
+          end
+          object ToolButtonExport: TToolButton
+            Left = 344
+            Top = 0
+            Hint = 'Export'
+            AutoSize = True
+            Caption = 'Export'
+            DropdownMenu = PopupMenuExport
+            ImageIndex = 14
+            Style = tbsDropDown
+          end
+          object ToolButtonThemes: TToolButton
+            Left = 429
+            Top = 0
+            Hint = 'Syntax Highlight Themes'
+            AutoSize = True
+            Caption = 'Themes'
+            DropdownMenu = PopupMenuThemes
+            ImageIndex = 10
+            Style = tbsDropDown
+          end
+          object ToolButtonSave: TToolButton
+            Left = 524
+            Top = 0
+            Hint = 'Save Settings'
+            AutoSize = True
+            Caption = 'Save Settings'
+            ImageIndex = 6
+            OnClick = ToolButtonSaveClick
+          end
+          object ToolButtonBugReport: TToolButton
+            Left = 625
+            Top = 0
+            Hint = 'Report bugs'
+            AutoSize = True
+            Caption = 'Bug Report'
+            ImageIndex = 4
+            OnClick = ToolButtonBugReportClick
+          end
+          object ToolButton1: TToolButton
+            Left = 715
+            Top = 0
+            Width = 30
+            Caption = 'ToolButton1'
+            ImageIndex = 4
+            Style = tbsSeparator
+          end
+        end
+      end
+    end
+    object PanelImage: TPanel
+      Left = 856
+      Top = 0
+      Width = 32
       Height = 35
       Align = alRight
+      Alignment = taRightJustify
       BevelOuter = bvNone
-      TabOrder = 0
+      TabOrder = 1
       object Image1: TImage
         Left = 0
         Top = 0
         Width = 32
         Height = 35
-        Align = alLeft
+        Cursor = crHandPoint
+        Align = alRight
         AutoSize = True
         Picture.Data = {
           0954506E67496D61676589504E470D0A1A0A0000000D49484452000000200000
@@ -116,106 +258,8 @@ object FrmEditor: TFrmEditor
           34D4DB9EEC7F061D1DEA7F0430AAFFADB583D8657203287234A4A2C5D03A3A30
           FAD7B38E717E9EFD0BC095535D29F898530000000049454E44AE426082}
         OnClick = Image1Click
-        ExplicitLeft = 8
-        ExplicitHeight = 32
-      end
-    end
-    object PanelToolBar: TPanel
-      Left = 0
-      Top = 0
-      Width = 855
-      Height = 35
-      Align = alClient
-      BevelOuter = bvNone
-      ParentShowHint = False
-      ShowHint = True
-      TabOrder = 1
-      object ToolBar1: TToolBar
-        Left = 0
-        Top = 13
-        Width = 855
-        Height = 22
-        Align = alBottom
-        AutoSize = True
-        Caption = 'ToolBar1'
-        Images = ImageList1
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 0
-        object ToolButtonZoomIn: TToolButton
-          Left = 0
-          Top = 0
-          Hint = 'Zoom In'
-          Caption = 'ToolButtonZoomIn'
-          ImageIndex = 7
-          OnClick = ToolButtonZoomInClick
-        end
-        object ToolButtonZommOut: TToolButton
-          Left = 23
-          Top = 0
-          Hint = 'Zoom Out'
-          Caption = 'ToolButtonZommOut'
-          ImageIndex = 8
-          OnClick = ToolButtonZommOutClick
-        end
-        object ToolButtonBugReport: TToolButton
-          Left = 46
-          Top = 0
-          Hint = 'Report bugs'
-          Caption = 'ToolButtonBugReport'
-          ImageIndex = 4
-          OnClick = ToolButtonBugReportClick
-        end
-        object ToolButtonSave: TToolButton
-          Left = 69
-          Top = 0
-          Hint = 'Save Settings'
-          Caption = 'ToolButtonSave'
-          ImageIndex = 6
-          OnClick = ToolButtonSaveClick
-        end
-        object ToolButton2: TToolButton
-          Left = 92
-          Top = 0
-          Hint = 'Search'
-          Caption = 'ToolButtonSearch'
-          ImageIndex = 16
-        end
-        object ToolButtonSelectMode: TToolButton
-          Left = 115
-          Top = 0
-          Hint = 'Selection mode'
-          Caption = 'ToolButtonSelectMode'
-          DropdownMenu = PopupMenuSelectionMode
-          ImageIndex = 17
-          Style = tbsDropDown
-        end
-        object ToolButtonExport: TToolButton
-          Left = 153
-          Top = 0
-          Hint = 'Export'
-          Caption = 'ToolButtonExport'
-          DropdownMenu = PopupMenuExport
-          ImageIndex = 14
-          Style = tbsDropDown
-        end
-        object ToolButtonThemes: TToolButton
-          Left = 191
-          Top = 0
-          Hint = 'Syntax Highlight Themes'
-          Caption = 'ToolButtonThemes'
-          DropdownMenu = PopupMenuThemes
-          ImageIndex = 10
-          Style = tbsDropDown
-        end
-        object ToolButton1: TToolButton
-          Left = 229
-          Top = 0
-          Width = 30
-          Caption = 'ToolButton1'
-          ImageIndex = 4
-          Style = tbsSeparator
-        end
+        ExplicitLeft = -24
+        ExplicitTop = -6
       end
     end
   end
