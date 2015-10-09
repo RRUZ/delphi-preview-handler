@@ -60,6 +60,10 @@ Source: Themes\Vibrant Ink.theme.xml; DestDir: {app}\Themes\
 Source: Themes\wekeroad-ink.theme.xml; DestDir: {app}\Themes\
 Source: Themes\zenburn-2010.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Zenburn.theme.xml; DestDir: {app}\Themes\
+Source: Updater\DownloadInfo.xml; DestDir: {app}
+Source: Updater\libeay32.dll; DestDir: {app}
+Source: Updater\ssleay32.dll; DestDir: {app}
+Source: Updater\updater.exe; DestDir: {app}
 ;Source: Settings.ini; DestDir: {app}
 
 [Setup]

@@ -33,6 +33,8 @@ uses
   function GetDllPath: String;
   function GetTempDirectory: string;
   function GetSpecialFolder(const CSIDL: integer): string;
+  function GetFileVersion(const FileName: string): string;
+  function  GetModuleLocation : string;
 
   procedure RefreshSynEdit(FCurrentTheme: TIDETheme; SynEdit: SynEdit.TSynEdit);
   procedure SetSynAttr(FCurrentTheme: TIDETheme; Element: TIDEHighlightElements; SynAttr: TSynHighlighterAttributes;
@@ -66,6 +68,7 @@ uses
 implementation
 
 uses
+  ComObj,
   System.SysUtils,
   WinApi.Windows,
   WinApi.ShlObj,
@@ -673,4 +676,19 @@ begin
   System.SysUtils.ForceDirectories(Result);
 end;
 
+
+function GetFileVersion(const FileName: string): string;
+var
+  FSO  : OleVariant;
+begin
+  FSO    := CreateOleObject('Scripting.FileSystemObject');
+  Result := FSO.GetFileVersion(FileName);
+end;
+
+function  GetModuleLocation : string;
+begin
+  SetLength(Result, MAX_PATH);
+  GetModuleFileName(HInstance, PChar(Result), MAX_PATH);
+  Result:=PChar(Result);
+end;
 end.

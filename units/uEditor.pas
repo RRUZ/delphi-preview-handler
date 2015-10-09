@@ -47,16 +47,14 @@ type
   TFrmEditor = class(TForm)
     SynEdit1: TSynEdit;
     PanelTop: TPanel;
-    Image1: TImage;
     SynPasSyn1: TSynPasSyn;
     PanelEditor: TPanel;
     ImageList1: TImageList;
     ToolBar1: TToolBar;
     ToolButtonZoomIn: TToolButton;
     ToolButtonZommOut: TToolButton;
-    ToolButtonBugReport: TToolButton;
+    ToolButtonAbout: TToolButton;
     ToolButtonSave: TToolButton;
-    PanelImage: TPanel;
     PanelToolBar: TPanel;
     SynXMLSyn1: TSynXMLSyn;
     SynCppSyn1: TSynCppSyn;
@@ -102,11 +100,10 @@ type
     ToolButtonThemes: TToolButton;
     CoolBar1: TCoolBar;
     procedure FormCreate(Sender: TObject);
-    procedure Image1Click(Sender: TObject);
     procedure ToolButtonZoomInClick(Sender: TObject);
     procedure ToolButtonZommOutClick(Sender: TObject);
     procedure ToolButtonSaveClick(Sender: TObject);
-    procedure ToolButtonBugReportClick(Sender: TObject);
+    procedure ToolButtonAboutClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure ExporttoHTML1Click(Sender: TObject);
     procedure Copynativeformattoclipboard1Click(Sender: TObject);
@@ -150,7 +147,7 @@ uses
   Vcl.Clipbrd,
   uLogExcept,
   System.Types,
-  Registry, uMisc, IOUtils, ShellAPI, ComObj, IniFiles, GraphUtil;
+  Registry, uMisc, IOUtils, ShellAPI, ComObj, IniFiles, GraphUtil, uAbout;
 
 const
   sThemesExt = '.theme.xml';
@@ -261,11 +258,6 @@ end;
 function TFrmEditor.GetThemeNameFromFile(const FileName: string): string;
 begin
   Result := Copy(ExtractFileName(FileName), 1, Pos('.theme', ExtractFileName(FileName)) - 1);
-end;
-
-procedure TFrmEditor.Image1Click(Sender: TObject);
-begin
-  ShellExecute(Handle, 'open', 'https://github.com/RRUZ/delphi-preview-handler', nil, nil, SW_SHOWNORMAL);
 end;
 
 procedure TFrmEditor.FillThemes;
@@ -473,9 +465,16 @@ begin
       RefreshSynVbScriptHighlighter(FCurrentTheme, SynEdit1);
 end;
 
-procedure TFrmEditor.ToolButtonBugReportClick(Sender: TObject);
+procedure TFrmEditor.ToolButtonAboutClick(Sender: TObject);
+var
+  LFrm : TFrmAbout;
 begin
-  ShellExecute(Handle, 'open', 'https://github.com/RRUZ/delphi-preview-handler/issues', nil, nil, SW_SHOWNORMAL);
+  LFrm:=TFrmAbout.Create(nil);
+  try
+   LFrm.ShowModal();
+  finally
+   LFrm.Free;
+  end;
 end;
 
 procedure TFrmEditor.ToolButtonSaveClick(Sender: TObject);

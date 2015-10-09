@@ -45,7 +45,8 @@ uses
   uSynEditPopupEdit in 'uSynEditPopupEdit.pas',
   uLogExcept in 'uLogExcept.pas',
   uCommonPreviewHandler in 'uCommonPreviewHandler.pas',
-  uGlobalPreviewHandler in 'uGlobalPreviewHandler.pas';
+  uGlobalPreviewHandler in 'uGlobalPreviewHandler.pas',
+  uAbout in 'uAbout.pas' {FrmAbout};
 
 exports
   DllGetClassObject,

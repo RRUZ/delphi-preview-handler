@@ -6,7 +6,7 @@
         <Basis>True</Basis>
         <Config Condition="'$(Config)'==''">Release</Config>
         <AppType>Library</AppType>
-        <FrameworkType>None</FrameworkType>
+        <FrameworkType>VCL</FrameworkType>
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
         <Base>True</Base>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -55,7 +55,7 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <VerInfo_Build>190</VerInfo_Build>
-        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;System.Win;Winapi;Vcl;Vcl.Imaging;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;System.Win;Winapi;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
         <VerInfo_Keys>CompanyName=the Road To Delphi;FileDescription=Delphi Preview Handler;FileVersion=1.0.1.190;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=Go Delphi Go</VerInfo_Keys>
@@ -143,6 +143,10 @@
         <DCCReference Include="uLogExcept.pas"/>
         <DCCReference Include="uCommonPreviewHandler.pas"/>
         <DCCReference Include="uGlobalPreviewHandler.pas"/>
+        <DCCReference Include="uAbout.pas">
+            <Form>FrmAbout</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
