@@ -65,6 +65,23 @@ uses
   procedure RefreshSynVbScriptHighlighter(FCurrentTheme: TIDETheme; SynEdit: TSynEdit);
   procedure RefreshBatSynHighlighter(FCurrentTheme: TIDETheme; SynEdit: TSynEdit);
 
+var
+  gbSearchBackwards: boolean;
+  gbSearchCaseSensitive: boolean;
+  gbSearchFromCaret: boolean;
+  gbSearchSelectionOnly: boolean;
+  gbSearchTextAtCaret: boolean;
+  gbSearchWholeWords: boolean;
+  gbSearchRegex: boolean;
+
+  gsSearchText: string;
+  gsSearchTextHistory: string;
+  gsReplaceText: string;
+  gsReplaceTextHistory: string;
+
+resourcestring
+  STextNotFound = 'Text not found';
+
 implementation
 
 uses

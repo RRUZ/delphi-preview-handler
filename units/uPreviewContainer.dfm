@@ -12,6 +12,7 @@ object PreviewContainer: TPreviewContainer
   Font.Style = []
   OldCreateOrder = False
   ShowHint = True
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
 end

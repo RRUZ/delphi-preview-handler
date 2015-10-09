@@ -39,7 +39,8 @@ uses
   SynHighlighterVB, SynHighlighterM3, SynHighlighterJava, SynHighlighterSml,
   SynHighlighterIni, SynHighlighterInno, SynHighlighterSQL,
   SynHighlighterUNIXShellScript, SynHighlighterRuby, Vcl.Menus, SynEditExport,
-  SynExportHTML, SynExportRTF;
+  SynExportHTML, SynExportRTF, SynEditRegexSearch, SynEditMiscClasses,
+  SynEditSearch;
 
 type
   TProcRefreshSynHighlighter = procedure(FCurrentTheme: TIDETheme; SynEdit: SynEdit.TSynEdit);
@@ -90,7 +91,7 @@ type
     Copynativeformattoclipboard1: TMenuItem;
     Copyastexttoclipboard1: TMenuItem;
     ExporttoRTF1: TMenuItem;
-    ToolButton2: TToolButton;
+    ToolButtonSearch: TToolButton;
     ToolButtonSelectMode: TToolButton;
     PopupMenuSelectionMode: TPopupMenu;
     Normal1: TMenuItem;
@@ -99,6 +100,9 @@ type
     PopupMenuThemes: TPopupMenu;
     ToolButtonThemes: TToolButton;
     CoolBar1: TCoolBar;
+    StatusBar1: TStatusBar;
+    SynEditSearch1: TSynEditSearch;
+    SynEditRegexSearch1: TSynEditRegexSearch;
     procedure FormCreate(Sender: TObject);
     procedure ToolButtonZoomInClick(Sender: TObject);
     procedure ToolButtonZommOutClick(Sender: TObject);
@@ -112,6 +116,10 @@ type
     procedure Normal1Click(Sender: TObject);
     procedure Columns1Click(Sender: TObject);
     procedure Lines1Click(Sender: TObject);
+    procedure ToolButtonSearchClick(Sender: TObject);
+    procedure ToolButtonSelectModeClick(Sender: TObject);
+    procedure ToolButtonExportClick(Sender: TObject);
+    procedure ToolButtonThemesClick(Sender: TObject);
   private
     FCurrentTheme: TIDETheme;
     FPathThemes: string;
@@ -119,12 +127,15 @@ type
     FFileName: string;
     FRefreshSynHighlighter: TProcRefreshSynHighlighter;
     FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
-    FListThemes  : TStringList;
+    FListThemes: TStringList;
+    fSearchFromCaret: boolean;
     function GetThemeNameFromFile(const FileName: string): string;
     procedure AppException(Sender: TObject; E: Exception);
     function GetHighlighter: TSynCustomHighlighter;
     procedure RunRefreshHighlighter;
     procedure MenuThemeOnCLick(Sender: TObject);
+    procedure ShowSearchDialog;
+    procedure DoSearchText(ABackwards: boolean);
   public
     procedure FillThemes;
     procedure LoadCurrentTheme;
@@ -136,7 +147,6 @@ type
     procedure LoadFile(const FileName: string);
   end;
 
-
 var
   FrmEditor: TFrmEditor;
 
@@ -147,7 +157,8 @@ uses
   Vcl.Clipbrd,
   uLogExcept,
   System.Types,
-  Registry, uMisc, IOUtils, ShellAPI, ComObj, IniFiles, GraphUtil, uAbout;
+  Registry, uMisc, IOUtils, ShellAPI, ComObj, IniFiles, GraphUtil, uAbout,
+  dlgSearchText;
 
 const
   sThemesExt = '.theme.xml';
@@ -157,9 +168,7 @@ const
   MinfontSize = 8;
 
 {$R *.dfm}
-
-
-{ TFrmEditor }
+  { TFrmEditor }
 
 procedure TFrmEditor.AppException(Sender: TObject; E: Exception);
 begin
@@ -170,8 +179,8 @@ end;
 
 procedure TFrmEditor.Columns1Click(Sender: TObject);
 begin
- TMenuItem(Sender).Checked:=True;
- SynEdit1.SelectionMode := smColumn;
+  TMenuItem(Sender).Checked := True;
+  SynEdit1.SelectionMode := smColumn;
 end;
 
 procedure TFrmEditor.Copyastexttoclipboard1Click(Sender: TObject);
@@ -204,6 +213,40 @@ begin
     end;
   finally
     Clipboard.Close;
+  end;
+end;
+
+procedure TFrmEditor.DoSearchText(ABackwards: boolean);
+var
+  Options: TSynSearchOptions;
+begin
+  StatusBar1.SimpleText := '';
+  Options := [];
+  if ABackwards then
+    Include(Options, ssoBackwards);
+  if gbSearchCaseSensitive then
+    Include(Options, ssoMatchCase);
+  if not fSearchFromCaret then
+    Include(Options, ssoEntireScope);
+  if gbSearchSelectionOnly then
+    Include(Options, ssoSelectedOnly);
+  if gbSearchWholeWords then
+    Include(Options, ssoWholeWord);
+
+  if gbSearchRegex then
+    SynEdit1.SearchEngine := SynEditRegexSearch1
+  else
+    SynEdit1.SearchEngine := SynEditSearch1;
+
+  if SynEdit1.SearchReplace(gsSearchText, gsReplaceText, Options) = 0 then
+  begin
+    MessageBeep(MB_ICONASTERISK);
+    StatusBar1.SimpleText := STextNotFound;
+    if ssoBackwards in Options then
+      SynEdit1.BlockEnd := SynEdit1.BlockBegin
+    else
+      SynEdit1.BlockBegin := SynEdit1.BlockEnd;
+    SynEdit1.CaretXY := SynEdit1.BlockBegin;
   end;
 end;
 
@@ -263,25 +306,25 @@ end;
 procedure TFrmEditor.FillThemes;
 var
   s, Theme: string;
-  LMenuItem : TMenuItem;
+  LMenuItem: TMenuItem;
 begin
   if not TDirectory.Exists(PathThemes) then
     exit;
 
-    for Theme in TDirectory.GetFiles(PathThemes, '*.theme.xml') do
-    begin
-      s := GetThemeNameFromFile(Theme);
-      FListThemes.Add(s);
-      LMenuItem:=TMenuItem.Create(PopupMenuThemes);
-      PopupMenuThemes.Items.Add(LMenuItem);
-      LMenuItem.Caption:=s;
-      LMenuItem.RadioItem:=True;
-      LMenuItem.OnClick := MenuThemeOnCLick;
-      LMenuItem.Tag:= FListThemes.Count-1;
-    end;
+  for Theme in TDirectory.GetFiles(PathThemes, '*.theme.xml') do
+  begin
+    s := GetThemeNameFromFile(Theme);
+    FListThemes.Add(s);
+    LMenuItem := TMenuItem.Create(PopupMenuThemes);
+    PopupMenuThemes.Items.Add(LMenuItem);
+    LMenuItem.Caption := s;
+    LMenuItem.RadioItem := True;
+    LMenuItem.OnClick := MenuThemeOnCLick;
+    LMenuItem.Tag := FListThemes.Count - 1;
+  end;
 
-//  if ComboBoxThemes.Items.Count > 0 then
-//    ComboBoxThemes.ItemIndex := ComboBoxThemes.Items.IndexOf(GetThemeNameFromFile(ThemeName));
+  // if ComboBoxThemes.Items.Count > 0 then
+  // ComboBoxThemes.ItemIndex := ComboBoxThemes.Items.IndexOf(GetThemeNameFromFile(ThemeName));
 end;
 
 procedure TFrmEditor.FormCreate(Sender: TObject);
@@ -291,7 +334,7 @@ var
 begin
   Application.OnException := AppException;
   TLogPreview.Add('FormCreate');
-  FListThemes:=TStringList.Create;
+  FListThemes := TStringList.Create;
   // TLogPreview.Add(Format('Forms %d', [Screen.FormCount]));
   // for i:=0 to Screen.FormCount-1 do
   // TLogPreview.Add(Format('  %s', [Screen.Forms[i].ClassName]));
@@ -342,8 +385,8 @@ end;
 
 procedure TFrmEditor.Lines1Click(Sender: TObject);
 begin
- TMenuItem(Sender).Checked:=True;
- SynEdit1.SelectionMode := smLine;
+  TMenuItem(Sender).Checked := True;
+  SynEdit1.SelectionMode := smLine;
 end;
 
 procedure TFrmEditor.LoadFile(const FileName: string);
@@ -373,19 +416,19 @@ end;
 procedure TFrmEditor.LoadCurrentTheme;
 var
   FileName: string;
-  i : Integer;
+  i: integer;
 begin
   TLogPreview.Add('TFrmEditor.LoadCurrentTheme Init');
   FileName := IncludeTrailingPathDelimiter(PathThemes) + ThemeName;
   LoadThemeFromXMLFile(FCurrentTheme, FileName);
   RunRefreshHighlighter;
 
-  for i :=0 to PopupMenuThemes.Items.Count-1 do
-   if SameText(FListThemes[PopupMenuThemes.Items[i].Tag], GetThemeNameFromFile(ThemeName)) then
-   begin
-     PopupMenuThemes.Items[i].Checked:=True;
-     Break;
-   end;
+  for i := 0 to PopupMenuThemes.Items.Count - 1 do
+    if SameText(FListThemes[PopupMenuThemes.Items[i].Tag], GetThemeNameFromFile(ThemeName)) then
+    begin
+      PopupMenuThemes.Items[i].Checked := True;
+      Break;
+    end;
 
   TLogPreview.Add('TFrmEditor.LoadCurrentTheme Done');
 end;
@@ -394,7 +437,7 @@ procedure TFrmEditor.MenuThemeOnCLick(Sender: TObject);
 var
   FileName: string;
 begin
-  TMenuItem(Sender).Checked:=True;
+  TMenuItem(Sender).Checked := True;
   FileName := FListThemes[TMenuItem(Sender).Tag];
   FileName := IncludeTrailingPathDelimiter(PathThemes) + FileName + sThemesExt;
   LoadThemeFromXMLFile(FCurrentTheme, FileName);
@@ -406,10 +449,11 @@ begin
   SynExporterRTF1.Color := GetDelphiVersionMappedColor(StringToColor(FCurrentTheme[TIDEHighlightElements.Whitespace].BackgroundColorNew),
     DelphiXE);
 end;
+
 procedure TFrmEditor.Normal1Click(Sender: TObject);
 begin
- TMenuItem(Sender).Checked:=True;
- SynEdit1.SelectionMode := smNormal;
+  TMenuItem(Sender).Checked := True;
+  SynEdit1.SelectionMode := smNormal;
 end;
 
 procedure TFrmEditor.RunRefreshHighlighter;
@@ -465,32 +509,91 @@ begin
       RefreshSynVbScriptHighlighter(FCurrentTheme, SynEdit1);
 end;
 
+procedure TFrmEditor.ShowSearchDialog;
+var
+  LTextSearchDialog: TTextSearchDialog;
+  LRect: TRect;
+begin
+  StatusBar1.SimpleText := '';
+  LTextSearchDialog := TTextSearchDialog.Create(Self);
+  try
+    LTextSearchDialog.SearchBackwards := gbSearchBackwards;
+    LTextSearchDialog.SearchCaseSensitive := gbSearchCaseSensitive;
+    LTextSearchDialog.SearchFromCursor := gbSearchFromCaret;
+    LTextSearchDialog.SearchInSelectionOnly := gbSearchSelectionOnly;
+
+    LTextSearchDialog.SearchText := gsSearchText;
+    if gbSearchTextAtCaret then
+    begin
+      if SynEdit1.SelAvail and (SynEdit1.BlockBegin.Line = SynEdit1.BlockEnd.Line) then
+        LTextSearchDialog.SearchText := SynEdit1.SelText
+      else
+        LTextSearchDialog.SearchText := SynEdit1.GetWordAtRowCol(SynEdit1.CaretXY);
+    end;
+
+    LTextSearchDialog.SearchTextHistory := gsSearchTextHistory;
+    LTextSearchDialog.SearchWholeWords := gbSearchWholeWords;
+
+    if Self.Parent <> nil then
+    begin
+      GetWindowRect(Self.Parent.ParentWindow, LRect);
+      LTextSearchDialog.Left := (LRect.Left + LRect.Right - LTextSearchDialog.Width) div 2;
+      LTextSearchDialog.Top := (LRect.Top + LRect.Bottom - LTextSearchDialog.Height) div 2;
+    end;
+
+    if LTextSearchDialog.ShowModal() = mrOK then
+    begin
+      gbSearchBackwards := LTextSearchDialog.SearchBackwards;
+      gbSearchCaseSensitive := LTextSearchDialog.SearchCaseSensitive;
+      gbSearchFromCaret := LTextSearchDialog.SearchFromCursor;
+      gbSearchSelectionOnly := LTextSearchDialog.SearchInSelectionOnly;
+      gbSearchWholeWords := LTextSearchDialog.SearchWholeWords;
+      gbSearchRegex := LTextSearchDialog.SearchRegularExpression;
+      gsSearchText := LTextSearchDialog.SearchText;
+      gsSearchTextHistory := LTextSearchDialog.SearchTextHistory;
+      fSearchFromCaret := gbSearchFromCaret;
+
+      if gsSearchText <> '' then
+      begin
+        DoSearchText(gbSearchBackwards);
+        fSearchFromCaret := True;
+      end;
+    end;
+  finally
+    LTextSearchDialog.Free;
+  end;
+end;
+
 procedure TFrmEditor.ToolButtonAboutClick(Sender: TObject);
 var
-  LFrm : TFrmAbout;
+  LFrm: TFrmAbout;
 begin
-  LFrm:=TFrmAbout.Create(nil);
+  LFrm := TFrmAbout.Create(nil);
   try
-   LFrm.ShowModal();
+    LFrm.ShowModal();
   finally
-   LFrm.Free;
+    LFrm.Free;
   end;
+end;
+
+procedure TFrmEditor.ToolButtonExportClick(Sender: TObject);
+begin
+  TToolButton(Sender).CheckMenuDropdown;
 end;
 
 procedure TFrmEditor.ToolButtonSaveClick(Sender: TObject);
 var
-  Settings : TIniFile;
-  Theme : string;
-  i : integer;
+  Settings: TIniFile;
+  Theme: string;
+  i: integer;
 begin
 
-  for i := 0 to PopupMenuThemes.Items.Count-1  do
+  for i := 0 to PopupMenuThemes.Items.Count - 1 do
     if PopupMenuThemes.Items[i].Checked then
     begin
-     Theme := FListThemes[PopupMenuThemes.Items[i].Tag];
-     Break;
+      Theme := FListThemes[PopupMenuThemes.Items[i].Tag];
+      Break;
     end;
-
 
   if Application.MessageBox(PChar(Format('Do you want save the current settings? %s', [''])), 'Confirmation', MB_YESNO + MB_ICONQUESTION) = idYes
   then
@@ -510,6 +613,21 @@ begin
         TLogPreview.Add(Format('Error in TFrmEditor.Save - Message : %s : Trace %s', [E.Message, E.StackTrace]));
     end;
   end;
+end;
+
+procedure TFrmEditor.ToolButtonSearchClick(Sender: TObject);
+begin
+  ShowSearchDialog();
+end;
+
+procedure TFrmEditor.ToolButtonSelectModeClick(Sender: TObject);
+begin
+  TToolButton(Sender).CheckMenuDropdown;
+end;
+
+procedure TFrmEditor.ToolButtonThemesClick(Sender: TObject);
+begin
+  TToolButton(Sender).CheckMenuDropdown;
 end;
 
 {

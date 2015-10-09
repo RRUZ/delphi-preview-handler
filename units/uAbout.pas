@@ -97,8 +97,9 @@ begin
   MemoCopyRights.Lines.Add('https://github.com/RRUZ/delphi-preview-handler');
   MemoCopyRights.Lines.Add('');
   MemoCopyRights.Lines.Add('Third Party libraries and tools used');
-  MemoCopyRights.Lines.Add(
-    'SynEdit http://synedit.svn.sourceforge.net/viewvc/synedit/ all rights reserved.');
+  MemoCopyRights.Lines.Add('SynEdit http://synedit.svn.sourceforge.net/viewvc/synedit/ all rights reserved.');
+  MemoCopyRights.Lines.Add('');
+  MemoCopyRights.Lines.Add('VCL Styles Utils https://github.com/RRUZ/vcl-styles-utils all rights reserved.');
   MemoCopyRights.Lines.Add('');
   MemoCopyRights.Lines.Add('This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/)');
   MemoCopyRights.Lines.Add('');

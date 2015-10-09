@@ -46,7 +46,13 @@ uses
   uLogExcept in 'uLogExcept.pas',
   uCommonPreviewHandler in 'uCommonPreviewHandler.pas',
   uGlobalPreviewHandler in 'uGlobalPreviewHandler.pas',
-  uAbout in 'uAbout.pas' {FrmAbout};
+  uAbout in 'uAbout.pas' {FrmAbout},
+  dlgSearchText in 'dlgSearchText.pas' {TextSearchDialog},
+  Vcl.Styles.Utils.Menus in '..\VCL Styles Utils\Vcl.Styles.Utils.Menus.pas',
+  Vcl.Styles.Utils.SysControls in '..\VCL Styles Utils\Vcl.Styles.Utils.SysControls.pas',
+  Vcl.Styles.Utils.SysStyleHook in '..\VCL Styles Utils\Vcl.Styles.Utils.SysStyleHook.pas',
+  Vcl.Styles.Ext in '..\VCL Styles Utils\Vcl.Styles.Ext.pas',
+  Vcl.Styles.Utils.Graphics in '..\VCL Styles Utils\Vcl.Styles.Utils.Graphics.pas';
 
 exports
   DllGetClassObject,

@@ -36,7 +36,6 @@ object FrmEditor: TFrmEditor
       ParentShowHint = False
       ShowHint = True
       TabOrder = 0
-      ExplicitWidth = 856
       object CoolBar1: TCoolBar
         Left = 0
         Top = 0
@@ -55,10 +54,9 @@ object FrmEditor: TFrmEditor
         Ctl3D = False
         EdgeInner = esNone
         EdgeOuter = esNone
-        ExplicitWidth = 856
         object ToolBar1: TToolBar
-          Left = 3
-          Top = -6
+          Left = 11
+          Top = 0
           Width = 877
           Height = 41
           Align = alClient
@@ -99,13 +97,14 @@ object FrmEditor: TFrmEditor
             ImageIndex = 8
             OnClick = ToolButtonZommOutClick
           end
-          object ToolButton2: TToolButton
+          object ToolButtonSearch: TToolButton
             Left = 158
             Top = 0
             Hint = 'Search'
             AutoSize = True
             Caption = 'Search'
             ImageIndex = 16
+            OnClick = ToolButtonSearchClick
           end
           object ToolButtonSelectMode: TToolButton
             Left = 225
@@ -116,6 +115,7 @@ object FrmEditor: TFrmEditor
             DropdownMenu = PopupMenuSelectionMode
             ImageIndex = 17
             Style = tbsDropDown
+            OnClick = ToolButtonSelectModeClick
           end
           object ToolButtonExport: TToolButton
             Left = 344
@@ -126,6 +126,7 @@ object FrmEditor: TFrmEditor
             DropdownMenu = PopupMenuExport
             ImageIndex = 14
             Style = tbsDropDown
+            OnClick = ToolButtonExportClick
           end
           object ToolButtonThemes: TToolButton
             Left = 429
@@ -136,6 +137,7 @@ object FrmEditor: TFrmEditor
             DropdownMenu = PopupMenuThemes
             ImageIndex = 10
             Style = tbsDropDown
+            OnClick = ToolButtonThemesClick
           end
           object ToolButtonSave: TToolButton
             Left = 524
@@ -171,16 +173,17 @@ object FrmEditor: TFrmEditor
     Left = 0
     Top = 35
     Width = 888
-    Height = 475
+    Height = 456
     Align = alClient
     BevelOuter = bvNone
     Caption = 'PanelEditor'
     TabOrder = 1
+    ExplicitHeight = 475
     object SynEdit1: TSynEdit
       Left = 0
       Top = 0
       Width = 888
-      Height = 475
+      Height = 456
       Align = alClient
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
@@ -197,7 +200,18 @@ object FrmEditor: TFrmEditor
       Gutter.ShowLineNumbers = True
       ReadOnly = True
       FontSmoothing = fsmNone
+      ExplicitHeight = 475
     end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 491
+    Width = 888
+    Height = 19
+    Panels = <>
+    SimplePanel = True
+    SizeGrip = False
+    ExplicitTop = 456
   end
   object SynPasSyn1: TSynPasSyn
     Options.AutoDetectEnabled = False
@@ -1121,5 +1135,13 @@ object FrmEditor: TFrmEditor
   object PopupMenuThemes: TPopupMenu
     Left = 136
     Top = 336
+  end
+  object SynEditSearch1: TSynEditSearch
+    Left = 672
+    Top = 312
+  end
+  object SynEditRegexSearch1: TSynEditRegexSearch
+    Left = 664
+    Top = 376
   end
 end

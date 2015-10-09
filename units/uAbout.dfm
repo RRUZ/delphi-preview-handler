@@ -311,12 +311,13 @@ object FrmAbout: TFrmAbout
   object LinkLabel1: TLinkLabel
     Left = 84
     Top = 27
-    Width = 239
-    Height = 17
+    Width = 269
+    Height = 19
     Caption = 
       '<a href="https://github.com/RRUZ/delphi-preview-handler">https:/' +
       '/github.com/RRUZ/delphi-preview-handler</a>'
     TabOrder = 2
+    UseVisualStyle = True
     OnClick = LinkLabel1Click
   end
   object ImageList1: TImageList

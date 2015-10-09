@@ -1,4 +1,4 @@
-//**************************************************************************************************
+// **************************************************************************************************
 //
 // Unit uPreviewContainer
 // unit for the Delphi Preview Handler https://github.com/RRUZ/delphi-preview-handler
@@ -17,8 +17,7 @@
 // Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
 // All Rights Reserved.
 //
-//*************************************************************************************************
-
+// *************************************************************************************************
 
 unit uPreviewContainer;
 
@@ -30,6 +29,7 @@ uses
 
 type
   TPreviewContainer = class(TForm)
+    procedure FormCreate(Sender: TObject);
   public
     procedure SetFocusTabFirst;
     procedure SetFocusTabLast;
@@ -41,16 +41,30 @@ type
 
 implementation
 
+uses
+  SynEdit,
+  Vcl.Styles.Ext,
+  Vcl.Styles,
+  Vcl.Themes;
+
 {$R *.dfm}
 
 procedure TPreviewContainer.SetFocusTabFirst;
 begin
- SelectNext(nil, True, True);
+  SelectNext(nil, True, True);
 end;
 
 procedure TPreviewContainer.SetFocusTabLast;
 begin
- SelectNext(nil, False, True);
+  SelectNext(nil, False, True);
+end;
+
+procedure TPreviewContainer.FormCreate(Sender: TObject);
+begin
+  if not IsStyleHookRegistered(TCustomSynEdit, TScrollingStyleHook) then
+    TStyleManager.Engine.RegisterStyleHook(TCustomSynEdit, TScrollingStyleHook);
+
+  TStyleManager.SetStyle('Glow');
 end;
 
 procedure TPreviewContainer.SetBackgroundColor(color: TColorRef);
