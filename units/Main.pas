@@ -23,7 +23,7 @@
 //TODO
 // Add application to handle settings of the preview handler
 // done : Add export option
-// Replace combo theme using Dropdown button
+// done : Replace combo theme using Dropdown button
 // Add search option
 // Add update button
 

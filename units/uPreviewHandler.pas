@@ -44,11 +44,8 @@ type
     class var FExtensions  : TDictionary<TSynCustomHighlighterClass, TStrings>;
     constructor Create(AParent: TWinControl); virtual;
     class function GetComClass: TComClass; virtual; abstract;
-    class procedure RegisterExtentions(const AClassID: TGUID; const AName, ADescription : string; Extensions: array of string);
-
     class procedure AddExtentions(ClassType : TSynCustomHighlighterClass; Extensions: array of string);
     class procedure RegisterPreview(const AClassID: TGUID; const AName, ADescription : string);
-
     procedure Unload; virtual;
   end;
 
@@ -316,13 +313,6 @@ end;
 constructor TPreviewHandler.Create(AParent: TWinControl);
 begin
   inherited Create;
-end;
-
-class procedure TPreviewHandler.RegisterExtentions(const AClassID: TGUID; const AName, ADescription: string; Extensions:array of string);
-begin
-  TLogPreview.Add('RegisterExtentions Init ' + AName);
-  TPreviewHandlerRegister.Create(Self, AClassID, AName, ADescription, Extensions);
-  TLogPreview.Add('RegisterExtentions Done ' + AName);
 end;
 
 class procedure TPreviewHandler.RegisterPreview(const AClassID: TGUID;

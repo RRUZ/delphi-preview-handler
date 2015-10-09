@@ -23,6 +23,8 @@ object FrmEditor: TFrmEditor
     Height = 35
     Align = alTop
     BevelOuter = bvNone
+    ParentShowHint = False
+    ShowHint = True
     TabOrder = 0
     object PanelImage: TPanel
       Left = 855
@@ -197,25 +199,17 @@ object FrmEditor: TFrmEditor
           ImageIndex = 14
           Style = tbsDropDown
         end
-        object ToolButton4: TToolButton
+        object ToolButtonThemes: TToolButton
           Left = 191
           Top = 0
-          Width = 20
-          Caption = 'ToolButton4'
-          ImageIndex = 3
-          Style = tbsSeparator
-        end
-        object ComboBoxThemes: TComboBox
-          Left = 211
-          Top = 0
-          Width = 203
-          Height = 21
-          Style = csDropDownList
-          TabOrder = 0
-          OnChange = ComboBoxThemesChange
+          Hint = 'Syntax Highlight Themes'
+          Caption = 'ToolButtonThemes'
+          DropdownMenu = PopupMenuThemes
+          ImageIndex = 10
+          Style = tbsDropDown
         end
         object ToolButton1: TToolButton
-          Left = 414
+          Left = 229
           Top = 0
           Width = 30
           Caption = 'ToolButton1'
@@ -1175,5 +1169,9 @@ object FrmEditor: TFrmEditor
       RadioItem = True
       OnClick = Lines1Click
     end
+  end
+  object PopupMenuThemes: TPopupMenu
+    Left = 136
+    Top = 336
   end
 end
