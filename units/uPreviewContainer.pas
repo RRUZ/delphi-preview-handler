@@ -45,7 +45,7 @@ uses
   SynEdit,
   Vcl.Styles.Ext,
   Vcl.Styles,
-  Vcl.Themes;
+  Vcl.Themes, uSettings;
 
 {$R *.dfm}
 
@@ -60,11 +60,19 @@ begin
 end;
 
 procedure TPreviewContainer.FormCreate(Sender: TObject);
+var
+  LSettings: TSettings;
 begin
-  if not IsStyleHookRegistered(TCustomSynEdit, TScrollingStyleHook) then
-    TStyleManager.Engine.RegisterStyleHook(TCustomSynEdit, TScrollingStyleHook);
+  LSettings := TSettings.Create;
+  try
+    if not IsStyleHookRegistered(TCustomSynEdit, TScrollingStyleHook) then
+      TStyleManager.Engine.RegisterStyleHook(TCustomSynEdit, TScrollingStyleHook);
 
-  TStyleManager.SetStyle('Glow');
+    if (Trim(LSettings.StyleName) <> '') and not SameText('Windows', LSettings.StyleName) then    
+      TStyleManager.TrySetStyle(LSettings.StyleName, False);
+  finally
+    LSettings.Free;
+  end;
 end;
 
 procedure TPreviewContainer.SetBackgroundColor(color: TColorRef);

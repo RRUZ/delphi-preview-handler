@@ -28,6 +28,8 @@
 // done : Add update option
 // done : Add About Form
 
+// done : One form only  (Screenforms)
+// Add Setting  Form (font size, VCL Styles, column selection, font size, font)
 
 
 

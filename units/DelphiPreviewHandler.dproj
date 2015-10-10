@@ -128,6 +128,10 @@
         <DCCReference Include="uEditor.pas">
             <Form>FrmEditor</Form>
         </DCCReference>
+        <DCCReference Include="uSettings.pas">
+            <Form>FrmSettings</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <DCCReference Include="uPreviewHandler.pas"/>
         <DCCReference Include="uMisc.pas"/>
         <DCCReference Include="uStreamPreviewHandler.pas"/>
@@ -157,6 +161,8 @@
         <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Utils.SysStyleHook.pas"/>
         <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Ext.pas"/>
         <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Utils.Graphics.pas"/>
+        <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Hooks.pas"/>
+        <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.UxTheme.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -185,7 +191,7 @@
                     <VersionInfo Name="MajorVer">1</VersionInfo>
                     <VersionInfo Name="MinorVer">0</VersionInfo>
                     <VersionInfo Name="Release">1</VersionInfo>
-                    <VersionInfo Name="Build">293</VersionInfo>
+                    <VersionInfo Name="Build">302</VersionInfo>
                     <VersionInfo Name="Debug">False</VersionInfo>
                     <VersionInfo Name="PreRelease">False</VersionInfo>
                     <VersionInfo Name="Special">False</VersionInfo>
@@ -197,7 +203,7 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">1.0.1.293</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.1.302</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName"/>
                     <VersionInfoKeys Name="LegalCopyright"/>
                     <VersionInfoKeys Name="LegalTrademarks"/>

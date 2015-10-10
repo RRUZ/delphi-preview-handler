@@ -14,7 +14,7 @@ object FrmAbout: TFrmAbout
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poDefault
   OnClose = FormClose
   OnCreate = FormCreate
   PixelsPerInch = 96

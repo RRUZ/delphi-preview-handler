@@ -32,6 +32,7 @@ uses
   ComServ,
   Main in 'Main.pas',
   uEditor in 'uEditor.pas' {FrmEditor},
+  uSettings in 'uSettings.pas' {FrmSettings},
   uPreviewHandler in 'uPreviewHandler.pas',
   uMisc in 'uMisc.pas',
   uStreamPreviewHandler in 'uStreamPreviewHandler.pas',
@@ -52,7 +53,9 @@ uses
   Vcl.Styles.Utils.SysControls in '..\VCL Styles Utils\Vcl.Styles.Utils.SysControls.pas',
   Vcl.Styles.Utils.SysStyleHook in '..\VCL Styles Utils\Vcl.Styles.Utils.SysStyleHook.pas',
   Vcl.Styles.Ext in '..\VCL Styles Utils\Vcl.Styles.Ext.pas',
-  Vcl.Styles.Utils.Graphics in '..\VCL Styles Utils\Vcl.Styles.Utils.Graphics.pas';
+  Vcl.Styles.Utils.Graphics in '..\VCL Styles Utils\Vcl.Styles.Utils.Graphics.pas',
+  Vcl.Styles.Hooks in '..\VCL Styles Utils\Vcl.Styles.Hooks.pas',
+  Vcl.Styles.UxTheme in '..\VCL Styles Utils\Vcl.Styles.UxTheme.pas';
 
 exports
   DllGetClassObject,

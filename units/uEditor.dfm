@@ -62,7 +62,7 @@ object FrmEditor: TFrmEditor
           Align = alClient
           AutoSize = True
           ButtonHeight = 30
-          ButtonWidth = 103
+          ButtonWidth = 100
           Caption = 'ToolBar1'
           Ctl3D = True
           EdgeInner = esNone
@@ -144,12 +144,12 @@ object FrmEditor: TFrmEditor
             Top = 0
             Hint = 'Save Settings'
             AutoSize = True
-            Caption = 'Save Settings'
-            ImageIndex = 6
+            Caption = 'Settings'
+            ImageIndex = 12
             OnClick = ToolButtonSaveClick
           end
           object ToolButton1: TToolButton
-            Left = 625
+            Left = 597
             Top = 0
             Width = 8
             Caption = 'ToolButton1'
@@ -157,7 +157,7 @@ object FrmEditor: TFrmEditor
             Style = tbsSeparator
           end
           object ToolButtonAbout: TToolButton
-            Left = 633
+            Left = 605
             Top = 0
             Hint = 'Report bugs'
             AutoSize = True
@@ -178,7 +178,6 @@ object FrmEditor: TFrmEditor
     BevelOuter = bvNone
     Caption = 'PanelEditor'
     TabOrder = 1
-    ExplicitHeight = 475
     object SynEdit1: TSynEdit
       Left = 0
       Top = 0
@@ -200,7 +199,6 @@ object FrmEditor: TFrmEditor
       Gutter.ShowLineNumbers = True
       ReadOnly = True
       FontSmoothing = fsmNone
-      ExplicitHeight = 475
     end
   end
   object StatusBar1: TStatusBar
@@ -211,7 +209,6 @@ object FrmEditor: TFrmEditor
     Panels = <>
     SimplePanel = True
     SizeGrip = False
-    ExplicitTop = 456
   end
   object SynPasSyn1: TSynPasSyn
     Options.AutoDetectEnabled = False

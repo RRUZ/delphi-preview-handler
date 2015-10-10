@@ -40,7 +40,7 @@ uses
   SynHighlighterIni, SynHighlighterInno, SynHighlighterSQL,
   SynHighlighterUNIXShellScript, SynHighlighterRuby, Vcl.Menus, SynEditExport,
   SynExportHTML, SynExportRTF, SynEditRegexSearch, SynEditMiscClasses,
-  SynEditSearch;
+  SynEditSearch, uSettings;
 
 type
   TProcRefreshSynHighlighter = procedure(FCurrentTheme: TIDETheme; SynEdit: SynEdit.TSynEdit);
@@ -122,14 +122,13 @@ type
     procedure ToolButtonThemesClick(Sender: TObject);
   private
     FCurrentTheme: TIDETheme;
-    FPathThemes: string;
-    FThemeName: string;
     FFileName: string;
     FRefreshSynHighlighter: TProcRefreshSynHighlighter;
     FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
     FListThemes: TStringList;
     fSearchFromCaret: boolean;
-    function GetThemeNameFromFile(const FileName: string): string;
+    FSettings : TSettings;
+
     procedure AppException(Sender: TObject; E: Exception);
     function GetHighlighter: TSynCustomHighlighter;
     procedure RunRefreshHighlighter;
@@ -139,8 +138,6 @@ type
   public
     procedure FillThemes;
     procedure LoadCurrentTheme;
-    property PathThemes: string read FPathThemes write FPathThemes;
-    property ThemeName: string read FThemeName write FThemeName;
     property RefreshSynHighlighter: TProcRefreshSynHighlighter read FRefreshSynHighlighter write FRefreshSynHighlighter;
 
     property Extensions: TDictionary<TSynCustomHighlighterClass, TStrings> read FExtensions write FExtensions;
@@ -161,9 +158,6 @@ uses
   dlgSearchText;
 
 const
-  sThemesExt = '.theme.xml';
-  sSettingsLocation = 'DelphiPreviewHandler';
-  sDefaultThemeName = 'nightfall.theme.xml';
   MaxfontSize = 30;
   MinfontSize = 8;
 
@@ -298,22 +292,17 @@ begin
   end;
 end;
 
-function TFrmEditor.GetThemeNameFromFile(const FileName: string): string;
-begin
-  Result := Copy(ExtractFileName(FileName), 1, Pos('.theme', ExtractFileName(FileName)) - 1);
-end;
-
 procedure TFrmEditor.FillThemes;
 var
   s, Theme: string;
   LMenuItem: TMenuItem;
 begin
-  if not TDirectory.Exists(PathThemes) then
+  if not TDirectory.Exists(TSettings.PathThemes) then
     exit;
 
-  for Theme in TDirectory.GetFiles(PathThemes, '*.theme.xml') do
+  for Theme in TDirectory.GetFiles(TSettings.PathThemes, '*'+sThemesExt) do
   begin
-    s := GetThemeNameFromFile(Theme);
+    s := TSettings.GetThemeNameFromFile(Theme);
     FListThemes.Add(s);
     LMenuItem := TMenuItem.Create(PopupMenuThemes);
     PopupMenuThemes.Items.Add(LMenuItem);
@@ -328,26 +317,15 @@ begin
 end;
 
 procedure TFrmEditor.FormCreate(Sender: TObject);
-var
-  Settings: TIniFile;
-  // i : integer;
 begin
+  FSettings:=TSettings.Create;
+
   Application.OnException := AppException;
   TLogPreview.Add('FormCreate');
+  SynEdit1.Font.Size := FSettings.FontSize;
+  SynEdit1.Font.Name := FSettings.FontName;
+  SynEdit1.SelectionMode := FSettings.SelectionMode;
   FListThemes := TStringList.Create;
-  // TLogPreview.Add(Format('Forms %d', [Screen.FormCount]));
-  // for i:=0 to Screen.FormCount-1 do
-  // TLogPreview.Add(Format('  %s', [Screen.Forms[i].ClassName]));
-  Settings := TIniFile.Create(ExtractFilePath(GetAppDataFolder) + 'Settings.ini');
-  try
-    FPathThemes := Settings.ReadString('Global', 'ThemesPath', 'Themes');
-    FPathThemes := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath)) + FPathThemes;
-    FPathThemes := ExcludeTrailingPathDelimiter(FPathThemes);
-    FThemeName := Settings.ReadString('Global', 'ThemeFile', sDefaultThemeName);
-    SynEdit1.Font.Size := Settings.ReadInteger('Global', 'FontSize', 10);
-  finally
-    Settings.Free;
-  end;
   FillThemes;
 end;
 
@@ -419,12 +397,12 @@ var
   i: integer;
 begin
   TLogPreview.Add('TFrmEditor.LoadCurrentTheme Init');
-  FileName := IncludeTrailingPathDelimiter(PathThemes) + ThemeName;
+  FileName := IncludeTrailingPathDelimiter(TSettings.PathThemes) + FSettings.SyntaxHighlightTheme;
   LoadThemeFromXMLFile(FCurrentTheme, FileName);
   RunRefreshHighlighter;
 
   for i := 0 to PopupMenuThemes.Items.Count - 1 do
-    if SameText(FListThemes[PopupMenuThemes.Items[i].Tag], GetThemeNameFromFile(ThemeName)) then
+    if SameText(FListThemes[PopupMenuThemes.Items[i].Tag], TSettings.GetThemeNameFromFile(FSettings.SyntaxHighlightTheme)) then
     begin
       PopupMenuThemes.Items[i].Checked := True;
       Break;
@@ -439,7 +417,7 @@ var
 begin
   TMenuItem(Sender).Checked := True;
   FileName := FListThemes[TMenuItem(Sender).Tag];
-  FileName := IncludeTrailingPathDelimiter(PathThemes) + FileName + sThemesExt;
+  FileName := IncludeTrailingPathDelimiter(TSettings.PathThemes) + FileName + sThemesExt;
   LoadThemeFromXMLFile(FCurrentTheme, FileName);
   RunRefreshHighlighter();
 
@@ -513,7 +491,15 @@ procedure TFrmEditor.ShowSearchDialog;
 var
   LTextSearchDialog: TTextSearchDialog;
   LRect: TRect;
+  i : integer;
 begin
+  for i:=0 to  Screen.FormCount-1 do
+   if Screen.Forms[i].ClassType=TTextSearchDialog then
+   begin
+    Screen.Forms[i].BringToFront;
+    exit;
+   end;
+
   StatusBar1.SimpleText := '';
   LTextSearchDialog := TTextSearchDialog.Create(Self);
   try
@@ -567,9 +553,26 @@ end;
 procedure TFrmEditor.ToolButtonAboutClick(Sender: TObject);
 var
   LFrm: TFrmAbout;
+  LRect : TRect;
+  i : integer;
 begin
+
+  for i:=0 to  Screen.FormCount-1 do
+   if Screen.Forms[i].ClassType=TFrmAbout then
+   begin
+    Screen.Forms[i].BringToFront;
+    exit;
+   end;
+
   LFrm := TFrmAbout.Create(nil);
   try
+    if Self.Parent <> nil then
+    begin
+      GetWindowRect(Self.Parent.ParentWindow, LRect);
+      LFrm.Left := (LRect.Left + LRect.Right - LFrm.Width) div 2;
+      LFrm.Top := (LRect.Top + LRect.Bottom - LFrm.Height) div 2;
+    end;
+
     LFrm.ShowModal();
   finally
     LFrm.Free;
@@ -583,35 +586,42 @@ end;
 
 procedure TFrmEditor.ToolButtonSaveClick(Sender: TObject);
 var
+  LFrm: TFrmSettings;
+  LRect : TRect;
+
   Settings: TIniFile;
   Theme: string;
   i: integer;
 begin
 
+  for i:=0 to  Screen.FormCount-1 do
+   if Screen.Forms[i].ClassType=TFrmSettings then
+   begin
+    Screen.Forms[i].BringToFront;
+    exit;
+   end;
+
+  LFrm := TFrmSettings.Create(nil);
+  try
   for i := 0 to PopupMenuThemes.Items.Count - 1 do
+
     if PopupMenuThemes.Items[i].Checked then
     begin
       Theme := FListThemes[PopupMenuThemes.Items[i].Tag];
       Break;
     end;
 
-  if Application.MessageBox(PChar(Format('Do you want save the current settings? %s', [''])), 'Confirmation', MB_YESNO + MB_ICONQUESTION) = idYes
-  then
-  begin
-    try
-      Settings := TIniFile.Create(ExtractFilePath(GetAppDataFolder) + 'Settings.ini');
-      // Settings.RootKey:=HKEY_CURRENT_USER;
-      // if Settings.OpenKey('\Software\'+sSettingsLocation,true) then
-      try
-        Settings.WriteString('Global', 'ThemeFile', Theme + sThemesExt);
-        Settings.WriteInteger('Global', 'FontSize', SynEdit1.Font.Size);
-      finally
-        Settings.Free;
-      end;
-    except
-      on E: Exception do
-        TLogPreview.Add(Format('Error in TFrmEditor.Save - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+    LFrm.LoadCurrentValues(SynEdit1, Theme + sThemesExt);
+    if Self.Parent <> nil then
+    begin
+      GetWindowRect(Self.Parent.ParentWindow, LRect);
+      LFrm.Left := (LRect.Left + LRect.Right - LFrm.Width) div 2;
+      LFrm.Top := (LRect.Top + LRect.Bottom - LFrm.Height) div 2;
     end;
+
+    LFrm.ShowModal();
+  finally
+    LFrm.Free;
   end;
 end;
 
