@@ -127,7 +127,7 @@ type
     FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
     FListThemes: TStringList;
     fSearchFromCaret: boolean;
-    FSettings : TSettings;
+    FSettings: TSettings;
 
     procedure AppException(Sender: TObject; E: Exception);
     function GetHighlighter: TSynCustomHighlighter;
@@ -152,6 +152,7 @@ implementation
 uses
   SynEditTypes,
   Vcl.Clipbrd,
+  Vcl.Themes,
   uLogExcept,
   System.Types,
   Registry, uMisc, IOUtils, ShellAPI, ComObj, IniFiles, GraphUtil, uAbout,
@@ -300,7 +301,7 @@ begin
   if not TDirectory.Exists(TSettings.PathThemes) then
     exit;
 
-  for Theme in TDirectory.GetFiles(TSettings.PathThemes, '*'+sThemesExt) do
+  for Theme in TDirectory.GetFiles(TSettings.PathThemes, '*' + sThemesExt) do
   begin
     s := TSettings.GetThemeNameFromFile(Theme);
     FListThemes.Add(s);
@@ -318,7 +319,7 @@ end;
 
 procedure TFrmEditor.FormCreate(Sender: TObject);
 begin
-  FSettings:=TSettings.Create;
+  FSettings := TSettings.Create;
 
   Application.OnException := AppException;
   TLogPreview.Add('FormCreate');
@@ -491,14 +492,14 @@ procedure TFrmEditor.ShowSearchDialog;
 var
   LTextSearchDialog: TTextSearchDialog;
   LRect: TRect;
-  i : integer;
+  i: integer;
 begin
-  for i:=0 to  Screen.FormCount-1 do
-   if Screen.Forms[i].ClassType=TTextSearchDialog then
-   begin
-    Screen.Forms[i].BringToFront;
-    exit;
-   end;
+  for i := 0 to Screen.FormCount - 1 do
+    if Screen.Forms[i].ClassType = TTextSearchDialog then
+    begin
+      Screen.Forms[i].BringToFront;
+      exit;
+    end;
 
   StatusBar1.SimpleText := '';
   LTextSearchDialog := TTextSearchDialog.Create(Self);
@@ -553,16 +554,16 @@ end;
 procedure TFrmEditor.ToolButtonAboutClick(Sender: TObject);
 var
   LFrm: TFrmAbout;
-  LRect : TRect;
-  i : integer;
+  LRect: TRect;
+  i: integer;
 begin
 
-  for i:=0 to  Screen.FormCount-1 do
-   if Screen.Forms[i].ClassType=TFrmAbout then
-   begin
-    Screen.Forms[i].BringToFront;
-    exit;
-   end;
+  for i := 0 to Screen.FormCount - 1 do
+    if Screen.Forms[i].ClassType = TFrmAbout then
+    begin
+      Screen.Forms[i].BringToFront;
+      exit;
+    end;
 
   LFrm := TFrmAbout.Create(nil);
   try
@@ -587,29 +588,29 @@ end;
 procedure TFrmEditor.ToolButtonSaveClick(Sender: TObject);
 var
   LFrm: TFrmSettings;
-  LRect : TRect;
+  LRect: TRect;
 
   Settings: TIniFile;
   Theme: string;
   i: integer;
 begin
 
-  for i:=0 to  Screen.FormCount-1 do
-   if Screen.Forms[i].ClassType=TFrmSettings then
-   begin
-    Screen.Forms[i].BringToFront;
-    exit;
-   end;
+  for i := 0 to Screen.FormCount - 1 do
+    if Screen.Forms[i].ClassType = TFrmSettings then
+    begin
+      Screen.Forms[i].BringToFront;
+      exit;
+    end;
 
   LFrm := TFrmSettings.Create(nil);
   try
-  for i := 0 to PopupMenuThemes.Items.Count - 1 do
+    for i := 0 to PopupMenuThemes.Items.Count - 1 do
 
-    if PopupMenuThemes.Items[i].Checked then
-    begin
-      Theme := FListThemes[PopupMenuThemes.Items[i].Tag];
-      Break;
-    end;
+      if PopupMenuThemes.Items[i].Checked then
+      begin
+        Theme := FListThemes[PopupMenuThemes.Items[i].Tag];
+        Break;
+      end;
 
     LFrm.LoadCurrentValues(SynEdit1, Theme + sThemesExt);
     if Self.Parent <> nil then
@@ -618,8 +619,31 @@ begin
       LFrm.Left := (LRect.Left + LRect.Right - LFrm.Width) div 2;
       LFrm.Top := (LRect.Top + LRect.Bottom - LFrm.Height) div 2;
     end;
+    // if Self.Parent <> nil then
+    // LFrm.ParentWindow:=Self.Parent.ParentWindow;
 
     LFrm.ShowModal();
+    if LFrm.Changed then
+    begin
+      FSettings.StyleName := LFrm.Settings.StyleName;
+      FSettings.SyntaxHighlightTheme := LFrm.Settings.SyntaxHighlightTheme;
+      FSettings.FontSize := LFrm.Settings.FontSize;
+      FSettings.FontName := LFrm.Settings.FontName;
+      FSettings.SelectionMode := LFrm.Settings.SelectionMode;
+
+      SynEdit1.Font.Size := FSettings.FontSize;
+      SynEdit1.Font.Name := FSettings.FontName;
+      SynEdit1.SelectionMode := FSettings.SelectionMode;
+      TStyleManager.TrySetStyle(FSettings.StyleName, false);
+
+      for i := 0 to PopupMenuThemes.Items.Count - 1 do
+        if SameText(FListThemes[PopupMenuThemes.Items[i].Tag], TSettings.GetThemeNameFromFile(FSettings.SyntaxHighlightTheme)) then
+        begin
+          MenuThemeOnCLick(PopupMenuThemes.Items[i]);
+          Break;
+        end;
+    end;
+
   finally
     LFrm.Free;
   end;

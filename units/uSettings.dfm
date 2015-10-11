@@ -57,6 +57,7 @@ object FrmSettings: TFrmSettings
     Width = 145
     Height = 21
     Style = csDropDownList
+    Sorted = True
     TabOrder = 0
   end
   object EditFontSize: TEdit
@@ -65,7 +66,6 @@ object FrmSettings: TFrmSettings
     Width = 34
     Height = 21
     Alignment = taRightJustify
-    Enabled = False
     NumbersOnly = True
     TabOrder = 1
     Text = '10'
@@ -87,6 +87,7 @@ object FrmSettings: TFrmSettings
     Width = 145
     Height = 21
     Style = csDropDownList
+    Sorted = True
     TabOrder = 3
   end
   object CbSelectionMode: TComboBox
@@ -112,6 +113,7 @@ object FrmSettings: TFrmSettings
     Width = 145
     Height = 21
     Style = csDropDownList
+    Sorted = True
     TabOrder = 6
   end
   object Button1: TButton

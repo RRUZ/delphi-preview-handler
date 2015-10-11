@@ -29,7 +29,7 @@ uses
 
 const
   sThemesExt = '.theme.xml';
-  sDefaultThemeName = 'nightfall.theme.xml';
+  sDefaultThemeName = 'mustang.theme.xml';
 
 type
   TSettings = class
@@ -37,7 +37,7 @@ type
     FSyntaxHighlightTheme: string;
     FFontSize: Integer;
     FStyleName: string;
-    FFontName : string;
+    FFontName: string;
     FSynSelectionMode: TSynSelectionMode;
     class function GetPathThemes: string; static;
     class function GetSettingsPath: string; static;
@@ -46,7 +46,7 @@ type
     constructor Create;
     property SyntaxHighlightTheme: string read FSyntaxHighlightTheme write FSyntaxHighlightTheme;
     property FontSize: Integer read FFontSize write FFontSize;
-    property FontName : string read FFontName write FFontName;
+    property FontName: string read FFontName write FFontName;
     property StyleName: string read FStyleName write FStyleName;
     property SelectionMode: TSynSelectionMode read FSynSelectionMode write FSynSelectionMode;
 
@@ -79,10 +79,13 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
-    FSetting : TSettings;
+    FSettings: TSettings;
+    FChanged: Boolean;
     procedure FillData;
   public
-    procedure LoadCurrentValues(SynEdit : TSynEdit; const ThemeName : string);
+    procedure LoadCurrentValues(SynEdit: TSynEdit; const ThemeName: string);
+    property Changed: Boolean read FChanged;
+    property Settings: TSettings read FSettings;
   end;
 
 implementation
@@ -114,7 +117,7 @@ end;
 
 constructor TSettings.Create;
 begin
- ReadSettings;
+  ReadSettings;
 end;
 
 class function TSettings.GetPathThemes: string;
@@ -186,8 +189,18 @@ end;
 
 procedure TFrmSettings.ButtonSaveClick(Sender: TObject);
 begin
-  if Application.MessageBox(PChar(Format('Do you want save the current settings? %s', [''])), 'Confirmation', MB_YESNO + MB_ICONQUESTION) = idYes then
-   Close;
+  if MessageBox(Handle, PChar(Format('Do you want save the current settings? %s', [''])), 'Confirmation', MB_YESNO + MB_ICONQUESTION) = IDYES
+  then
+  begin
+    FSettings.FontName := CbFont.Text;
+    FSettings.FontSize := UpDown1.Position;
+    FSettings.SyntaxHighlightTheme := cbSyntaxTheme.Text + sThemesExt;
+    FSettings.StyleName := CbVCLStyles.Text;
+    FSettings.SelectionMode := TSynSelectionMode(GetENumValue(TypeInfo(TSynSelectionMode), CbSelectionMode.Text));
+    FSettings.WriteSettings;
+    FChanged := True;
+    Close;
+  end;
 end;
 
 procedure TFrmSettings.FillData;
@@ -225,29 +238,29 @@ end;
 
 procedure TFrmSettings.FormCreate(Sender: TObject);
 begin
-  FSetting:=TSettings.Create;
+  FChanged := False;
+  FSettings := TSettings.Create;
   FillData;
 end;
 
 procedure TFrmSettings.FormDestroy(Sender: TObject);
 begin
- FSetting.Free;
+  FSettings.Free;
 end;
 
-procedure TFrmSettings.LoadCurrentValues(SynEdit : TSynEdit; const ThemeName : string);
+procedure TFrmSettings.LoadCurrentValues(SynEdit: TSynEdit; const ThemeName: string);
 begin
-  FSetting.SyntaxHighlightTheme:= ThemeName;
-  FSetting.FontSize:= SynEdit.Font.Size;
-  FSetting.FontName:= SynEdit.Font.Name;
-  FSetting.SelectionMode:= SynEdit.SelectionMode;
-  FSetting.StyleName  := TStyleManager.ActiveStyle.Name;
+  FSettings.SyntaxHighlightTheme := ThemeName;
+  FSettings.FontSize := SynEdit.Font.Size;
+  FSettings.FontName := SynEdit.Font.Name;
+  FSettings.SelectionMode := SynEdit.SelectionMode;
+  FSettings.StyleName := TStyleManager.ActiveStyle.Name;
 
-
-  CbFont.ItemIndex:= CbFont.Items.IndexOf(FSetting.FontName);
-  UpDown1.Position := FSetting.FontSize;
-  cbSyntaxTheme.ItemIndex := cbSyntaxTheme.Items.IndexOf(TSettings.GetThemeNameFromFile(FSetting.SyntaxHighlightTheme));
-  CbVCLStyles.ItemIndex := CbVCLStyles.Items.IndexOf(FSetting.StyleName);
-  CbSelectionMode.ItemIndex := CbSelectionMode.Items.IndexOf(GetENumName(TypeInfo(TSynSelectionMode), Ord(FSetting.SelectionMode)));
+  CbFont.ItemIndex := CbFont.Items.IndexOf(FSettings.FontName);
+  UpDown1.Position := FSettings.FontSize;
+  cbSyntaxTheme.ItemIndex := cbSyntaxTheme.Items.IndexOf(TSettings.GetThemeNameFromFile(FSettings.SyntaxHighlightTheme));
+  CbVCLStyles.ItemIndex := CbVCLStyles.Items.IndexOf(FSettings.StyleName);
+  CbSelectionMode.ItemIndex := CbSelectionMode.Items.IndexOf(GetEnumName(TypeInfo(TSynSelectionMode), Ord(FSettings.SelectionMode)));
 
 end;
 

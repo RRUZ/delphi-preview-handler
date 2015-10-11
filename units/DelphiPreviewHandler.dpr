@@ -55,7 +55,11 @@ uses
   Vcl.Styles.Ext in '..\VCL Styles Utils\Vcl.Styles.Ext.pas',
   Vcl.Styles.Utils.Graphics in '..\VCL Styles Utils\Vcl.Styles.Utils.Graphics.pas',
   Vcl.Styles.Hooks in '..\VCL Styles Utils\Vcl.Styles.Hooks.pas',
-  Vcl.Styles.UxTheme in '..\VCL Styles Utils\Vcl.Styles.UxTheme.pas';
+  Vcl.Styles.UxTheme in '..\VCL Styles Utils\Vcl.Styles.UxTheme.pas',
+  Vcl.Styles.Utils.ComCtrls in '..\VCL Styles Utils\Vcl.Styles.Utils.ComCtrls.pas',
+  Vcl.Styles.Utils.Forms in '..\VCL Styles Utils\Vcl.Styles.Utils.Forms.pas',
+  Vcl.Styles.Utils.ScreenTips in '..\VCL Styles Utils\Vcl.Styles.Utils.ScreenTips.pas',
+  Vcl.Styles.Utils.StdCtrls in '..\VCL Styles Utils\Vcl.Styles.Utils.StdCtrls.pas';
 
 exports
   DllGetClassObject,

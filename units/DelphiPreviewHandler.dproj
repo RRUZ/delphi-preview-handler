@@ -102,16 +102,15 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <DCC_ExeOutput>.\..</DCC_ExeOutput>
-        <VerInfo_Release>6</VerInfo_Release>
         <DCC_Define>EUREKALOG;EUREKALOG_VER7;$(DCC_Define)</DCC_Define>
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
         <DCC_DebugInformation>true</DCC_DebugInformation>
         <DCC_MapFile>3</DCC_MapFile>
-        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Build>5</VerInfo_Build>
         <VerInfo_AutoGenVersion>false</VerInfo_AutoGenVersion>
-        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <VerInfo_MinorVer>4</VerInfo_MinorVer>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.3.6.6;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.4.1.5;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <DCC_DebugInformation>true</DCC_DebugInformation>
@@ -163,6 +162,10 @@
         <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Utils.Graphics.pas"/>
         <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Hooks.pas"/>
         <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.UxTheme.pas"/>
+        <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Utils.ComCtrls.pas"/>
+        <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Utils.Forms.pas"/>
+        <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Utils.ScreenTips.pas"/>
+        <DCCReference Include="..\VCL Styles Utils\Vcl.Styles.Utils.StdCtrls.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -191,7 +194,7 @@
                     <VersionInfo Name="MajorVer">1</VersionInfo>
                     <VersionInfo Name="MinorVer">0</VersionInfo>
                     <VersionInfo Name="Release">1</VersionInfo>
-                    <VersionInfo Name="Build">302</VersionInfo>
+                    <VersionInfo Name="Build">322</VersionInfo>
                     <VersionInfo Name="Debug">False</VersionInfo>
                     <VersionInfo Name="PreRelease">False</VersionInfo>
                     <VersionInfo Name="Special">False</VersionInfo>
@@ -203,7 +206,7 @@
                 <VersionInfoKeys>
                     <VersionInfoKeys Name="CompanyName">the Road To Delphi</VersionInfoKeys>
                     <VersionInfoKeys Name="FileDescription">Delphi Preview Handler</VersionInfoKeys>
-                    <VersionInfoKeys Name="FileVersion">1.0.1.302</VersionInfoKeys>
+                    <VersionInfoKeys Name="FileVersion">1.0.1.322</VersionInfoKeys>
                     <VersionInfoKeys Name="InternalName"/>
                     <VersionInfoKeys Name="LegalCopyright"/>
                     <VersionInfoKeys Name="LegalTrademarks"/>
