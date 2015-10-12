@@ -98,6 +98,7 @@ uses
   System.Rtti,
   System.StrUtils,
   System.IOUtils,
+  Winapi.ShlObj,
   Vcl.Themes,
   uMisc, uLogExcept;
 
@@ -132,7 +133,8 @@ end;
 
 class function TSettings.GetSettingsPath: string;
 begin
-  Result := ExtractFilePath(GetModuleLocation());
+  Result := IncludeTrailingPathDelimiter(GetSpecialFolder(CSIDL_APPDATA)) + 'DelphiPreviewHandler\';
+  System.SysUtils.ForceDirectories(Result);
 end;
 
 class function TSettings.GetThemeNameFromFile(const FileName: string): string;

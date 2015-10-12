@@ -29,7 +29,6 @@ uses
   uDelphiVersions,
   uDelphiIDEHighlight;
 
-  function GetAppDataFolder: String;
   function GetDllPath: String;
   function GetTempDirectory: string;
   function GetSpecialFolder(const CSIDL: integer): string;
@@ -687,11 +686,6 @@ begin
   end;
 end;
 
-function GetAppDataFolder: String;
-begin
-  Result := IncludeTrailingPathDelimiter(GetSpecialFolder(CSIDL_APPDATA)) + 'DelphiPreviewHandler\';
-  System.SysUtils.ForceDirectories(Result);
-end;
 
 
 function GetFileVersion(const FileName: string): string;
