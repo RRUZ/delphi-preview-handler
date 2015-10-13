@@ -4,11 +4,11 @@
 #define MyAppVersion GetFileVersion('DelphiPreviewHandler.dll')
 [Files]
 Source: DelphiPreviewHandler.dll; DestDir: {app}; Flags : regserver sharedfile noregerror
-Source: UnRegister.bat; DestDir: {app}
-Source: Register.bat; DestDir: {app}
-Source: Themes\Aqua.theme.xml; DestDir: {app}\Themes\
-Source: Themes\artofnet-darkonblue.theme.xml; DestDir: {app}\Themes\
-Source: Themes\artofnet-lime-chocolate.theme.xml; DestDir: {app}\Themes\
+;Source: UnRegister.bat; DestDir: {app}
+;Source: Register.bat; DestDir: {app}
+;Source: Themes\Aqua.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\artofnet-darkonblue.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\artofnet-lime-chocolate.theme.xml; DestDir: {app}\Themes\
 Source: Themes\bespin.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Black and White.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Blackboard.theme.xml; DestDir: {app}\Themes\
@@ -18,7 +18,7 @@ Source: Themes\cobalt.theme.xml; DestDir: {app}\Themes\
 Source: Themes\coda.theme.xml; DestDir: {app}\Themes\
 Source: Themes\code-anxiety.theme.xml; DestDir: {app}\Themes\
 Source: Themes\coding-horror.theme.xml; DestDir: {app}\Themes\
-Source: Themes\coffee-.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\coffee-.theme.xml; DestDir: {app}\Themes\
 Source: Themes\dark-code-mute-font-beige.theme.xml; DestDir: {app}\Themes\
 Source: Themes\deep-blue.theme.xml; DestDir: {app}\Themes\
 Source: Themes\desertex-revised.theme.xml; DestDir: {app}\Themes\
@@ -26,12 +26,12 @@ Source: Themes\distant-stormy-shore.theme.xml; DestDir: {app}\Themes\
 Source: Themes\enhanced-pascal-classical-.theme.xml; DestDir: {app}\Themes\
 Source: Themes\frontenddev.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Gedit Original.theme.xml; DestDir: {app}\Themes\
-Source: Themes\Green.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\Green.theme.xml; DestDir: {app}\Themes\
 Source: Themes\greendream.theme.xml; DestDir: {app}\Themes\
 Source: Themes\hugoware.theme.xml; DestDir: {app}\Themes\
 Source: Themes\humane-studio.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Igor.theme.xml; DestDir: {app}\Themes\
-Source: Themes\Inkpot.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\Inkpot.theme.xml; DestDir: {app}\Themes\
 Source: Themes\jon-erickson-s-ragnarok-grey.theme.xml; DestDir: {app}\Themes\
 Source: Themes\like.theme.xml; DestDir: {app}\Themes\
 Source: Themes\monokai.theme.xml; DestDir: {app}\Themes\
@@ -52,9 +52,9 @@ Source: Themes\russian-noth.theme.xml; DestDir: {app}\Themes\
 Source: Themes\selenitic.theme.xml; DestDir: {app}\Themes\
 Source: Themes\slimcode.theme.xml; DestDir: {app}\Themes\
 Source: Themes\son-of-obsidian.theme.xml; DestDir: {app}\Themes\
-Source: Themes\the-dark-side-of-visual-studio.theme.xml; DestDir: {app}\Themes\
-Source: Themes\the-default-at-boxbinary-ltd.theme.xml; DestDir: {app}\Themes\
-Source: Themes\tial-entry-enhanced.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\the-dark-side-of-visual-studio.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\the-default-at-boxbinary-ltd.theme.xml; DestDir: {app}\Themes\
+;Source: Themes\tial-entry-enhanced.theme.xml; DestDir: {app}\Themes\
 Source: Themes\turbo-pascal-revisited.theme.xml; DestDir: {app}\Themes\
 Source: Themes\Vibrant Ink.theme.xml; DestDir: {app}\Themes\
 Source: Themes\wekeroad-ink.theme.xml; DestDir: {app}\Themes\

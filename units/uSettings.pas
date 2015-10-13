@@ -147,6 +147,7 @@ var
   Settings: TIniFile;
 begin
   try
+    TLogPreview.Add('ReadSettings '+SettingsFileName);
     Settings := TIniFile.Create(SettingsFileName);
     try
       FSyntaxHighlightTheme := Settings.ReadString('Global', 'ThemeFile', sDefaultThemeName);
@@ -159,7 +160,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TFrmEditor.Save - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TSettings.ReadSettings - Message : %s : Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 
@@ -168,6 +169,7 @@ var
   Settings: TIniFile;
 begin
   try
+    TLogPreview.Add('WriteSettings '+SettingsFileName);
     Settings := TIniFile.Create(SettingsFileName);
     try
       Settings.WriteString('Global', 'ThemeFile', FSyntaxHighlightTheme);
@@ -180,7 +182,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TFrmEditor.Save - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TSettings.WriteSettings - Message : %s : Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 
