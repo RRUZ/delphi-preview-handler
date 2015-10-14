@@ -7,26 +7,27 @@ Extensions | Description| Preview
 .pas, .dpr, .dpk, .inc, .dproj, .bdsproj  | Delphi  Files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Delphi-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Delphi-Sample%20Files.png)
 .c, .cpp,. cc,.h, .hpp,.hh, .cxx, .hxx, . cu | C and C++ source Files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/c-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/c-Sample%20Files.png)
 .asm | Assembler source files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Asm-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Asm-Sample%20Files.png)
-.e, .ace | Eiffel files
-.f, .for | Fortran files
-.java | Java files
-.bas, .vb | Visual Basic files
-.cbl, .cob | COBOL files
+.e, .ace | Eiffel files | .
+.f, .for | Fortran files | .
+.java | Java files | .
+ .csproj, .xaml, .sln, .vcxproj, .vbproj, .jsproj, .appxmanifest | Visual Studio files |
+.bas, .vb | Visual Basic files | .
+.cbl, .cob | COBOL files | .
 .cs | C# files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/cs-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/cs-Sample%20Files.png)
-.css | Cascading Stylesheet files
-.htm, .html | HTML Documents
+.css | Cascading Stylesheet files |
+.htm, .html | HTML Documents |
 .js | Javascript files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/JScript-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/JScript-Sample%20Files.png)
 .php, .php3, .phtml | PHP files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/php-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/php-Sample%20Files.png)
-.vbs | VBScript files
-.bat, .cmd | MS-DOS Batch Files
-.dfm, .xfm | Borland Form Files
+.vbs | VBScript files | .
+.bat, .cmd | MS-DOS Batch Files | .
+.dfm, .xfm | Borland Form Files | .
 .pl, .pm, .cgi | Perl Files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/perl-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/perl-Sample%20Files.png)
 .py | Python files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/python-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/python-Sample%20Files.png)
 .rb, .rbw | Ruby files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/ruby-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/ruby-Sample%20Files.png)
-.sh | UNIX Shell Scripts
+.sh | UNIX Shell Scripts | .
 .sql | SQL files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/sql-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/sql-Sample%20Files.png)
 .iss | Inno Setup Scripts | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Inno-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Inno-Sample%20Files.png)
-.ini | INI files
+.ini | INI files | .
 
 
 
