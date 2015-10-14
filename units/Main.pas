@@ -29,10 +29,10 @@
 // done : Add About Form
 
 // done : One form only  (Screenforms)
-// Add Setting  Form (font size, VCL Styles, column selection, font size, font)
+// done :  Add Setting  Form (font size, VCL Styles, column selection, font size, font)
 
-// change vcl style produce invalid window (chnage at restar warning)
-// styling on confirmation dialog fails under W10
+// done : change vcl style produce invalid window (chnage at restar warning)
+// done : styling on confirmation dialog fails under W10
 
 
 
@@ -84,7 +84,7 @@ initialization
   //Pascal Files (*.pas;*.pp;*.dpr;*.dpk;*.inc)|*.pas;*.pp;*.dpr;*.dpk;*.inc
   TGlobalPreviewHandler.AddExtentions(TSynPasSyn, ['.pp', '.lpr', '.lfm', '.lpk', '.inc', '.pas', '.dpr', '.dpk']);
   //XML Files (*.xml;*.xsd;*.xsl;*.xslt;*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd
-  TGlobalPreviewHandler.AddExtentions(TSynXMLSyn, ['.dproj', '.bdsproj', '.xml', '.xsd' ,'.xsl', '.xslt', '.dtd', '.csproj', '.xaml', '.sln', '.vcxproj']);
+  TGlobalPreviewHandler.AddExtentions(TSynXMLSyn, ['.dproj', '.bdsproj', '.xml', '.xsd' ,'.xsl', '.xslt', '.dtd', '.csproj', '.xaml', '.sln', '.vcxproj', '.vbproj', '.jsproj', '.appxmanifest']);
   //C/C++ Files (*.c;*.cpp;*.cc;*.h;*.hpp;*.hh;*.cxx;*.hxx;*.cu)|*.c;*.cpp;*.cc;*.h;*.hpp;*.hh;*.cxx;*.hxx;*.cu
   TGlobalPreviewHandler.AddExtentions(TSynCppSyn, ['.c', '.cpp', '.cc', '.h', '.hpp', '.hh', '.cxx', '.hxx', '.cu']);
   //x86 Assembly Files (*.asm)|*.asm

@@ -81,6 +81,7 @@ type
   private
     FSettings: TSettings;
     FChanged: Boolean;
+    FOldStyle : string;
     procedure FillData;
   public
     procedure LoadCurrentValues(SynEdit: TSynEdit; const ThemeName: string);
@@ -192,9 +193,15 @@ begin
 end;
 
 procedure TFrmSettings.ButtonSaveClick(Sender: TObject);
+var
+  s : string;
 begin
-  if MessageBox(Handle, PChar(Format('Do you want save the current settings? %s', [''])), 'Confirmation', MB_YESNO + MB_ICONQUESTION) = IDYES
-  then
+
+  s:= Format('Do you want save the current settings? %s', ['']);
+  if not SameText(FOldStyle, CbVCLStyles.Text) then
+    s := s + sLineBreak + 'Note: Some settings will be aplied when the explorer is restarted';
+
+  if Application.MessageBox(PChar(s), 'Confirmation', MB_YESNO + MB_ICONQUESTION)= IDYES then
   begin
     FSettings.FontName := CbFont.Text;
     FSettings.FontSize := UpDown1.Position;
@@ -254,6 +261,7 @@ end;
 
 procedure TFrmSettings.LoadCurrentValues(SynEdit: TSynEdit; const ThemeName: string);
 begin
+  FOldStyle :=   TStyleManager.ActiveStyle.Name;
   FSettings.SyntaxHighlightTheme := ThemeName;
   FSettings.FontSize := SynEdit.Font.Size;
   FSettings.FontName := SynEdit.Font.Name;

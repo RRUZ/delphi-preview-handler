@@ -625,16 +625,11 @@ begin
     LFrm.ShowModal();
     if LFrm.Changed then
     begin
-      FSettings.StyleName := LFrm.Settings.StyleName;
-      FSettings.SyntaxHighlightTheme := LFrm.Settings.SyntaxHighlightTheme;
-      FSettings.FontSize := LFrm.Settings.FontSize;
-      FSettings.FontName := LFrm.Settings.FontName;
-      FSettings.SelectionMode := LFrm.Settings.SelectionMode;
-
+      FSettings.ReadSettings;
       SynEdit1.Font.Size := FSettings.FontSize;
       SynEdit1.Font.Name := FSettings.FontName;
       SynEdit1.SelectionMode := FSettings.SelectionMode;
-      TStyleManager.TrySetStyle(FSettings.StyleName, false);
+      //TStyleManager.TrySetStyle(FSettings.StyleName, false);
 
       for i := 0 to PopupMenuThemes.Items.Count - 1 do
         if SameText(FListThemes[PopupMenuThemes.Items[i].Tag], TSettings.GetThemeNameFromFile(FSettings.SyntaxHighlightTheme)) then
