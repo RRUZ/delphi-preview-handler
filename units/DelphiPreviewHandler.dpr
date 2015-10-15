@@ -20,15 +20,13 @@
 //*************************************************************************************************
 
 
+// JCL_DEBUG_EXPERT_GENERATEJDBG ON
+// JCL_DEBUG_EXPERT_INSERTJDBG ON
+// JCL_DEBUG_EXPERT_DELETEMAPFILE ON
 library DelphiPreviewHandler;
 
 uses
-  EMemLeaks,
-  EResLeaks,
-  EDebugExports,
-  EDebugJCL,
   EMapWin32,
-  ExceptionLog7,
   ComServ,
   Main in 'Main.pas',
   uEditor in 'uEditor.pas' {FrmEditor},

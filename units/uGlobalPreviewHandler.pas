@@ -58,15 +58,18 @@ type
 
 constructor TGlobalPreviewHandler.Create(AParent: TWinControl);
 begin
+  TLogPreview.Add('TGlobalPreviewHandler.Create');
   inherited Create(AParent);
   try
     if IsWindow(TWinControlClass(AParent).WindowHandle) then
     begin
+      TLogPreview.Add('TGlobalPreviewHandler TFrmEditor.Create');
       Editor := TFrmEditor.Create(AParent);
       Editor.Parent := AParent;
       Editor.Align := alClient;
       Editor.BorderStyle := bsNone;
       Editor.Extensions := FExtensions;
+      TLogPreview.Add('TGlobalPreviewHandler Done');
     end;
   except
     on E: Exception do

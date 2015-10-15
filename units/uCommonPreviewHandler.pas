@@ -80,7 +80,9 @@ begin
     TLogPreview.Add('DoPreview ' + Self.ClassName);
     if (Editor <> nil) and IsWindow(Editor.Handle) then
     begin
+      TLogPreview.Add('DoPreview Visible');
       Editor.Visible := True;
+      TLogPreview.Add('DoPreview LoadFromStream');
       Editor.SynEdit1.Lines.LoadFromStream(Stream);
     end;
   except
@@ -96,7 +98,9 @@ begin
     TLogPreview.Add('DoPreview ' + Self.ClassName);
     if (Editor <> nil) and IsWindow(Editor.Handle) then
     begin
+      TLogPreview.Add('DoPreview Visible');
       Editor.Visible := True;
+      TLogPreview.Add('DoPreview LoadFile');
       Editor.LoadFile(FilePath);
     end;
   except
