@@ -80,12 +80,12 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     FSettings: TSettings;
-    FChanged: Boolean;
+    FSettingsChanged: Boolean;
     FOldStyle : string;
     procedure FillData;
   public
     procedure LoadCurrentValues(SynEdit: TSynEdit; const ThemeName: string);
-    property Changed: Boolean read FChanged;
+    property SettingsChanged: Boolean read FSettingsChanged;
     property Settings: TSettings read FSettings;
   end;
 
@@ -95,6 +95,7 @@ implementation
 
 uses
   IniFiles,
+  System.Types,
   System.TypInfo,
   System.Rtti,
   System.StrUtils,
@@ -119,6 +120,7 @@ end;
 
 constructor TSettings.Create;
 begin
+  inherited;
   ReadSettings;
 end;
 
@@ -209,7 +211,7 @@ begin
     FSettings.StyleName := CbVCLStyles.Text;
     FSettings.SelectionMode := TSynSelectionMode(GetENumValue(TypeInfo(TSynSelectionMode), CbSelectionMode.Text));
     FSettings.WriteSettings;
-    FChanged := True;
+    FSettingsChanged := True;
     Close;
   end;
 end;
@@ -249,7 +251,7 @@ end;
 
 procedure TFrmSettings.FormCreate(Sender: TObject);
 begin
-  FChanged := False;
+  FSettingsChanged := False;
   FSettings := TSettings.Create;
   FillData;
 end;

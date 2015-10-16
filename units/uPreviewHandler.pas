@@ -88,7 +88,6 @@ type
     property  BackgroundColor : TColorRef read FBackgroundColor write FBackgroundColor;
     property  TextColor : TColorRef read FTextColor write FTextColor;
     property  Bounds : TRect read FBounds write FBounds;
-    property  Container: TPreviewContainer read FContainer;
     property  LogFont : TLogFont read FLogFont  write FLogFont;
     property  ParentWindow: HWND read FParentWindow write FParentWindow;
     property  PreviewHandler: TPreviewHandler read FPreviewHandler;
@@ -96,6 +95,7 @@ type
     property  Site : IInterface read FSite;
   public
     destructor Destroy; override;
+    property  Container: TPreviewContainer read FContainer write FContainer;
     property PreviewHandlerClass: TPreviewHandlerClass read FPreviewHandlerClass write FPreviewHandlerClass;
   end;
 
@@ -110,14 +110,15 @@ uses
     ExtCtrls,
     uMisc,
     uLogExcept,
-    uPreviewHandlerRegister;
+    uPreviewHandlerRegister, uEditor;
 
 
 destructor TComPreviewHandler.Destroy;
 begin
   TLogPreview.Add('Destroy Init');
   FPreviewHandler.Free;
-  FContainer.Free;
+  if FContainer <> nil then
+   FContainer.Free;
   inherited Destroy;
   TLogPreview.Add('Destroy Done');
 end;
@@ -125,6 +126,7 @@ end;
 procedure TComPreviewHandler.CheckContainer;
 begin
   TLogPreview.Add('CheckContainer Init');
+  TLogPreview.Add('CheckContainer FContainer = nil '+BoolToStr(FContainer = nil, True));
   if (FContainer = nil) and IsWindow(FParentWindow) then
   begin
     TLogPreview.Add('ParentWindow '+IntToHex(ParentWindow, 8));
@@ -133,6 +135,9 @@ begin
     FContainer.BorderStyle := bsNone;
     FContainer.Visible:=True;
     FContainer.SetBoundsRect(FBounds);
+    FContainer.Preview:=Self;
+
+    TFrmEditor.AParent    := FContainer;
   end;
   TLogPreview.Add('CheckContainer Done');
 end;
@@ -140,11 +145,12 @@ end;
 procedure TComPreviewHandler.CheckPreviewHandler;
 begin
   TLogPreview.Add('CheckPreviewHandler Init');
-  if FPreviewHandler = nil then
-  begin
+  if FContainer = nil then
     CheckContainer;
+
+  if FPreviewHandler = nil then
     FPreviewHandler := PreviewHandlerClass.Create(Container);
-  end;
+
   TLogPreview.Add('CheckPreviewHandler Done');
 end;
 
@@ -276,6 +282,7 @@ begin
   begin
     Container.ParentWindow := FParentWindow;
     Container.SetBoundsRect(FBounds);
+    TLogPreview.Add('SetWindow Ok');
   end;
   Result := S_OK;
   TLogPreview.Add('SetWindow Done');

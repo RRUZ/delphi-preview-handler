@@ -63,12 +63,15 @@ begin
   try
     if IsWindow(TWinControlClass(AParent).WindowHandle) then
     begin
-      TLogPreview.Add('TGlobalPreviewHandler TFrmEditor.Create');
-      Editor := TFrmEditor.Create(AParent);
-      Editor.Parent := AParent;
-      Editor.Align := alClient;
-      Editor.BorderStyle := bsNone;
-      Editor.Extensions := FExtensions;
+//      TLogPreview.Add('TGlobalPreviewHandler TFrmEditor.Create');
+//      Editor := TFrmEditor.Create(AParent);
+//      Editor.Parent := AParent;
+//      Editor.Align := alClient;
+//      Editor.BorderStyle := bsNone;
+//      Editor.Extensions := FExtensions;
+
+//      TFrmEditor.AParent    := AParent;
+      TFrmEditor.Extensions := FExtensions;
       TLogPreview.Add('TGlobalPreviewHandler Done');
     end;
   except

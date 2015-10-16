@@ -30,6 +30,9 @@ uses
 type
   TPreviewContainer = class(TForm)
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+  private
+    FPreview: TObject;
   public
     procedure SetFocusTabFirst;
     procedure SetFocusTabLast;
@@ -37,6 +40,7 @@ type
     procedure SetBoundsRect(const ARect: TRect);
     procedure SetTextColor(color: TColorRef);
     procedure SetTextFont(const plf: TLogFont);
+    property  Preview  : TObject read FPreview write FPreview;
   end;
 
 implementation
@@ -45,7 +49,8 @@ uses
   SynEdit,
   Vcl.Styles.Ext,
   Vcl.Styles,
-  Vcl.Themes, uSettings;
+  Vcl.Themes,
+  uSettings, uLogExcept;
 
 {$R *.dfm}
 
@@ -63,6 +68,7 @@ procedure TPreviewContainer.FormCreate(Sender: TObject);
 var
   LSettings: TSettings;
 begin
+  TLogPreview.Add('TPreviewContainer.FormCreate');
   LSettings := TSettings.Create;
   try
     if not IsStyleHookRegistered(TCustomSynEdit, TScrollingStyleHook) then
@@ -73,6 +79,12 @@ begin
   finally
     LSettings.Free;
   end;
+  TLogPreview.Add('TPreviewContainer.FormCreate Done');
+end;
+
+procedure TPreviewContainer.FormDestroy(Sender: TObject);
+begin
+  TLogPreview.Add('TPreviewContainer.FormDestroy');
 end;
 
 procedure TPreviewContainer.SetBackgroundColor(color: TColorRef);

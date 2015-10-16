@@ -110,7 +110,7 @@ procedure TPreviewHandlerRegister.UpdateRegistry(Register: Boolean);
       if Assigned(IsWow64Process) then
       begin
         if not IsWow64Process(GetCurrentProcess, Wow64Process) then
-        Raise Exception.Create('Invalid handle');
+         Raise Exception.Create('Invalid handle');
         Result := Wow64Process;
       end;
     end;

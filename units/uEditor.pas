@@ -124,10 +124,12 @@ type
     FCurrentTheme: TIDETheme;
     FFileName: string;
     FRefreshSynHighlighter: TProcRefreshSynHighlighter;
-    FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
     FListThemes: TStringList;
     fSearchFromCaret: boolean;
     FSettings: TSettings;
+
+    class var FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
+    class var  FAParent : TWinControl;
 
     procedure AppException(Sender: TObject; E: Exception);
     function GetHighlighter: TSynCustomHighlighter;
@@ -140,12 +142,11 @@ type
     procedure LoadCurrentTheme;
     property RefreshSynHighlighter: TProcRefreshSynHighlighter read FRefreshSynHighlighter write FRefreshSynHighlighter;
 
-    property Extensions: TDictionary<TSynCustomHighlighterClass, TStrings> read FExtensions write FExtensions;
+    class property Extensions: TDictionary<TSynCustomHighlighterClass, TStrings> read FExtensions write FExtensions;
+    class property AParent : TWinControl read  FAParent write FAParent;
     procedure LoadFile(const FileName: string);
   end;
 
-var
-  FrmEditor: TFrmEditor;
 
 implementation
 
@@ -589,8 +590,6 @@ procedure TFrmEditor.ToolButtonSaveClick(Sender: TObject);
 var
   LFrm: TFrmSettings;
   LRect: TRect;
-
-  Settings: TIniFile;
   Theme: string;
   i: integer;
 begin
@@ -623,7 +622,7 @@ begin
     // LFrm.ParentWindow:=Self.Parent.ParentWindow;
 
     LFrm.ShowModal();
-    if LFrm.Changed then
+    if LFrm.SettingsChanged then
     begin
       FSettings.ReadSettings;
       SynEdit1.Font.Size := FSettings.FontSize;
@@ -659,25 +658,6 @@ begin
   TToolButton(Sender).CheckMenuDropdown;
 end;
 
-{
-  var
-  Settings : TIniFile;
-  begin
-  Settings:=TIniFile.Create(ExtractFilePath(GetAppDataFolder)+'Settings.ini');
-  try
-  FPathThemes    := Settings.ReadString('Global', 'ThemesPath', 'Themes');
-  FPathThemes    := IncludeTrailingPathDelimiter(ExtractFilePath(GetDllPath))+FPathThemes;
-  FPathThemes    := ExcludeTrailingPathDelimiter(FPathThemes);
-  FThemeName     := Settings.ReadString('Global', 'ThemeFile',sDefaultThemeName);
-  SynEdit1.Font.Size :=Settings.ReadInteger('Global', 'FontSize',10);
-  finally
-  Settings.Free;
-  end;
-
-  FillThemes;
-  end;
-
-}
 
 procedure TFrmEditor.ToolButtonZommOutClick(Sender: TObject);
 begin

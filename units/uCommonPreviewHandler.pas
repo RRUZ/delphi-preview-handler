@@ -64,7 +64,7 @@ Uses
   SynEdit,
   Windows,
   Forms,
-  uMisc;
+  uMisc, uPreviewContainer;
 
 constructor TBasePreviewHandler.Create(AParent: TWinControl);
 begin
@@ -96,8 +96,16 @@ procedure TBasePreviewHandler.DoPreview(const FilePath: string);
 begin
   try
     TLogPreview.Add('DoPreview ' + Self.ClassName);
-    if (Editor <> nil) and IsWindow(Editor.Handle) then
+    //if (Editor <> nil) and IsWindow(Editor.Handle) then
     begin
+      TLogPreview.Add('TGlobalPreviewHandler TFrmEditor.Create');
+
+      Editor := TFrmEditor.Create(nil);
+      Editor.Parent := TFrmEditor.AParent;
+      Editor.Align := alClient;
+      Editor.BorderStyle := bsNone;
+      Editor.Extensions := FExtensions;
+
       TLogPreview.Add('DoPreview Visible');
       Editor.Visible := True;
       TLogPreview.Add('DoPreview LoadFile');
@@ -128,11 +136,23 @@ begin
     // Editor.Visible:=False;
     // Editor.SynEdit1.Lines.Clear;
     // end;
-    // if Editor<>nil then
-    // begin
-    // Editor.Free;
-    // Editor:=nil;
-    // end;
+
+     if Editor<>nil then
+     begin
+       Editor.Free;
+       Editor:=nil;
+     end;
+
+     if (TFrmEditor.AParent<>nil) then
+     begin
+       if TPreviewContainer(TFrmEditor.AParent).Preview<>nil then
+        TComPreviewHandler(TPreviewContainer(TFrmEditor.AParent).Preview).Container:=nil;
+
+       TFrmEditor.AParent.Free;
+       TFrmEditor.AParent:=nil;
+     end;
+
+
     inherited;
     TLogPreview.Add('Unload  Done ' + Self.ClassName);
   except

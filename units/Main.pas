@@ -40,7 +40,7 @@ unit Main;
 
 interface
 
-{.$R ManAdmin.RES}
+{$R VCLStyles.RES}
 
 
 implementation
