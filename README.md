@@ -36,7 +36,8 @@ Extensions | Description| Preview
 ### Features ###
 <ul>
 <li>Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.</li>
-<li>+50 themes included to see your code with style</li>
+<li>+50 syntax highlight themes.</li>
+<li>+60 source code extensions supported.</li>
 <li>Themes compatibles with the <a href='https://github.com/RRUZ/delphi-ide-theme-editor'>Delphi IDE Theme Editor</a></li>
 </ul>
 
