@@ -1,5 +1,9 @@
-<img src="https://dl.dropboxusercontent.com/u/12733424/github/delphi-preview-handler/logo.png" alt="" align="left" />
-The **Delphi Preview Handler**, is a <a href='http://msdn.microsoft.com/en-us/magazine/cc163487.aspx'>preview handler</a> for Windows Vista ,7, 8 and 10 which allow you read your source code with Syntax highlighting without open in a editor, this preview handler can render these file extensions
+![](https://dl.dropboxusercontent.com/u/12733424/github/delphi-preview-handler/logo.png)
+The **Delphi Preview Handler**, is a [preview handler](http://msdn.microsoft.com/en-us/magazine/cc163487.aspx) 
+for Windows Vista, 7, 8 and 10 which allows you to read your source code with syntax highlighting 
+without having to open it in an editor.
+
+This preview handler can render the following file extensions:
 
 Extensions | Description| Preview
 ------------ | ------------- | -------------
@@ -34,19 +38,24 @@ Extensions | Description| Preview
 [![](https://dl.dropboxusercontent.com/u/12733424/Images/followrruz.png)](https://twitter.com/RRUZ)
 
 ### Features ###
-<ul>
-<li>Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.</li>
-<li>+50 syntax highlight themes.</li>
-<li>+60 source code extensions supported.</li>
-<li>Themes compatibles with the <a href='https://github.com/RRUZ/delphi-ide-theme-editor'>Delphi IDE Theme Editor</a></li>
-</ul>
+* Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.
+* +50 syntax highlight themes.
+* +60 source code extensions supported.
+* Themes compatibles with the [Delphi IDE Theme Editor](https://github.com/RRUZ/delphi-ide-theme-editor)
+
 
 ### Important Note about installing a new version ###
-In order to avoid problems you must follow these steps when you install or register a new version of the preview handler.
+In order to avoid problems you must follow these steps when you install or register a new 
+version of the preview handler.
 
-  1. Close all the windows explorer instances which have the preview handler active or the preview handler was used (remember the dll remains in memory until the windows explorer was closed).
-  2. Unregister the previous version executing the uninstaller located in C:\Program Files (x86)\TheRoadToDelphi\DelphiPreviewHandler or C:\Program Files\TheRoadToDelphi\DelphiPreviewHandler
-  3. If you install the preview handler manually you must unregister using the UnRegister.bat  running as admin.
+  1. Close all the windows explorer instances which have the preview handler active or the
+     preview handler was used (remember the dll remains in memory until the windows explorer 
+     was closed).
+  2. Unregister the previous version executing the uninstaller located in 
+     `C:\Program Files (x86)\TheRoadToDelphi\DelphiPreviewHandler` or 
+     `C:\Program Files\TheRoadToDelphi\DelphiPreviewHandler`
+  3. If you install the preview handler manually you must unregister using the `UnRegister.bat`
+     running as admin.
   4. Now proceed with the installation of the new version.
 
 
@@ -54,4 +63,3 @@ In order to avoid problems you must follow these steps when you install or regis
 
 [![](https://dl.dropboxusercontent.com/u/12733424/github/buttons/DownloadSite1.png)](http://goo.gl/e3qqnr)
 [![](https://dl.dropboxusercontent.com/u/12733424/github/buttons/DownloadSite2.png)](https://drive.google.com/file/d/0B7KzPH8HQCZNZkpQUHlWU1lCQVU/view?usp=sharing)
-
