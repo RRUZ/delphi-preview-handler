@@ -1,1 +1,1 @@
-%systemroot%\SysWoW64\regsvr32 "C:\Dephi\github\delphi-preview-handler\DelphiPreviewHandler.dll"
+%systemroot%\SysWoW64\regsvr32 "C:\Delphi\github\delphi-preview-handler\DelphiPreviewHandler.dll"
