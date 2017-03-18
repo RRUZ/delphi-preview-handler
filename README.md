@@ -3,6 +3,12 @@ The **Delphi Preview Handler**, is a [preview handler](http://msdn.microsoft.com
 for Windows Vista, 7, 8 and 10 which allows you to read your source code with syntax highlighting 
 without having to open it in an editor.
 
+### Features ###
+* Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.
+* +50 syntax highlight themes.
+* +60 source code extensions supported.
+* Themes compatibles with the [Delphi IDE Theme Editor](https://github.com/RRUZ/delphi-ide-theme-editor)
+
 This preview handler can render the following file extensions:
 
 Extensions | Description| Preview
@@ -32,17 +38,6 @@ Extensions | Description| Preview
 .sql | SQL files | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/sql-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/sql-Sample%20Files.png)
 .iss | Inno Setup Scripts | [![](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Inno-Sample%20Files.png)](https://dl.dropboxusercontent.com/u/12733424/Blog/Delphi%20Preview%20Handler/Images/Inno-Sample%20Files.png)
 .ini | INI files | .
-
-
-
-[![](https://dl.dropboxusercontent.com/u/12733424/Images/followrruz.png)](https://twitter.com/RRUZ)
-
-### Features ###
-* Supports Windows Vista, 7, 8 and 10 on 32 and 64 bits.
-* +50 syntax highlight themes.
-* +60 source code extensions supported.
-* Themes compatibles with the [Delphi IDE Theme Editor](https://github.com/RRUZ/delphi-ide-theme-editor)
-
 
 ### Important Note about installing a new version ###
 In order to avoid problems you must follow these steps when you install or register a new 
