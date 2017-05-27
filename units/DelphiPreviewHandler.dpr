@@ -14,7 +14,7 @@
 // The Original Code is DelphiPreviewHandler.dpr
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2015 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 //*************************************************************************************************
@@ -26,7 +26,7 @@
 library DelphiPreviewHandler;
 
 uses
-  EMapWin32,
+  //EMapWin32,
   ComServ,
   Main in 'Main.pas',
   uEditor in 'uEditor.pas' {FrmEditor},
@@ -46,18 +46,7 @@ uses
   uCommonPreviewHandler in 'uCommonPreviewHandler.pas',
   uGlobalPreviewHandler in 'uGlobalPreviewHandler.pas',
   uAbout in 'uAbout.pas' {FrmAbout},
-  dlgSearchText in 'dlgSearchText.pas' {TextSearchDialog},
-  Vcl.Styles.Utils.Menus in '..\VCL Styles Utils\Vcl.Styles.Utils.Menus.pas',
-  Vcl.Styles.Utils.SysControls in '..\VCL Styles Utils\Vcl.Styles.Utils.SysControls.pas',
-  Vcl.Styles.Utils.SysStyleHook in '..\VCL Styles Utils\Vcl.Styles.Utils.SysStyleHook.pas',
-  Vcl.Styles.Ext in '..\VCL Styles Utils\Vcl.Styles.Ext.pas',
-  Vcl.Styles.Utils.Graphics in '..\VCL Styles Utils\Vcl.Styles.Utils.Graphics.pas',
-  Vcl.Styles.Hooks in '..\VCL Styles Utils\Vcl.Styles.Hooks.pas',
-  Vcl.Styles.UxTheme in '..\VCL Styles Utils\Vcl.Styles.UxTheme.pas',
-  Vcl.Styles.Utils.ComCtrls in '..\VCL Styles Utils\Vcl.Styles.Utils.ComCtrls.pas',
-  Vcl.Styles.Utils.Forms in '..\VCL Styles Utils\Vcl.Styles.Utils.Forms.pas',
-  Vcl.Styles.Utils.ScreenTips in '..\VCL Styles Utils\Vcl.Styles.Utils.ScreenTips.pas',
-  Vcl.Styles.Utils.StdCtrls in '..\VCL Styles Utils\Vcl.Styles.Utils.StdCtrls.pas';
+  dlgSearchText in 'dlgSearchText.pas' {TextSearchDialog};
 
 exports
   DllGetClassObject,
