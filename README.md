@@ -54,7 +54,4 @@ version of the preview handler.
   4. Now proceed with the installation of the new version.
 
 
-### Installer ###
-
-[![](https://dl.dropboxusercontent.com/u/12733424/github/buttons/DownloadSite1.png)](http://goo.gl/e3qqnr)
-[![](https://dl.dropboxusercontent.com/u/12733424/github/buttons/DownloadSite2.png)](https://drive.google.com/file/d/0B7KzPH8HQCZNZkpQUHlWU1lCQVU/view?usp=sharing)
+Looking for the installer? Check the [Release Area](https://github.com/RRUZ/delphi-preview-handler/releases/latest) 
