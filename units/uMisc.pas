@@ -14,7 +14,7 @@
 // The Original Code is uMisc.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 // *************************************************************************************************
@@ -33,7 +33,7 @@ uses
   function GetTempDirectory: string;
   function GetSpecialFolder(const CSIDL: integer): string;
   function GetFileVersion(const FileName: string): string;
-  function  GetModuleLocation : string;
+  function  GetModuleLocation: string;
 
   procedure RefreshSynEdit(FCurrentTheme: TIDETheme; SynEdit: SynEdit.TSynEdit);
   procedure SetSynAttr(FCurrentTheme: TIDETheme; Element: TIDEHighlightElements; SynAttr: TSynHighlighterAttributes;
@@ -690,13 +690,13 @@ end;
 
 function GetFileVersion(const FileName: string): string;
 var
-  FSO  : OleVariant;
+  FSO: OleVariant;
 begin
-  FSO    := CreateOleObject('Scripting.FileSystemObject');
+  FSO := CreateOleObject('Scripting.FileSystemObject');
   Result := FSO.GetFileVersion(FileName);
 end;
 
-function  GetModuleLocation : string;
+function  GetModuleLocation: string;
 begin
   SetLength(Result, MAX_PATH);
   GetModuleFileName(HInstance, PChar(Result), MAX_PATH);

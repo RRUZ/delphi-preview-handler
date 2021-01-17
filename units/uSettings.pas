@@ -14,7 +14,7 @@
 // The Original Code is uSettings.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 // *************************************************************************************************
@@ -81,7 +81,7 @@ type
   private
     FSettings: TSettings;
     FSettingsChanged: Boolean;
-    FOldStyle : string;
+    FOldStyle: string;
     procedure FillData;
   public
     procedure LoadCurrentValues(SynEdit: TSynEdit; const ThemeName: string);
@@ -163,7 +163,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TSettings.ReadSettings - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TSettings.ReadSettings - Message: %s: Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 
@@ -185,7 +185,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TSettings.WriteSettings - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TSettings.WriteSettings - Message: %s: Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 
@@ -196,7 +196,7 @@ end;
 
 procedure TFrmSettings.ButtonSaveClick(Sender: TObject);
 var
-  s : string;
+  s: string;
 begin
 
   s:= Format('Do you want save the current settings? %s', ['']);

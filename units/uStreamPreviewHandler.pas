@@ -14,7 +14,7 @@
 // The Original Code is uStreamPreviewHandler.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 // *************************************************************************************************
@@ -137,7 +137,7 @@ end;
 
 function TIStreamAdapter.Seek(const Offset: Int64; Origin: TSeekOrigin): Int64;
 var
-  LResult : LargeUInt;
+  LResult: LargeUInt;
 begin
   BaseStream.Seek(Offset, Ord(Origin), LResult);
   Result := LResult;

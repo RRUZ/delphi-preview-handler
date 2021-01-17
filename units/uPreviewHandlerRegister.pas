@@ -14,7 +14,7 @@
 // The Original Code is uPreviewHandlerRegister.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 //*************************************************************************************************
@@ -59,7 +59,7 @@ uses
 
 constructor TPreviewHandlerRegister.Create(APreviewHandlerClass: TPreviewHandlerClass; const AClassID: TGUID;  const AName, ADescription: string;Extensions:array of string);
 var
- i  :  Integer;
+ i:  Integer;
 begin
   inherited Create(ComServ.ComServer, APreviewHandlerClass.GetComClass, AClassID, AName, ADescription, ciMultiInstance, tmApartment);
   FPreviewHandlerClass := APreviewHandlerClass;
@@ -103,7 +103,7 @@ procedure TPreviewHandlerRegister.UpdateRegistry(Register: Boolean);
       TIsWow64Process = function( hProcess: Windows.THandle; var Wow64Process: Windows.BOOL): Windows.BOOL; stdcall;
     var
       IsWow64Process: TIsWow64Process;
-      Wow64Process  : Windows.BOOL;
+      Wow64Process: Windows.BOOL;
     begin
       Result := False;
       IsWow64Process := GetProcAddress(GetModuleHandle(Windows.kernel32), 'IsWow64Process');
@@ -116,7 +116,7 @@ procedure TPreviewHandlerRegister.UpdateRegistry(Register: Boolean);
     end;
 
 
-    procedure CreateRegKeyDWORD(const Key, ValueName : string;Value : DWORD; RootKey: HKEY);
+    procedure CreateRegKeyDWORD(const Key, ValueName: string;Value: DWORD; RootKey: HKEY);
     var
       Handle: HKey;
       Status, Disposition: Integer;
@@ -137,7 +137,7 @@ procedure TPreviewHandlerRegister.UpdateRegistry(Register: Boolean);
       if Status <> 0 then raise EOleRegistrationError.CreateRes(@SCreateRegKeyError);
     end;
 
-    procedure CreateRegKeyREG_SZ(const Key, ValueName : string;Value : string; RootKey: HKEY);
+    procedure CreateRegKeyREG_SZ(const Key, ValueName: string;Value: string; RootKey: HKEY);
     var
       Handle: HKey;
       Status, Disposition: Integer;
@@ -158,25 +158,25 @@ const
   Prevhost_32 = '{534A1E02-D58F-44f0-B58B-36CBED287C7C}';
   Prevhost_64 = '{6d2b5079-2f0b-48dd-ab7f-97cec514d30b}';
 var
-  RootKey       : HKEY;
-  RootUserReg   : HKEY;
-  RootPrefix    : string;
-  i             : Integer;
-  sComServerKey : string;
-  ProgID        : string;
-  sAppID        : string;
-  sClassID      : string;
+  RootKey: HKEY;
+  RootUserReg: HKEY;
+  RootPrefix: string;
+  i: Integer;
+  sComServerKey: string;
+  ProgID: string;
+  sAppID: string;
+  sClassID: string;
 begin
 
   if Instancing = ciInternal then
     Exit;
 
     ComServer.GetRegRootAndPrefix(RootKey, RootPrefix);
-    RootUserReg      := IfThen(ComServer.PerUserRegistration, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE);
-    sClassID      := SysUtils.GUIDToString(ClassID);
-    ProgID        := GetProgID;
+    RootUserReg := IfThen(ComServer.PerUserRegistration, HKEY_CURRENT_USER, HKEY_LOCAL_MACHINE);
+    sClassID := SysUtils.GUIDToString(ClassID);
+    ProgID := GetProgID;
     sComServerKey := Format('%sCLSID\%s\%s',[RootPrefix,sClassID,ComServer.ServerKey]);
-    sAppID        := IfThen(IsWow64Process, Prevhost_32, Prevhost_64);
+    sAppID := IfThen(IsWow64Process, Prevhost_32, Prevhost_64);
     if Register then
     begin
       inherited UpdateRegistry(True);

@@ -14,7 +14,7 @@
 // The Original Code is uCommonPreviewHandler.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 // *************************************************************************************************
@@ -87,7 +87,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(Stream) - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(Stream) - Message: %s: Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 {$ELSE}
@@ -113,7 +113,7 @@ begin
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(FilePath) - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.DoPreview(FilePath) - Message: %s: Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 {$ENDIF}
@@ -157,7 +157,7 @@ begin
     TLogPreview.Add('Unload  Done ' + Self.ClassName);
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TBasePreviewHandler.Unload - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TBasePreviewHandler.Unload - Message: %s: Trace %s', [E.Message, E.StackTrace]));
   end;
 end;
 

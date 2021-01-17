@@ -14,7 +14,7 @@
 // The Original Code is uPreviewHandler.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 //*************************************************************************************************
@@ -41,11 +41,11 @@ uses
 type
   TPreviewHandler = class abstract
   public
-    class var FExtensions  : TDictionary<TSynCustomHighlighterClass, TStrings>;
+    class var FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
     constructor Create(AParent: TWinControl); virtual;
     class function GetComClass: TComClass; virtual; abstract;
-    class procedure AddExtentions(ClassType : TSynCustomHighlighterClass; Extensions: array of string);
-    class procedure RegisterPreview(const AClassID: TGUID; const AName, ADescription : string);
+    class procedure AddExtentions(ClassType: TSynCustomHighlighterClass; Extensions: array of string);
+    class procedure RegisterPreview(const AClassID: TGUID; const AName, ADescription: string);
     procedure Unload; virtual;
   end;
 
@@ -85,14 +85,14 @@ type
     procedure CheckPreviewHandler;
     procedure InternalUnload; virtual; abstract;
     procedure InternalDoPreview; virtual; abstract;
-    property  BackgroundColor : TColorRef read FBackgroundColor write FBackgroundColor;
-    property  TextColor : TColorRef read FTextColor write FTextColor;
-    property  Bounds : TRect read FBounds write FBounds;
-    property  LogFont : TLogFont read FLogFont  write FLogFont;
+    property  BackgroundColor: TColorRef read FBackgroundColor write FBackgroundColor;
+    property  TextColor: TColorRef read FTextColor write FTextColor;
+    property  Bounds: TRect read FBounds write FBounds;
+    property  LogFont: TLogFont read FLogFont  write FLogFont;
     property  ParentWindow: HWND read FParentWindow write FParentWindow;
     property  PreviewHandler: TPreviewHandler read FPreviewHandler;
-    property  PreviewHandlerFrame : IPreviewHandlerFrame read FPreviewHandlerFrame;
-    property  Site : IInterface read FSite;
+    property  PreviewHandlerFrame: IPreviewHandlerFrame read FPreviewHandlerFrame;
+    property  Site: IInterface read FSite;
   public
     destructor Destroy; override;
     property  Container: TPreviewContainer read FContainer write FContainer;
@@ -137,7 +137,7 @@ begin
     FContainer.SetBoundsRect(FBounds);
     FContainer.Preview:=Self;
 
-    TFrmEditor.AParent    := FContainer;
+    TFrmEditor.AParent := FContainer;
   end;
   TLogPreview.Add('CheckContainer Done');
 end;
@@ -196,7 +196,7 @@ begin
     InternalDoPreview;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in TComPreviewHandler.IPreviewHandler_DoPreview - Message : %s : Trace %s', [E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in TComPreviewHandler.IPreviewHandler_DoPreview - Message: %s: Trace %s', [E.Message, E.StackTrace]));
   end;
   Result := S_OK;
   TLogPreview.Add('IPreviewHandler_DoPreview Done');
@@ -306,9 +306,9 @@ begin
   TLogPreview.Add('Unload Done');
 end;
 
-class procedure TPreviewHandler.AddExtentions(ClassType : TSynCustomHighlighterClass; Extensions: array of string);
+class procedure TPreviewHandler.AddExtentions(ClassType: TSynCustomHighlighterClass; Extensions: array of string);
 var
-  i : integer;
+  i: integer;
 begin
   if not FExtensions.ContainsKey(ClassType) then
     FExtensions.Add(ClassType, TStringList.Create);
@@ -325,9 +325,9 @@ end;
 class procedure TPreviewHandler.RegisterPreview(const AClassID: TGUID;
   const AName, ADescription: string);
 var
-  Extensions : array of string;
-  LItem : TPair<TSynCustomHighlighterClass, TStrings>;
-  i, c, j : integer;
+  Extensions: array of string;
+  LItem: TPair<TSynCustomHighlighterClass, TStrings>;
+  i, c, j: integer;
 begin
   TLogPreview.Add('RegisterPreview Init ' + AName);
 

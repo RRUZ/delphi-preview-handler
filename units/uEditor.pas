@@ -14,7 +14,7 @@
 // The Original Code is uEditor.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 // *************************************************************************************************
@@ -129,7 +129,7 @@ type
     FSettings: TSettings;
 
     class var FExtensions: TDictionary<TSynCustomHighlighterClass, TStrings>;
-    class var  FAParent : TWinControl;
+    class var  FAParent: TWinControl;
 
     procedure AppException(Sender: TObject; E: Exception);
     function GetHighlighter: TSynCustomHighlighter;
@@ -143,7 +143,7 @@ type
     property RefreshSynHighlighter: TProcRefreshSynHighlighter read FRefreshSynHighlighter write FRefreshSynHighlighter;
 
     class property Extensions: TDictionary<TSynCustomHighlighterClass, TStrings> read FExtensions write FExtensions;
-    class property AParent : TWinControl read  FAParent write FAParent;
+    class property AParent: TWinControl read  FAParent write FAParent;
     procedure LoadFile(const FileName: string);
   end;
 

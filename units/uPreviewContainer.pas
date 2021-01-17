@@ -14,7 +14,7 @@
 // The Original Code is uPreviewContainer.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 // *************************************************************************************************
@@ -40,7 +40,7 @@ type
     procedure SetBoundsRect(const ARect: TRect);
     procedure SetTextColor(color: TColorRef);
     procedure SetTextFont(const plf: TLogFont);
-    property  Preview  : TObject read FPreview write FPreview;
+    property  Preview: TObject read FPreview write FPreview;
   end;
 
 implementation

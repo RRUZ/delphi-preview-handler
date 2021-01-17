@@ -14,7 +14,7 @@
 // The Original Code is Main.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 //*************************************************************************************************
@@ -22,17 +22,17 @@
 
 //TODO
 
-// done : Add export option
-// done : Replace combo theme using Dropdown button
-// done : Add search option
-// done : Add update option
-// done : Add About Form
+// done: Add export option
+// done: Replace combo theme using Dropdown button
+// done: Add search option
+// done: Add update option
+// done: Add About Form
 
-// done : One form only  (Screenforms)
-// done :  Add Setting  Form (font size, VCL Styles, column selection, font size, font)
+// done: One form only  (Screenforms)
+// done:  Add Setting  Form (font size, VCL Styles, column selection, font size, font)
 
-// done : change vcl style produce invalid window (chnage at restar warning)
-// done : styling on confirmation dialog fails under W10
+// done: change vcl style produce invalid window (chnage at restar warning)
+// done: styling on confirmation dialog fails under W10
 
 
 

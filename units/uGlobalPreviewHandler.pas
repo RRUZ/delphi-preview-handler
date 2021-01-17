@@ -14,7 +14,7 @@
 // The Original Code is uGlobalPreviewHandler.pas.
 //
 // The Initial Developer of the Original Code is Rodrigo Ruz V.
-// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2017 Rodrigo Ruz V.
+// Portions created by Rodrigo Ruz V. are Copyright (C) 2011-2021 Rodrigo Ruz V.
 // All Rights Reserved.
 //
 // *************************************************************************************************
@@ -70,13 +70,13 @@ begin
 //      Editor.BorderStyle := bsNone;
 //      Editor.Extensions := FExtensions;
 
-//      TFrmEditor.AParent    := AParent;
+//      TFrmEditor.AParent := AParent;
       TFrmEditor.Extensions := FExtensions;
       TLogPreview.Add('TGlobalPreviewHandler Done');
     end;
   except
     on E: Exception do
-      TLogPreview.Add(Format('Error in %s.Create - Message : %s : Trace %s', [Self.ClassName, E.Message, E.StackTrace]));
+      TLogPreview.Add(Format('Error in %s.Create - Message: %s: Trace %s', [Self.ClassName, E.Message, E.StackTrace]));
   end;
 end;
 
